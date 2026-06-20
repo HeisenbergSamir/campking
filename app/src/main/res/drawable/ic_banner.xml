@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+
+    <!-- Dark Luxury Velvet/Charcoal Background -->
+    <path
+        android:pathData="M0,0h320v180h-320z"
+        android:fillColor="#151515" />
+
+    <!-- Subtle Diagonal Design Accent (Top-Left to Bottom-Right) -->
+    <path
+        android:pathData="M-50,0 L200,0 L120,180 L-50,180 Z"
+        android:fillColor="#1C1C1C" />
+
+    <!-- Luxury Gold Crown Center Logo -->
+    <!-- Center of the banner: X=160, Y=70 -->
+    <!-- Base line of crown: Y=95 -->
+    <path
+        android:pathData="M130,95 L190,95 L195,80 L180,85 L160,60 L140,85 L125,80 Z"
+        android:fillColor="#E0B034" />
+
+    <!-- Crown decorative shadow path for depth -->
+    <path
+        android:pathData="M160,60 L140,85 L150,85 L160,70 L170,85 L180,85 L160,60 Z"
+        android:fillColor="#D4A017" />
+
+    <!-- Crown base jewels representation -->
+    <path
+        android:pathData="M135,90h50v3h-50z"
+        android:fillColor="#FFF5D1" />
+
+    <!-- Mini Stars indicating Premium standard -->
+    <!-- Left Star -->
+    <path
+        android:pathData="M115,75 L117,72 L120,72 L118,74 L119,77 L116,75 L113,77 L114,74 L112,72 L115,72 Z"
+        android:fillColor="#E0B034" />
+    <!-- Right Star -->
+    <path
+        android:pathData="M205,75 L207,72 L210,72 L208,74 L209,77 L206,75 L203,77 L204,74 L202,72 L205,72 Z"
+        android:fillColor="#E0B034" />
+
+    <!-- Dynamic presenting play beam icon under the crown -->
+    <path
+        android:pathData="M154,103 L168,110 L154,117 Z"
+        android:fillColor="#E0B034" />
+
+    <!-- Display Text: "CAMPKING" -->
+    <!-- Vector drawing of minimal characters is complex, but we can do a sleek elegant brand subtitle or geometric divider -->
+    <path
+        android:pathData="M60,135h200v2h-200z"
+        android:fillColor="#2A2A2A" />
+
+    <path
+        android:pathData="M120,135h80v2h-80z"
+        android:fillColor="#E0B034" />
+
+</vector>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Group styled and positioned strictly within the 66dp safe zone (X: 21 to 87, Y: 21 to 87) -->
+    <group
+        android:name="campking_logo_group"
+        android:translateX="0"
+        android:translateY="0">
+
+        <!-- Outer Premium Glow Border -->
+        <path
+            android:pathData="M54,24 A30,30 0 1 1 53.9,24 Z"
+            android:strokeColor="#FFD363"
+            android:strokeWidth="1.5"
+            android:fillColor="#00000000" />
+
+        <!-- Stylized Royal Crown of Campking (Gold) -->
+        <path
+            android:pathData="M37,64 L71,64 L74,48 L61,54 L54,34 L47,54 L34,48 Z"
+            android:fillColor="#FFC83B" />
+
+        <!-- Double Tone Shadow for Luxurious Depth -->
+        <path
+            android:pathData="M54,34 L47,54 L54,54 Z"
+            android:fillColor="#D8A015" />
+        <path
+            android:pathData="M61,54 L54,34 L54,54 Z"
+            android:fillColor="#ECAE1C" />
+
+        <!-- Crown base solid gold accent band -->
+        <path
+            android:pathData="M39,60h30v3h-30z"
+            android:fillColor="#E5A60F" />
+
+        <!-- Base gem details -->
+        <path
+            android:pathData="M43,61 A1,1 0 1 1 42,61 Z"
+            android:fillColor="#FFF" />
+        <path
+            android:pathData="M55,61 A1,1 0 1 1 54,61 Z"
+            android:fillColor="#FFF" />
+        <path
+            android:pathData="M67,61 A1,1 0 1 1 66,61 Z"
+            android:fillColor="#FFF" />
+
+        <!-- Presenter Play Icon at the lower center of the badge (X: 50 to 60, Y: 68 to 76) -->
+        <path
+            android:pathData="M51,68 L61,73 L51,78 Z"
+            android:fillColor="#FFC83B" />
+
+    </group>
+</vector>
