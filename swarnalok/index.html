@@ -1,10 +1,515 @@
 <!doctype html>
 <html lang="en">
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Swarnalok prototypes</title>
-<style>body{margin:0;min-height:100vh;display:grid;place-content:center;gap:16px;padding:24px;background:#08201A;font-family:system-ui,sans-serif;text-align:center}h1{color:#F0D595;font-weight:400;letter-spacing:.3em}a{display:block;padding:18px 28px;border:1px solid #D8AE5C;color:#F3EAD8;text-decoration:none;letter-spacing:.12em}a:hover{background:#15463A}</style>
-<h1>SWARNALOK</h1>
-<a href="variation-1-maison.html">Variation 1 · Maison (ivory, plum, gold)</a>
-<a href="variation-2-noir.html">Variation 2 · Noir (emerald, champagne, gold)</a>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Swarnalok</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Sell old gold in North Bengaluru. Purity measured by X-ray in front of you. Paid to your bank.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Concept: one message per screen. White space is the luxury.
+   60 white / snow · 30 ink / black · 10 gold. Content max 1600px, bands full width. */
+:root{
+  color-scheme: light;
+  --white:#FFFFFF; --snow:#F5F5F7; --ink:#1D1D1F; --ink-2:#6E6E73; --ink-3:#86868B; --black:#000000;
+  --gold:#C99A3F; --gold-deep:#8A6418; --gold-hi:#F3D58C;
+  --gold-grad:linear-gradient(180deg,#F6DC97 0%,#D9AE55 45%,#A8781F 100%);
+  --hair:rgba(0,0,0,.08);
+  --display:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Inter Tight","Helvetica Neue",Arial,sans-serif;
+  --text:"SF Pro Text",-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;
+  --side:max(22px,env(safe-area-inset-left,0px));
+  --side-r:max(22px,env(safe-area-inset-right,0px));
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.47;letter-spacing:-.011em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--snow)}
+img,canvas{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1600px;margin-inline:auto;padding-left:var(--side);padding-right:var(--side-r)}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;text-wrap:balance}
+p{margin:0}
+.center{text-align:center}
+
+/* type scale */
+.h-hero{font-size:clamp(3.2rem,min(9.6vw,11vh),7.6rem);line-height:1.02;letter-spacing:-.045em}
+.h-sec{font-size:clamp(2.5rem,6.4vw,5.6rem);line-height:1.04;letter-spacing:-.04em}
+.h-mid{font-size:clamp(2rem,4.2vw,3.6rem);line-height:1.08;letter-spacing:-.035em}
+.sub{font-family:var(--display);font-size:clamp(1.2rem,2vw,1.75rem);line-height:1.3;font-weight:500;letter-spacing:-.02em;color:var(--ink-2);max-width:30ch;margin-inline:auto;text-wrap:balance}
+.kicker{font-family:var(--display);font-size:clamp(1.05rem,1.5vw,1.3rem);font-weight:600;letter-spacing:-.01em;color:var(--gold-deep)}
+.gold-text{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* actions */
+.actions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 30px}
+.pill{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;border-radius:980px;background:var(--ink);color:var(--white);font:500 1.0625rem/1 var(--text);letter-spacing:-.01em;border:0;cursor:pointer;transition:background .3s,transform .3s}
+.pill:hover{background:#000;transform:scale(1.03)}
+.pill.light{background:var(--white);color:var(--ink)}
+.pill.light:hover{background:var(--gold-hi)}
+.more{display:inline-flex;align-items:center;gap:4px;color:var(--gold-deep);font:500 1.0625rem/1 var(--text);background:none;border:0;cursor:pointer;padding:12px 0}
+.more::after{content:"";width:7px;height:7px;border-top:1.6px solid currentColor;border-right:1.6px solid currentColor;transform:rotate(45deg);margin-left:4px}
+.more:hover{text-decoration:underline;text-underline-offset:4px}
+.dark .more{color:var(--gold-hi)}
+
+/* ticker: one calm line, crossfading */
+.ticker{background:var(--snow);font-size:.78rem;color:var(--ink-2);height:38px;position:relative;overflow:hidden;letter-spacing:0}
+.ticker p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:10px;padding-inline:var(--side);text-align:center;white-space:nowrap;opacity:0;transform:translateY(8px);transition:opacity .8s,transform .8s}
+.ticker p.on{opacity:1;transform:none}
+.ticker b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.ticker .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(201,154,63,.6);animation:ping 2.4s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 7px rgba(201,154,63,0)}100%{box-shadow:0 0 0 0 rgba(201,154,63,0)}}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--hair)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:20px}
+.brand{display:inline-flex;align-items:center;gap:11px;font:500 .84rem/1 var(--display);letter-spacing:.42em;color:var(--ink);margin-right:-.42em}
+.orb{width:16px;height:16px;border-radius:50%;flex:none;background:radial-gradient(circle at 34% 30%,#FFF6D8 0,#F2CF7A 22%,#C99A3F 58%,#6F4C12 100%);box-shadow:inset -1px -2px 3px rgba(0,0,0,.25)}
+.links{display:flex;gap:clamp(20px,3vw,44px);font-size:.8rem;color:var(--ink)}
+.links a{opacity:.82;transition:opacity .2s}
+.links a:hover{opacity:1}
+.nav .pill{min-height:34px;padding:0 16px;font-size:.8rem}
+@media (max-width:760px){.links{display:none}}
+
+/* bands */
+.band{padding-block:clamp(88px,12vw,170px)}
+.snow{background:var(--snow)}
+.dark{background:var(--black);color:#F5F5F7}
+.dark .sub{color:#A1A1A6}
+.stack{display:grid;gap:clamp(16px,1.6vw,22px);justify-items:center;text-align:center}
+
+/* hero */
+.hero{padding-top:clamp(44px,min(6vw,7vh),88px);padding-bottom:0;overflow:hidden}
+.hero .stack{gap:clamp(14px,1.4vw,20px)}
+.hero .actions{margin-top:clamp(14px,1.6vw,24px)}
+.stage{position:relative;width:min(100%,880px);margin:clamp(-60px,-3vw,0px) auto 0;aspect-ratio:1000/860}
+.stage img,.stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.stage canvas{opacity:0;transition:opacity .4s}
+.stage.live canvas{opacity:1}
+.stage.live img{opacity:0}
+.stage::after{content:"";position:absolute;left:22%;right:22%;bottom:7%;height:7%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.18),rgba(0,0,0,0));filter:blur(6px);z-index:-1}
+
+/* purity */
+.purity .num{font-family:var(--display);font-weight:600;font-size:clamp(6rem,24vw,22rem);line-height:.9;letter-spacing:-.06em;font-variant-numeric:tabular-nums;margin-block:clamp(10px,2vw,30px)}
+.readings{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px}
+.readings span{border:1px solid #333336;border-radius:980px;padding:8px 16px;font-size:.84rem;color:#A1A1A6;font-variant-numeric:tabular-nums}
+.readings b{color:#F5F5F7;font-weight:500;margin-left:6px}
+
+/* steps carousel */
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(270px,26vw,380px);gap:clamp(14px,1.4vw,22px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--side);padding:clamp(40px,4vw,60px) var(--side-r) 30px var(--side);margin-inline:auto;max-width:1600px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.rail::-webkit-scrollbar{display:none}
+.card{scroll-snap-align:start;background:var(--white);border-radius:28px;padding:clamp(26px,2.4vw,36px);aspect-ratio:3/4;display:flex;flex-direction:column;justify-content:space-between;min-width:0;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.card:hover{transform:scale(1.015);box-shadow:0 30px 60px -30px rgba(0,0,0,.25)}
+.card small{font-size:.8rem;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
+.card h3{font-size:clamp(2rem,2.6vw,2.6rem);letter-spacing:-.035em;line-height:1.05;margin-top:10px}
+.card p{color:var(--ink-2);margin-top:10px;font-size:1.0625rem}
+.card svg{width:clamp(56px,5vw,72px);height:auto;stroke:var(--gold);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.card.last{background:var(--ink);color:var(--white)}
+.card.last p{color:#A1A1A6}
+.card.last svg{stroke:var(--gold-hi)}
+.rail-ctl{display:flex;justify-content:flex-end;gap:14px;max-width:1600px;margin-inline:auto;padding-left:var(--side);padding-right:var(--side-r)}
+.rail-ctl button{width:44px;height:44px;border-radius:50%;border:0;background:#E8E8ED;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.rail-ctl button:hover{background:#DCDCE0}
+.rail-ctl button:disabled{opacity:.4;cursor:default}
+.rail-ctl svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* bar */
+.split{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:clamp(20px,4vw,80px)}
+.split .stack{justify-items:start;text-align:left}
+.split .sub{margin-inline:0}
+@media (max-width:860px){.split{grid-template-columns:1fr}.split .stack{justify-items:center;text-align:center}.split .sub{margin-inline:auto}}
+
+/* promises bento */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.2vw,20px);margin-top:clamp(40px,5vw,72px)}
+.tile{border-radius:28px;padding:clamp(28px,3vw,48px);background:var(--snow);display:flex;flex-direction:column;justify-content:flex-end;gap:10px;min-height:clamp(240px,22vw,340px);min-width:0}
+.tile strong{font:600 clamp(3.2rem,5.4vw,5.4rem)/1 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.tile span{font:500 clamp(1.05rem,1.3vw,1.25rem)/1.3 var(--display);letter-spacing:-.015em;color:var(--ink-2)}
+.tile.black{background:var(--black)}
+.tile.black span{color:#A1A1A6}
+@media (max-width:1000px){.bento{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.bento{grid-template-columns:1fr}.tile{min-height:200px}}
+
+/* portrait */
+.portrait{position:relative;overflow:hidden;background:#BE8F88;color:#1D1D1F}
+.portrait .sub{color:#46302C}
+.portrait .wrap{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:min(92vh,900px)}
+.portrait figure{margin:0;align-self:stretch;position:relative}
+.portrait figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.portrait .stack{justify-items:start;text-align:left;padding-block:clamp(60px,8vw,120px);padding-left:clamp(0px,5vw,90px)}
+.portrait .sub{margin-inline:0}
+@media (max-width:860px){
+  .portrait .wrap{grid-template-columns:1fr;min-height:0;padding-left:0;padding-right:0}
+  .portrait figure{aspect-ratio:4/4.4}
+  .portrait .stack{justify-items:center;text-align:center;padding-left:var(--side);padding-right:var(--side-r)}
+  .portrait .sub{margin-inline:auto}
+}
+
+/* calculator */
+.calc .value{font-family:var(--display);font-weight:600;font-size:clamp(3.4rem,11vw,9rem);line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums;margin-top:clamp(30px,4vw,56px)}
+.controls{display:grid;gap:22px;justify-items:center;margin-top:clamp(28px,3vw,44px)}
+.seg{display:inline-grid;grid-template-columns:repeat(4,1fr);background:var(--snow);border-radius:980px;padding:4px;position:relative}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{min-width:clamp(64px,8vw,92px);min-height:44px;display:grid;place-items:center;border-radius:980px;font-weight:500;font-size:1rem;cursor:pointer;color:var(--ink-2);transition:background .3s,color .3s,box-shadow .3s}
+.seg input:checked+label{background:var(--white);color:var(--ink);box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.seg input:focus-visible+label{outline:2px solid var(--gold);outline-offset:2px}
+.stepper{display:flex;align-items:center;gap:18px}
+.stepper button{width:48px;height:48px;border-radius:50%;border:1px solid var(--hair);background:var(--white);font-size:1.4rem;line-height:1;cursor:pointer;transition:background .2s}
+.stepper button:hover{background:var(--snow)}
+.grams{display:flex;align-items:baseline;gap:6px;font-family:var(--display)}
+.grams input{width:4.2ch;border:0;border-bottom:1.5px solid var(--hair);background:none;text-align:center;font:600 2.2rem/1.1 var(--display);letter-spacing:-.03em;color:var(--ink);padding:2px 0;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+.grams input::-webkit-outer-spin-button,.grams input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.grams input:focus{outline:none;border-color:var(--gold)}
+.grams span{color:var(--ink-2);font-size:1.1rem}
+.fine{font-size:.8rem;color:var(--ink-3);margin-top:8px}
+
+/* bring */
+.bring{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,3vw,48px);margin-top:clamp(44px,5vw,80px);max-width:1100px;margin-inline:auto;list-style:none;padding:0}
+.bring li{display:grid;justify-items:center;gap:16px;font:600 clamp(1.1rem,1.6vw,1.4rem)/1.2 var(--display);letter-spacing:-.02em;text-align:center}
+.bring svg{width:clamp(56px,6vw,80px);height:auto;stroke:var(--ink);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.bring svg .g{stroke:var(--gold)}
+@media (max-width:640px){.bring{grid-template-columns:repeat(2,1fr);row-gap:44px}}
+
+/* area */
+.map{width:min(100%,720px);margin:clamp(40px,5vw,70px) auto 0;display:block}
+.map text{font-family:var(--text);font-size:13px;fill:#A1A1A6;letter-spacing:.01em}
+.map .ring{fill:none;stroke:#2C2C2E;stroke-width:1}
+.map .ring.r8{stroke-dasharray:2 6}
+.map .tag{font-size:10px;letter-spacing:.2em;fill:#6E6E73}
+.map .pin{fill:var(--gold-hi)}
+
+/* finale */
+.finale .orb-big{width:min(54vw,340px);margin:0 auto clamp(20px,3vw,40px);filter:drop-shadow(0 40px 40px rgba(0,0,0,.18))}
+.finale .orb-big img{animation:breathe 7s ease-in-out infinite}
+@keyframes breathe{50%{transform:translateY(-12px)}}
+
+/* footer */
+.foot{background:var(--snow);color:var(--ink-2);font-size:.75rem;line-height:1.5}
+.foot .wrap{padding-block:30px 26px}
+.foot .note{border-bottom:1px solid #D2D2D7;padding-bottom:18px;display:grid;gap:8px;max-width:980px}
+.foot-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-block:22px;border-bottom:1px solid #D2D2D7}
+.foot h4{margin:0 0 8px;font-size:.75rem;font-weight:600;color:var(--ink)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.foot a:hover{text-decoration:underline}
+.foot-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-top:16px}
+@media (max-width:760px){.foot-cols{grid-template-columns:1fr 1fr}}
+
+/* booking sheet */
+dialog{border:0;padding:0;border-radius:28px;width:min(560px,calc(100vw - 32px));max-height:calc(100dvh - 32px);background:var(--white);color:var(--ink);box-shadow:0 40px 100px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(0,0,0,.42);backdrop-filter:blur(8px)}
+dialog[open]{animation:sheet .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes sheet{from{opacity:0;transform:translateY(30px) scale(.98)}}
+.sheet{padding:clamp(28px,4vw,44px);display:grid;gap:18px}
+.sheet h2{font-size:clamp(1.9rem,4vw,2.4rem);letter-spacing:-.035em}
+.sheet .x{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;border:0;background:var(--snow);cursor:pointer;font-size:1.2rem;line-height:1}
+.field{display:grid;gap:6px}
+.field label{font-size:.8rem;font-weight:500;color:var(--ink-2)}
+.field input,.field select{min-height:52px;border:1px solid #D2D2D7;border-radius:14px;padding:0 16px;font:400 1.0625rem var(--text);background:var(--white);color:var(--ink);width:100%}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,154,63,.18)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:480px){.row2{grid-template-columns:1fr}}
+.sheet .pill{width:100%;margin-top:6px}
+.ok{background:var(--snow);border-radius:14px;padding:14px 16px;font-size:.95rem}
+
+/* scroll motion: elements settle in as they arrive */
+@supports (animation-timeline: view()){
+  .rise{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 28%}
+  @keyframes rise{from{opacity:.15;transform:translateY(48px) scale(.98)}}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sign" viewBox="0 0 64 64"><path d="M16 6h22l10 10v42H16z"/><path d="M38 6v10h10M23 26h18M23 33h18M23 40h10"/><path d="M24 52c4-5 6 3 10-1s5 2 8 0"/></symbol>
+  <symbol id="i-clean" viewBox="0 0 64 64"><path d="M10 40h44v12a4 4 0 01-4 4H14a4 4 0 01-4-4z"/><path d="M16 40c0-9 7-10 7-18M32 40c0-9 7-10 7-18M48 40c0-6 0-9 0-11"/><circle cx="23" cy="14" r="2.5"/><circle cx="39" cy="12" r="2"/><circle cx="48" cy="20" r="2.5"/></symbol>
+  <symbol id="i-melt" viewBox="0 0 64 64"><path d="M14 30h36l-5 24H19z"/><path d="M32 6c2 7 9 9 9 16a9 9 0 01-18 0c0-4 2-6 4-8 0 3 1 4 2 4 1-4 1-8 3-12z"/><path d="M22 42h20"/></symbol>
+  <symbol id="i-xrf" viewBox="0 0 64 64"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="7"/><path d="M32 4v10M32 50v10M4 32h10M50 32h10"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 64 64"><path d="M32 8v48M18 56h28M10 16h44"/><path d="M18 16L9 34a9 9 0 0018 0zM46 16l-9 18a9 9 0 0018 0z"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 64 64"><path d="M8 24L32 8l24 16z"/><path d="M14 24v24M25 24v24M39 24v24M50 24v24M8 56h48"/></symbol>
+  <symbol id="i-ring" viewBox="0 0 64 64"><ellipse class="g" cx="32" cy="38" rx="19" ry="17"/><ellipse class="g" cx="32" cy="38" rx="14" ry="12.500"/><path class="g" d="M26 20l6-10 6 10"/></symbol>
+  <symbol id="i-pan" viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="5"/><path d="M14 24h18M14 31h12M14 40h22"/><rect x="40" y="22" width="11" height="14" rx="2"/></symbol>
+  <symbol id="i-aadhaar" viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="5"/><circle cx="21" cy="29" r="5"/><path d="M13 42c2-5 14-5 16 0M36 25h14M36 32h14M36 39h9"/></symbol>
+  <symbol id="i-acct" viewBox="0 0 64 64"><path d="M8 26L32 10l24 16z"/><path d="M14 26v20M26 26v20M38 26v20M50 26v20M8 52h48"/></symbol>
+  <symbol id="i-l" viewBox="0 0 16 16"><path d="M10 3L5 8l5 5"/></symbol>
+  <symbol id="i-r" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5"/></symbol>
+</svg>
+
+<div class="ticker" aria-live="off">
+  <p class="on"><span class="dot" aria-hidden="true"></span>22K gold today <b class="r22">₹0</b> per gram</p>
+  <p>Paid to your bank in about 30 minutes</p>
+  <p>Jakkur and 8 km around it</p>
+</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Swarnalok home"><span class="orb" aria-hidden="true"></span>SWARNALOK</a>
+    <nav class="links" aria-label="Main">
+      <a href="#purity">Purity</a>
+      <a href="#steps">Process</a>
+      <a href="#value">Value</a>
+      <a href="#area">Area</a>
+    </nav>
+    <button class="pill" type="button" data-book>Book a visit</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap stack">
+      <p class="kicker">Old gold, bought honestly.</p>
+      <h1 class="h-hero">Every gram<br>counts.</h1>
+      <p class="sub">Measured in front of you.<br>Paid to your bank.</p>
+      <div class="actions">
+        <a class="pill" href="#value">Check your value</a>
+        <button class="more" type="button" data-book>Book a visit</button>
+      </div>
+    </div>
+    <div class="stage" id="stage">
+      <img src="media/hero-ring.webp" alt="A polished gold ring" width="1400" height="1204" fetchpriority="high">
+      <canvas id="spin" width="1000" height="860" aria-hidden="true"></canvas>
+    </div>
+  </section>
+
+  <section class="band dark purity" id="purity">
+    <div class="wrap stack">
+      <h2 class="h-sec rise">We don't guess.</h2>
+      <p class="num gold-text rise" id="purityNum" aria-label="91.6 percent">91.6%</p>
+      <p class="sub rise">An X-ray reads the purity at up to four points. On a screen you can see.</p>
+      <div class="readings rise" aria-label="Sample reading">
+        <span>Gold<b>91.62</b></span><span>Copper<b>5.10</b></span><span>Silver<b>2.90</b></span><span>Zinc<b>0.38</b></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band snow" id="steps" style="padding-bottom:clamp(70px,8vw,120px)">
+    <div class="wrap stack">
+      <h2 class="h-sec rise">Six steps.<br>Nothing hidden.</h2>
+    </div>
+    <ol class="rail" id="rail" style="list-style:none">
+      <li class="card"><div><small>01</small><h3>Consent.</h3><p>You sign. We record.</p></div><svg viewBox="0 0 64 64"><use href="#i-sign"/></svg></li>
+      <li class="card"><div><small>02</small><h3>Clean.</h3><p>Ultrasonic wash. Only metal remains.</p></div><svg viewBox="0 0 64 64"><use href="#i-clean"/></svg></li>
+      <li class="card"><div><small>03</small><h3>Melt.</h3><p>One even bar. No hiding places.</p></div><svg viewBox="0 0 64 64"><use href="#i-melt"/></svg></li>
+      <li class="card"><div><small>04</small><h3>Measure.</h3><p>X-ray purity at 2 to 4 points.</p></div><svg viewBox="0 0 64 64"><use href="#i-xrf"/></svg></li>
+      <li class="card"><div><small>05</small><h3>Weigh.</h3><p>Certified scale. Live rate.</p></div><svg viewBox="0 0 64 64"><use href="#i-scale"/></svg></li>
+      <li class="card last"><div><small>06</small><h3>Paid.</h3><p>Straight to your bank. Never cash.</p></div><svg viewBox="0 0 64 64"><use href="#i-bank"/></svg></li>
+    </ol>
+    <div class="rail-ctl">
+      <button type="button" id="prev" aria-label="Previous step"><svg><use href="#i-l"/></svg></button>
+      <button type="button" id="next" aria-label="Next step"><svg><use href="#i-r"/></svg></button>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <img class="rise" src="media/bar.webp" alt="A gold bar" width="1400" height="875">
+      <div class="stack">
+        <h2 class="h-mid rise">Melted into one.<br>Measured as one.</h2>
+        <p class="sub rise">Jewellery hides solder and mixed metals. One even bar gives one honest reading.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+      <div class="stack"><h2 class="h-sec rise">Promises,<br>in numbers.</h2></div>
+      <div class="bento">
+        <div class="tile black rise"><strong class="gold-text">30<small style="font-size:.45em;letter-spacing:-.02em"> min</small></strong><span>Walk in to paid.</span></div>
+        <div class="tile rise"><strong>₹0</strong><span>Hidden deductions.</span></div>
+        <div class="tile rise"><strong>100%</strong><span>Bank transfer.<br>Never cash.</span></div>
+        <div class="tile black rise"><strong class="gold-text">4</strong><span>Points tested on every bar.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="portrait">
+    <div class="wrap">
+      <figure><img src="media/portrait.jpg" alt="A woman wearing a fine gold chain" width="1400" height="1750"></figure>
+      <div class="stack">
+        <h2 class="h-sec rise">Yours until<br>you say yes.</h2>
+        <p class="sub rise">Stop at any step. Take your gold home. No fee, no pressure.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band calc" id="value">
+    <div class="wrap stack">
+      <h2 class="h-sec rise">What is yours<br>worth?</h2>
+      <output class="value" id="estimate" for="grams">₹0</output>
+      <form class="controls" id="calc" onsubmit="return false">
+        <div class="seg" role="radiogroup" aria-label="Purity">
+          <input type="radio" name="k" id="k24" value="1"><label for="k24">24K</label>
+          <input type="radio" name="k" id="k22" value="0.9167" checked><label for="k22">22K</label>
+          <input type="radio" name="k" id="k18" value="0.75"><label for="k18">18K</label>
+          <input type="radio" name="k" id="k14" value="0.585"><label for="k14">14K</label>
+        </div>
+        <div class="stepper">
+          <button type="button" id="minus" aria-label="Less weight">−</button>
+          <label class="grams"><input id="grams" type="number" inputmode="decimal" min="0" step="0.5" value="20" aria-label="Weight in grams"><span>grams</span></label>
+          <button type="button" id="plus" aria-label="More weight">+</button>
+        </div>
+        <p class="fine">Indicative, at a sample rate. Your final price is set after the X-ray test.</p>
+        <button class="more" type="button" data-book>Book a visit to get it</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="band snow">
+    <div class="wrap stack">
+      <h2 class="h-sec rise">Bring four things.</h2>
+      <ul class="bring">
+        <li class="rise"><svg viewBox="0 0 64 64"><use href="#i-ring"/></svg>Your gold</li>
+        <li class="rise"><svg viewBox="0 0 64 64"><use href="#i-pan"/></svg>PAN card</li>
+        <li class="rise"><svg viewBox="0 0 64 64"><use href="#i-aadhaar"/></svg>Aadhaar</li>
+        <li class="rise"><svg viewBox="0 0 64 64"><use href="#i-acct"/></svg>Bank account</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band dark" id="area">
+    <div class="wrap stack">
+      <h2 class="h-sec rise">Jakkur.<br>8 km around.</h2>
+      <p class="sub rise">Twelve neighbourhoods. One honest counter.</p>
+      <svg class="map rise" viewBox="0 0 480 400" role="img" aria-label="Service area: 5 and 8 km around Jakkur, from Yelahanka to Nagavara">
+        <circle class="ring r8" cx="240" cy="200" r="182"/>
+        <circle class="ring" cx="240" cy="200" r="114"/>
+        <text class="tag" x="240" y="12" text-anchor="middle">8 KM</text>
+        <text class="tag" x="240" y="80" text-anchor="middle">5 KM</text>
+        <circle cx="240" cy="200" r="10" fill="#F3D58C" opacity=".3"><animate attributeName="r" values="8;40;8" dur="3.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".35;0;.35" dur="3.6s" repeatCount="indefinite"/></circle>
+        <circle class="pin" cx="240" cy="200" r="5"/>
+        <text x="252" y="196" style="fill:#F5F5F7;font-size:13px;font-weight:600">Swarnalok</text>
+        <text x="252" y="211" class="tag">JAKKUR</text>
+        <g fill="#6E6E73">
+          <circle cx="205" cy="118" r="2.2"/><circle cx="276" cy="132" r="2.2"/><circle cx="180" cy="168" r="2.2"/><circle cx="312" cy="222" r="2.2"/><circle cx="298" cy="270" r="2.2"/><circle cx="232" cy="246" r="2.2"/><circle cx="186" cy="262" r="2.2"/><circle cx="160" cy="226" r="2.2"/><circle cx="204" cy="310" r="2.2"/><circle cx="266" cy="330" r="2.2"/><circle cx="102" cy="186" r="2.2"/><circle cx="335" cy="160" r="2.2"/>
+        </g>
+        <text x="198" y="113" text-anchor="end">Yelahanka</text>
+        <text x="283" y="128">Kogilu</text>
+        <text x="173" y="164" text-anchor="end">Judicial Layout</text>
+        <text x="319" y="226">Hegde Nagar</text>
+        <text x="305" y="274">Thanisandra</text>
+        <text x="238" y="258">Amruthahalli</text>
+        <text x="179" y="276" text-anchor="end">Sahakar Nagar</text>
+        <text x="153" y="230" text-anchor="end">Kodigehalli</text>
+        <text x="197" y="322" text-anchor="end">Hebbal</text>
+        <text x="273" y="342">Nagavara</text>
+        <text x="102" y="204" text-anchor="middle">Vidyaranyapura</text>
+        <text x="342" y="164">Bagalur Road</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="band finale">
+    <div class="wrap stack">
+      <div class="orb-big"><img src="media/drop.webp" alt="" width="1000" height="1000"></div>
+      <h2 class="h-sec rise">Swarnalok.</h2>
+      <p class="sub rise">The world of gold. Made honest.</p>
+      <div class="actions rise" style="margin-top:14px">
+        <button class="pill" type="button" data-book>Book a visit</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="note">
+      <p>Rates shown are indicative samples for this prototype. The final price depends on the measured purity and weight, and the market rate at the time of sale.</p>
+      <p>Every purchase needs a signed consent form, PAN and Aadhaar, and is paid only by bank transfer to an account in the seller's name. Photos are placeholders.</p>
+    </div>
+    <div class="foot-cols">
+      <div><h4>Sell</h4><ul><li><a href="#value">Check value</a></li><li><a href="#steps">How it works</a></li><li><button class="more" style="padding:0;font-size:inherit;color:inherit" type="button" data-book>Book a visit</button></li></ul></div>
+      <div><h4>Trust</h4><ul><li><a href="#purity">X-ray purity</a></li><li>Consent on record</li><li>Bank transfer only</li></ul></div>
+      <div><h4>Visit</h4><ul><li>Jakkur, Bengaluru 560064</li><li>Mon to Sat, 10 to 7</li></ul></div>
+      <div><h4>Contact</h4><ul><li>+91 00000 00000</li><li>hello@swarnalok.com</li></ul></div>
+    </div>
+    <div class="foot-bot"><span>© 2026 Swarnalok. All rights reserved.</span><span>swarnalok.com</span></div>
+  </div>
+</footer>
+
+<dialog id="book" aria-labelledby="bookTitle">
+  <form class="sheet" id="bookForm" method="dialog" novalidate>
+    <button class="x" type="button" id="close" aria-label="Close">×</button>
+    <h2 id="bookTitle">Book a visit.</h2>
+    <p style="color:var(--ink-2)">We'll call to confirm your time.</p>
+    <div class="field"><label for="name">Name</label><input id="name" autocomplete="name"></div>
+    <div class="field"><label for="phone">Mobile</label><input id="phone" type="tel" inputmode="numeric" autocomplete="tel"></div>
+    <div class="row2">
+      <div class="field"><label for="area">Area</label><select id="area"><option>Jakkur</option><option>Yelahanka</option><option>Sahakar Nagar</option><option>Hebbal</option><option>Thanisandra</option><option>Kodigehalli</option><option>Other nearby</option></select></div>
+      <div class="field"><label for="slot">Time</label><select id="slot"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></div>
+    </div>
+    <button class="pill" type="submit" id="send">Request a call</button>
+    <p class="ok" id="ok" role="status" hidden></p>
+  </form>
+</dialog>
+
+<script>
+(function(){
+  var RATE_24K = 12800; // sample ₹ per gram for 24K. Replace with a live feed.
+  var inr = function(n){ return '₹' + Math.round(n).toLocaleString('en-IN'); };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ticker
+  document.querySelectorAll('.r22').forEach(function(e){ e.textContent = inr(RATE_24K * .9167); });
+  var tk = document.querySelectorAll('.ticker p'), ti = 0;
+  if (!reduce) setInterval(function(){ tk[ti].classList.remove('on'); ti = (ti + 1) % tk.length; tk[ti].classList.add('on'); }, 3800);
+
+  // hero ring: 360° turn as you scroll, plus a short intro turn
+  var stage = document.getElementById('stage'), cv = document.getElementById('spin'), cx = cv.getContext('2d');
+  var N = 48, frames = [], loaded = 0, cur = -1, intro = 0;
+  function draw(i){ i = ((i % N) + N) % N; if (i === cur || !frames[i] || !frames[i].complete) return; cur = i; cx.clearRect(0,0,cv.width,cv.height); cx.drawImage(frames[i],0,0,cv.width,cv.height); }
+  function frameFor(){ var end = stage.offsetTop + stage.offsetHeight; var p = Math.min(1, Math.max(0, scrollY / end)); return Math.round(p * N + intro); }
+  if (!reduce) {
+    for (var i = 0; i < N; i++) { var im = new Image(); im.decoding = 'async'; im.src = 'media/spin/f' + (i < 10 ? '0' : '') + i + '.webp'; im.onload = function(){ if (++loaded === N) start(); }; frames.push(im); }
+  }
+  function start(){
+    stage.classList.add('live'); draw(frameFor());
+    var t0 = performance.now();
+    (function introSpin(t){ var k = Math.min(1, (t - t0) / 1600); intro = Math.round((1 - Math.pow(1 - k, 3)) * N * .5) - N * .5; draw(frameFor()); if (k < 1) requestAnimationFrame(introSpin); else intro = 0; })(t0);
+    var ticking = false;
+    addEventListener('scroll', function(){ if (!ticking) { ticking = true; requestAnimationFrame(function(){ draw(frameFor()); ticking = false; }); } }, { passive: true });
+  }
+
+  // purity count-up when it comes into view
+  var num = document.getElementById('purityNum');
+  if (!reduce && 'IntersectionObserver' in window) {
+    var once = new IntersectionObserver(function(es){ es.forEach(function(e){ if (!e.isIntersecting) return; once.disconnect(); var t0 = performance.now(); (function up(t){ var k = Math.min(1,(t - t0) / 1400), v = 91.6 * (1 - Math.pow(1 - k, 4)); num.textContent = v.toFixed(1) + '%'; if (k < 1) requestAnimationFrame(up); })(t0); }); }, { threshold: .5 });
+    once.observe(num);
+  }
+
+  // steps rail
+  var rail = document.getElementById('rail'), prev = document.getElementById('prev'), next = document.getElementById('next');
+  function step(d){ var c = rail.querySelector('.card'); rail.scrollBy({ left: d * (c.getBoundingClientRect().width + 20), behavior: reduce ? 'auto' : 'smooth' }); }
+  function edges(){ prev.disabled = rail.scrollLeft < 8; next.disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 8; }
+  prev.addEventListener('click', function(){ step(-1); }); next.addEventListener('click', function(){ step(1); });
+  rail.addEventListener('scroll', edges, { passive: true }); addEventListener('resize', edges); edges();
+
+  // value
+  var g = document.getElementById('grams'), out = document.getElementById('estimate');
+  function calc(){ var k = document.querySelector('input[name="k"]:checked').value; var w = Math.max(0, parseFloat(g.value) || 0); out.textContent = inr(w * RATE_24K * k); }
+  document.getElementById('calc').addEventListener('input', calc);
+  document.getElementById('minus').addEventListener('click', function(){ g.value = Math.max(0, (parseFloat(g.value) || 0) - 1); calc(); });
+  document.getElementById('plus').addEventListener('click', function(){ g.value = (parseFloat(g.value) || 0) + 1; calc(); });
+  calc();
+
+  // booking sheet
+  var dlg = document.getElementById('book'), ok = document.getElementById('ok');
+  document.querySelectorAll('[data-book]').forEach(function(b){ b.addEventListener('click', function(){ ok.hidden = true; if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open',''); }); });
+  document.getElementById('close').addEventListener('click', function(){ dlg.close ? dlg.close() : dlg.removeAttribute('open'); });
+  dlg.addEventListener('click', function(e){ if (e.target === dlg) dlg.close(); });
+  document.getElementById('bookForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var n = document.getElementById('name').value.trim(), p = document.getElementById('phone').value.trim();
+    ok.hidden = false;
+    ok.textContent = (!n || !p) ? 'Please add your name and mobile number.' : 'Thank you, ' + n + '. This prototype does not send requests yet.';
+  });
+})();
+</script>
+</body>
 </html>
