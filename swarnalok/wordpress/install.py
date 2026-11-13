@@ -93,6 +93,12 @@ def install():
     home = (HERE / "flatsome-homepage.txt").read_text()
     for name, url in urls.items():
         home = home.replace("/wp-content/uploads/2026/11/" + name, url)
+    # the turning ring loads frames by prefix: all 48 must share one folder and name pattern
+    spin = urls.get("sw-spin-00.webp", "")
+    prefix = spin[: -len("00.webp")]
+    if not all(urls.get(f"sw-spin-{i:02d}.webp") == f"{prefix}{i:02d}.webp" for i in range(48)):
+        raise SystemExit("ring frames were renamed on upload; fix their names in Media, then re-run")
+    home = home.replace("/wp-content/uploads/2026/11/sw-spin-", prefix)
 
     code, st = call("GET", f"{API}/settings")
     old_front = st.get("page_on_front") if code == 200 and st.get("show_on_front") == "page" else 0
