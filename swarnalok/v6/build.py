@@ -102,7 +102,7 @@ p{margin:0}
 .hero{position:relative;padding-block:clamp(28px,4vw,64px) clamp(56px,7vw,110px);overflow:hidden}
 .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,80px);align-items:center}
 .hero h1{font-size:clamp(3.4rem,8.4vw,8.6rem);line-height:.9;letter-spacing:-.06em;margin-top:18px}
-.lead{font-size:clamp(1.15rem,1.7vw,1.5rem);color:var(--ink2);margin-top:20px;font-weight:600}
+.lead{font-size:clamp(1.15rem,1.7vw,1.5rem);color:var(--ink2);margin-top:clamp(26px,2.6vw,40px);font-weight:600}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 30px;padding:0;list-style:none}
 .chip{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:999px;background:var(--chip);box-shadow:inset 0 0 0 1px var(--line);font-weight:700;font-size:.95rem;cursor:pointer;border:0;transition:background .25s,color .25s,transform .25s}
 .chip svg{width:14px;height:14px;color:var(--acc)}
@@ -249,8 +249,9 @@ p{margin:0}
 .rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 .no-js .rv{opacity:1;transform:none}
-.line{display:block;overflow:hidden;padding-bottom:.16em;margin-bottom:-.16em}
-.line>span{padding-bottom:.06em}
+.line{display:block;overflow:hidden;padding-bottom:.26em;margin-bottom:-.26em}
+/* the gold gradient only paints inside its own box, so the box must reach below the y and g tails */
+.line>span.gold{padding-bottom:.26em;margin-bottom:-.26em}
 .line>span{display:block;animation:up 1s cubic-bezier(.2,.8,.2,1) both}
 .line:nth-child(2)>span{animation-delay:.12s}
 @keyframes up{from{transform:translateY(105%)}}
@@ -554,7 +555,7 @@ async function start() {
     pts.push(new THREE.Vector2(1 + .085 * Math.sign(c) * Math.abs(c) ** p, .24 * Math.sign(s) * Math.abs(s) ** p));
   }
   const ring = new THREE.Mesh(new THREE.LatheGeometry(pts, 320),
-    new THREE.MeshPhysicalMaterial({ color: 0xE8B04A, metalness: 1, roughness: .13, clearcoat: .3, clearcoatRoughness: .08, envMapIntensity: 1.3 }));
+    new THREE.MeshPhysicalMaterial({ color: 0xE8B04A, metalness: 1, roughness: .13, clearcoat: .3, clearcoatRoughness: .08, envMapIntensity: 1.5, side: THREE.DoubleSide }));
   ring.rotation.x = 1.12;
   const pivot = new THREE.Group(); pivot.add(ring); scene.add(pivot);
   function size() { const w = canvas.clientWidth, h = canvas.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
