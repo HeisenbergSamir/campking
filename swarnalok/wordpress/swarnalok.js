@@ -5,6 +5,7 @@
  */
 (function () {
   'use strict';
+  if (window.SW && window.SW.loaded) return; // already running on this page
 
   // ---------- settings ----------
   var CFG = {
@@ -25,6 +26,7 @@
   var OZ = 31.1034768; // grams per troy ounce
 
   var SW = window.SW = window.SW || {};
+  SW.loaded = true;
   SW.config = CFG;
 
   var inr = function (n) { return '₹' + Math.round(n).toLocaleString('en-IN'); };
