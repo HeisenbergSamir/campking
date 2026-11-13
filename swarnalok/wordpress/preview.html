@@ -7,7 +7,7 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 .mock-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,0,0,.08);font-family:"Inter",sans-serif}
 .mock-head div{max-width:1600px;margin:auto;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 max(16px,env(safe-area-inset-left,0px))}
 .mock-head b{font:500 .85rem "Inter Tight",sans-serif;letter-spacing:.42em;display:flex;align-items:center;gap:10px}
-.mock-head b i{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFF6D8 0,#F2CF7A 22%,#C99A3F 58%,#6F4C12 100%)}
+.mock-head b i{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFE9DC 0,#E08A62 30%,#A9512F 70%,#6E2E18 100%)}
 .mock-head nav{display:flex;gap:28px;font-size:.82rem}@media(max-width:760px){.mock-head nav{display:none}}
 .section{position:relative;padding-block:var(--pad)}@media(max-width:549px){.section{padding-block:var(--pad-sm)}}
 .row{display:flex;flex-wrap:wrap;max-width:1600px;margin:0 auto;width:100%;padding:0 max(1px,env(safe-area-inset-left,0px))}
@@ -22,11 +22,13 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 @import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap");
 
 :root{
-  --sw-white:#FFFFFF; --sw-snow:#F5F5F7; --sw-ink:#1D1D1F; --sw-ink2:#6E6E73; --sw-ink3:#86868B; --sw-black:#000;
-  --sw-gold:#C99A3F; --sw-gold-deep:#8A6418; --sw-gold-hi:#F3D58C;
-  --sw-grad:linear-gradient(180deg,#F6DC97 0%,#D9AE55 45%,#A8781F 100%);
-  --sw-btn:linear-gradient(135deg,#E9C77B 0%,#C99A3F 55%,#A8781F 100%);
-  --sw-hair:rgba(0,0,0,.08);
+  /* 60 warm white · 30 warm ink · 10 terracotta */
+  --sw-white:#FFFFFF; --sw-snow:#F7F2EE; --sw-ink:#1F1B19; --sw-ink2:#75685F; --sw-ink3:#9A8D84; --sw-black:#1E1512;
+  --sw-gold:#C4673F; --sw-gold-deep:#A4512F; --sw-gold-hi:#F2C3AB;
+  --sw-terra:#A9512F; --sw-terra-2:#C4673F; --sw-cream:#FFF4EC;
+  --sw-grad:linear-gradient(180deg,#F6CDB6 0%,#D9825C 50%,#A4512F 100%);
+  --sw-btn:linear-gradient(135deg,#D9825C 0%,#B85C38 55%,#9E4A2F 100%);
+  --sw-hair:rgba(31,27,25,.09);
   --sw-display:"Inter Tight","SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   --sw-text:"Inter","SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
 }
@@ -39,15 +41,18 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 .sw h1,.sw h2,.sw h3,.sw h4{font-family:var(--sw-display);color:inherit;font-weight:600;margin:0;text-wrap:balance;text-transform:none}
 .sw a{color:inherit;text-decoration:none}
 .sw img{max-width:100%;height:auto;display:block}
-.sw :focus-visible{outline:2px solid var(--sw-gold);outline-offset:3px;border-radius:6px}
+.sw :focus-visible{outline:2px solid var(--sw-terra);outline-offset:3px;border-radius:6px}
 .sw-snow{background:var(--sw-snow)}
-.sw-dark{background:var(--sw-black);color:#F5F5F7}
+.sw-dark{background:var(--sw-black);color:#F7EFE9}
+.sw-warm{background:var(--sw-snow)}
+.sw-terra{background:var(--sw-terra);color:var(--sw-cream)}
+.sw-terra .sw-sub{color:#F6D9C9}
 .sw-center{text-align:center}
 .sw-h2{font-size:clamp(2.3rem,5.6vw,4.8rem);line-height:1.04;letter-spacing:-.04em}
 .sw-h3{font-size:clamp(1.9rem,3.6vw,3.2rem);line-height:1.08;letter-spacing:-.035em}
 .sw-sub{font-family:var(--sw-display);font-size:clamp(1.1rem,1.7vw,1.5rem);line-height:1.35;font-weight:500;letter-spacing:-.02em;color:var(--sw-ink2);max-width:34ch;text-wrap:balance}
 .sw-center .sw-sub{margin-inline:auto}
-.sw-dark .sw-sub{color:#A1A1A6}
+.sw-dark .sw-sub{color:#B9A79C}
 .sw-eyebrow{font-family:var(--sw-display);font-weight:600;font-size:.95rem;color:var(--sw-gold-deep);letter-spacing:-.01em}
 .sw-dark .sw-eyebrow{color:var(--sw-gold-hi)}
 .sw-gold{background:var(--sw-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -55,8 +60,8 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 .sw-center.sw-stack{justify-items:center}
 
 /* buttons */
-.sw-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:980px;background:var(--sw-ink);color:#fff!important;font:500 1.05rem/1 var(--sw-text);letter-spacing:-.01em;border:0;cursor:pointer;transition:transform .3s,background .3s;text-transform:none;margin:0}
-.sw-btn:hover{background:#000;transform:translateY(-1px)}
+.sw-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:980px;background:var(--sw-terra);color:#fff!important;font:500 1.05rem/1 var(--sw-text);letter-spacing:-.01em;border:0;cursor:pointer;transition:transform .3s,background .3s;text-transform:none;margin:0}
+.sw-btn:hover{background:#8F4226;transform:translateY(-1px)}
 .sw-btn.is-gold{background:var(--sw-btn);color:#1D1D1F!important}
 .sw-btn svg{width:18px;height:18px;fill:currentColor}
 .sw-link{display:inline-flex;align-items:center;gap:6px;color:var(--sw-gold-deep)!important;font:500 1.05rem/1 var(--sw-text);padding:14px 0;background:none;border:0;cursor:pointer;text-transform:none;margin:0;letter-spacing:-.01em}
@@ -98,22 +103,28 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
   }
 
 /* ---------- hero v2: model photo, floating ring, live price card ---------- */
-.sw-hero{background:radial-gradient(55% 75% at 80% 45%,#F7EFE1 0%,rgba(255,255,255,0) 70%),#fff;overflow:hidden}
+.sw-hero{background:radial-gradient(55% 75% at 80% 45%,#F8EBE3 0%,rgba(255,255,255,0) 70%),#fff;overflow:hidden}
 .sw-kicker{font:600 .78rem/1 var(--sw-text)!important;letter-spacing:.24em;text-transform:uppercase;color:var(--sw-gold-deep)}
 .sw-visual{position:relative;max-width:600px;margin:0 0 0 auto;padding:4% 7% 9% 9%}
-.sw-photo{margin:0!important;border-radius:36px;overflow:hidden;aspect-ratio:4/5;background:#EFE9E1;box-shadow:0 50px 90px -50px rgba(70,45,10,.45)}
+.sw-photo{margin:0!important;border-radius:36px;overflow:hidden;aspect-ratio:4/5;background:#EFE5DE;box-shadow:0 50px 90px -50px rgba(110,46,24,.45)}
 .sw-photo img{width:100%;height:100%;object-fit:cover;animation:sw-zoom 16s ease-in-out infinite alternate}
 @keyframes sw-zoom{to{transform:scale(1.06)}}
 .sw-ratecard{position:absolute;left:0;top:16%;display:grid;gap:5px;background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.7);border-radius:22px;padding:16px 20px 15px;box-shadow:0 24px 50px -24px rgba(0,0,0,.35);animation:sw-float 8s ease-in-out infinite}
 .sw-ratecard small{display:flex;align-items:center;gap:8px;font-size:.76rem;font-weight:500;color:var(--sw-ink2);letter-spacing:.01em}
 .sw-ratecard strong{font:600 clamp(1.5rem,2.2vw,2rem)/1 var(--sw-display);letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--sw-ink)}
 .sw-ratecard>span{font-size:.78rem;font-weight:600;color:var(--sw-gold-deep)}
-.sw-ring-float{position:absolute!important;right:-2%;bottom:0;width:46%;max-width:none!important;filter:drop-shadow(0 30px 28px rgba(60,40,0,.3));animation:sw-float 7s ease-in-out infinite;animation-delay:-2s}
+.sw-ring-wrap{position:absolute;right:-6%;bottom:-4%;width:52%;will-change:transform}
+.sw-ring-float{position:relative;filter:drop-shadow(0 30px 28px rgba(60,30,10,.3));animation:sw-float 7s ease-in-out infinite;animation-delay:-2s}
+.sw-spin{aspect-ratio:800/688}
+.sw-spin img,.sw-spin canvas{position:absolute!important;inset:0;width:100%!important;height:100%!important;max-width:none!important}
+.sw-spin canvas{opacity:0;transition:opacity .4s}
+.sw-spin.is-live canvas{opacity:1}
+.sw-spin.is-live img{opacity:0}
 @media (max-width:849px){
   .sw-hero .sw-hero-copy{text-align:center}
   .sw-visual{margin:26px auto 0;max-width:440px;padding:0 8% 10% 6%}
   .sw-ratecard{top:7%;bottom:auto;left:0;padding:12px 16px}
-  .sw-ring-float{width:42%;right:0;bottom:2%}
+  .sw-ring-wrap{width:50%;right:-4%;bottom:-2%}
 }
 
 /* trust band */
@@ -134,52 +145,52 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 
 /* ---------- live rates ---------- */
 .sw-rates{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.4vw,20px);margin-top:clamp(36px,4vw,60px)}
-.sw-rate{background:#fff;border-radius:28px;padding:clamp(24px,2.6vw,40px);display:grid;gap:8px;text-align:left;min-width:0}
-.sw-rate.is-main{background:var(--sw-black);color:#F5F5F7}
+.sw-rate{background:var(--sw-snow);border-radius:28px;padding:clamp(24px,2.6vw,40px);display:grid;gap:8px;text-align:left;min-width:0}
+.sw-rate.is-main{background:var(--sw-terra);color:var(--sw-cream)}
 .sw-rate h3{font:600 1rem/1 var(--sw-text);letter-spacing:.02em;color:var(--sw-ink2)}
-.sw-rate.is-main h3{color:#A1A1A6}
+.sw-rate.is-main h3{color:#F6D9C9}
 .sw-rate strong{font:600 clamp(2.4rem,4.2vw,3.8rem)/1 var(--sw-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
 .sw-rate span{font-size:.92rem;color:var(--sw-ink2)}
-.sw-rate.is-main span{color:#A1A1A6}
+.sw-rate.is-main span{color:#F6D9C9}
 .sw-rate-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-top:22px;font-size:.88rem;color:var(--sw-ink2)}
 .sw-rate-meta>span{display:inline-flex;align-items:center;gap:8px}
 .sw-how{max-width:720px;margin:22px auto 0!important;font-size:.88rem;color:var(--sw-ink3);line-height:1.55}
 @media (max-width:849px){.sw-rates{grid-template-columns:1fr}.sw-rate{grid-template-columns:1fr auto;align-items:end}.sw-rate h3{grid-column:1/-1}}
 
 /* ---------- purity ---------- */
-.sw-num{font:600 clamp(5.6rem,22vw,20rem)/.9 var(--sw-display);letter-spacing:-.06em;font-variant-numeric:tabular-nums;margin:6px 0}
+.sw-num{color:var(--sw-cream);font:600 clamp(5.6rem,22vw,20rem)/.9 var(--sw-display);letter-spacing:-.06em;font-variant-numeric:tabular-nums;margin:6px 0}
 .sw-readings{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:0;padding:0;list-style:none}
 .sw-readings li{border:1px solid #333336;border-radius:980px;padding:8px 16px;font-size:.84rem;color:#A1A1A6;font-variant-numeric:tabular-nums;margin:0}
 .sw-readings b{color:#F5F5F7;font-weight:500;margin-left:6px}
 
 /* ---------- steps (filled tiles, no empty space) ---------- */
 .sw-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.4vw,20px);margin:clamp(36px,4vw,60px) 0 0;padding:0;list-style:none;counter-reset:sw}
-.sw-step{position:relative;background:var(--sw-snow);border-radius:24px;padding:clamp(22px,2.2vw,32px);display:grid;grid-template-columns:auto 1fr;gap:6px 18px;align-items:start;margin:0;min-width:0;transition:background .3s,transform .3s}
-.sw-step:hover{background:#EEEEF1;transform:translateY(-2px)}
-.sw-step i{grid-row:span 3;width:56px;height:56px;border-radius:16px;background:#fff;display:grid;place-items:center;box-shadow:0 6px 18px -10px rgba(0,0,0,.25)}
+.sw-step{position:relative;background:var(--sw-snow);border-radius:24px;padding:clamp(22px,2.2vw,32px);display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:center;margin:0;min-width:0;transition:background .3s,transform .3s}
+.sw-step:hover{background:#F1E7E0;transform:translateY(-2px)}
+.sw-step i{grid-row:span 2;width:56px;height:56px;border-radius:16px;background:#fff;display:grid;place-items:center;box-shadow:0 6px 18px -10px rgba(0,0,0,.25)}
 .sw-step svg{width:28px;height:28px;stroke:var(--sw-gold-deep);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .sw-step small{font:600 .76rem/1 var(--sw-text);letter-spacing:.08em;color:var(--sw-ink3);text-transform:uppercase;font-variant-numeric:tabular-nums}
 .sw-step h3{font-size:clamp(1.35rem,1.8vw,1.65rem);letter-spacing:-.03em;line-height:1.15}
 .sw-step p{color:var(--sw-ink2);font-size:.98rem}
-.sw-step.is-last{background:var(--sw-ink);color:#fff}
-.sw-step.is-last p,.sw-step.is-last small{color:#A1A1A6}
-.sw-step.is-last i{background:#2C2C2E;box-shadow:none}
-.sw-step.is-last svg{stroke:var(--sw-gold-hi)}
+.sw-step.is-last{background:var(--sw-terra);color:var(--sw-cream)}
+.sw-step.is-last small{color:#F6D9C9}
+.sw-step.is-last i{background:rgba(255,255,255,.14);box-shadow:none}
+.sw-step.is-last svg{stroke:var(--sw-cream)}
 .sw-steps-note{margin-top:20px!important;color:var(--sw-ink2);font-size:.95rem}
 @media (max-width:1000px){.sw-steps{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.sw-steps{grid-template-columns:1fr}}
 
 /* ---------- compare ---------- */
-.sw-vs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.4vw,20px);margin-top:clamp(36px,4vw,60px)}
-.sw-vs>div{border-radius:28px;padding:clamp(26px,3vw,44px);background:var(--sw-snow);min-width:0}
-.sw-vs>div.is-us{background:var(--sw-black);color:#F5F5F7}
+.sw-vs{max-width:1100px;margin-inline:auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.4vw,20px);margin-top:clamp(36px,4vw,60px)}
+.sw-vs>div{border-radius:28px;padding:clamp(26px,3vw,44px);background:#fff;min-width:0}
+.sw-vs>div.is-us{background:var(--sw-terra);color:var(--sw-cream)}
 .sw-vs h3{font-size:clamp(1.5rem,2.2vw,2rem);letter-spacing:-.03em}
 .sw-vs h3 small{display:block;font:500 .9rem/1.4 var(--sw-text);color:var(--sw-ink2);letter-spacing:0;margin-top:4px}
 .sw-vs .is-us h3 small{color:#A1A1A6}
 .sw-vs ul{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:12px}
-.sw-vs li{display:flex;gap:12px;align-items:flex-start;margin:0}
+.sw-vs li{display:flex;gap:12px;align-items:flex-start;margin:0;font-size:1.1rem}
 .sw-vs li::before{content:"–";color:var(--sw-ink3);flex:none;width:16px}
-.sw-vs .is-us li::before{content:"✓";color:var(--sw-gold-hi)}
+.sw-vs .is-us li::before{content:"✓";color:var(--sw-cream)}
 @media (max-width:760px){.sw-vs{grid-template-columns:1fr}}
 
 /* ---------- calculator ---------- */
@@ -188,7 +199,7 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 .sw-seg{display:inline-grid;grid-template-columns:repeat(4,1fr);background:#fff;border-radius:980px;padding:4px;border:1px solid var(--sw-hair)}
 .sw-seg input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;margin:0}
 .sw-seg label{min-width:clamp(62px,8vw,88px);min-height:44px;display:grid!important;place-items:center;border-radius:980px;font-weight:500;font-size:1rem;cursor:pointer;color:var(--sw-ink2);margin:0!important;transition:background .3s,color .3s}
-.sw-seg input:checked+label{background:var(--sw-ink);color:#fff}
+.sw-seg input:checked+label{background:var(--sw-terra);color:#fff}
 .sw-seg input:focus-visible+label{outline:2px solid var(--sw-gold);outline-offset:2px}
 .sw-stepper{display:flex;align-items:center;gap:16px}
 .sw-stepper button{width:48px;height:48px;min-height:0;border-radius:50%;border:1px solid var(--sw-hair);background:#fff;font-size:1.4rem;line-height:1;cursor:pointer;color:var(--sw-ink);padding:0;margin:0}
@@ -209,9 +220,9 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 
 /* ---------- visit ---------- */
 .sw-visit{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,70px);align-items:center}
-.sw-visit dl{display:grid;gap:0;margin:0;border-top:1px solid #2C2C2E}
-.sw-visit dl>div{display:flex;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid #2C2C2E;flex-wrap:wrap}
-.sw-visit dt{color:#A1A1A6;font-size:.95rem;margin:0;font-weight:400}
+.sw-visit dl{display:grid;gap:0;margin:0;border-top:1px solid #3A2C26}
+.sw-visit dl>div{display:flex;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid #3A2C26;flex-wrap:wrap}
+.sw-visit dt{color:#B9A79C;font-size:.95rem;margin:0;font-weight:400}
 .sw-visit dd{margin:0;font:600 1.1rem/1.3 var(--sw-display);letter-spacing:-.015em;text-align:right;user-select:all}
 .sw-open{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;color:#A1A1A6}
 .sw-open::before{content:"";width:8px;height:8px;border-radius:50%;background:#6E6E73}
@@ -221,7 +232,7 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 
 /* ---------- legal strip ---------- */
 .sw-legal{font-size:.8rem;color:var(--sw-ink2);line-height:1.6}
-.sw-legal nav{display:flex;flex-wrap:wrap;gap:6px 22px;padding-bottom:16px;border-bottom:1px solid #D2D2D7}
+.sw-legal nav{display:flex;flex-wrap:wrap;gap:6px 22px;padding-bottom:14px;border-bottom:1px solid #E6DCD5}
 .sw-legal nav a:hover{color:var(--sw-ink);text-decoration:underline}
 .sw-legal p{margin-top:14px!important}
 .sw-legal .sw-copy-line{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
@@ -233,19 +244,19 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 }
 
 /* ---------- sticky Call / WhatsApp dock ---------- */
-.sw-dock{position:fixed;left:calc(18px + env(safe-area-inset-left,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:9990;font-family:var(--sw-text);display:flex;align-items:center;gap:12px}
-.sw-dock__btn{position:relative;width:62px;height:62px;min-height:0;border-radius:50%;border:0;padding:0;margin:0;cursor:pointer;display:grid;place-items:center;background:var(--sw-btn);box-shadow:0 14px 30px -10px rgba(138,100,24,.65),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .3s}
-.sw-dock__btn svg{width:26px;height:26px;fill:#1D1D1F;animation:sw-ring 4s ease-in-out infinite}
-.sw-dock__btn::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(201,154,63,.55);animation:sw-halo 2.4s ease-out infinite}
+.sw-dock{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));flex-direction:row-reverse;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:9990;font-family:var(--sw-text);display:flex;align-items:center;gap:12px}
+.sw-dock__btn{position:relative;width:62px;height:62px;min-height:0;border-radius:50%;border:0;padding:0;margin:0;cursor:pointer;display:grid;place-items:center;background:var(--sw-btn);box-shadow:0 14px 30px -10px rgba(158,74,47,.7),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .3s}
+.sw-dock__btn svg{width:26px;height:26px;fill:#fff;animation:sw-ring 4s ease-in-out infinite}
+.sw-dock__btn::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(196,103,63,.55);animation:sw-halo 2.4s ease-out infinite}
 .sw-dock__btn:hover{transform:scale(1.06)}
 .sw-dock.is-open .sw-dock__btn svg{animation:none}
 @keyframes sw-halo{from{transform:scale(1);opacity:1}to{transform:scale(1.55);opacity:0}}
 @keyframes sw-ring{0%,82%,100%{transform:rotate(0)}85%{transform:rotate(-14deg)}88%{transform:rotate(12deg)}91%{transform:rotate(-8deg)}94%{transform:rotate(6deg)}}
-.sw-dock__bubble{background:#1D1D1F;color:#fff;font-size:.82rem;font-weight:500;padding:9px 14px;border-radius:14px 14px 14px 4px;box-shadow:0 10px 24px -12px rgba(0,0,0,.5);white-space:nowrap;transition:opacity .3s,transform .3s}
+.sw-dock__bubble{background:#1F1B19;color:#fff;font-size:.82rem;font-weight:500;padding:9px 14px;border-radius:14px 14px 4px 14px;box-shadow:0 10px 24px -12px rgba(0,0,0,.5);white-space:nowrap;transition:opacity .3s,transform .3s}
 .sw-dock__bubble span{display:inline-block;transition:opacity .3s,transform .3s}
 .sw-dock__bubble span.is-out{opacity:0;transform:translateY(6px)}
-.sw-dock.is-open .sw-dock__bubble{opacity:0;transform:translateX(-8px);pointer-events:none}
-.sw-dock__panel{position:absolute;left:0;bottom:76px;width:min(320px,calc(100vw - 36px));background:#fff;color:#1D1D1F;border-radius:22px;box-shadow:0 30px 70px -20px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.05);padding:18px;animation:sw-pop .3s cubic-bezier(.2,.8,.2,1)}
+.sw-dock.is-open .sw-dock__bubble{opacity:0;transform:translateX(8px);pointer-events:none}
+.sw-dock__panel{position:absolute;right:0;bottom:76px;width:min(320px,calc(100vw - 36px));background:#fff;color:#1D1D1F;border-radius:22px;box-shadow:0 30px 70px -20px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.05);padding:18px;animation:sw-pop .3s cubic-bezier(.2,.8,.2,1)}
 .sw-dock__panel[hidden]{display:none}
 @keyframes sw-pop{from{opacity:0;transform:translateY(10px) scale(.97)}}
 .sw-dock__title{font:600 1.15rem/1.2 var(--sw-display);letter-spacing:-.02em;margin:0 0 2px}
@@ -260,20 +271,25 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 .sw-dock__ic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex:none}
 .sw-dock__ic svg{width:20px;height:20px;fill:#fff}
 .sw-dock__ic.is-call{background:var(--sw-btn)}
-.sw-dock__ic.is-call svg{fill:#1D1D1F}
+.sw-dock__ic.is-call svg{fill:#fff}
 .sw-dock__ic.is-wa{background:#25D366}
 .sw-dock__form{display:grid;gap:12px}
 .sw-dock__form[hidden],.sw-dock__menu[hidden],.sw-dock__err[hidden]{display:none}
-.sw-dock__back{justify-self:start;background:none;border:0;padding:0;margin:0;min-height:0;color:#8A6418;font:500 .85rem var(--sw-text);cursor:pointer;text-transform:none;letter-spacing:0}
+.sw-dock__back{justify-self:start;background:none;border:0;padding:0;margin:0;min-height:0;color:#A4512F;font:500 .85rem var(--sw-text);cursor:pointer;text-transform:none;letter-spacing:0}
 .sw-dock__f{display:grid;gap:6px;margin:0;font-size:.8rem;font-weight:500;color:#6E6E73}
 .sw-dock__f input,.sw-dock__f select{width:100%;height:48px;min-height:0;margin:0;border:1px solid #D2D2D7;border-radius:12px;padding:0 14px;font:400 1rem var(--sw-text);color:#1D1D1F;background:#fff;box-shadow:none}
-.sw-dock__f input:focus,.sw-dock__f select:focus{outline:none;border-color:#C99A3F;box-shadow:0 0 0 3px rgba(201,154,63,.2)}
+.sw-dock__f input:focus,.sw-dock__f select:focus{outline:none;border-color:#C4673F;box-shadow:0 0 0 3px rgba(196,103,63,.2)}
 .sw-dock__err{margin:0;font-size:.82rem;color:#B3261E}
 .sw-dock__send{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;min-height:0;margin:0;border:0;border-radius:980px;background:#25D366;color:#fff;font:600 1rem var(--sw-text);cursor:pointer;text-transform:none;letter-spacing:0}
 .sw-dock__send svg{width:20px;height:20px;fill:#fff}
 .sw-dock__send:hover{background:#1EBE5A}
 @media (max-width:480px){.sw-dock__btn{width:56px;height:56px}.sw-dock__panel{bottom:70px}.sw-dock__bubble{font-size:.78rem;padding:8px 12px}}
-@media print{.sw-dock{display:none}}
+.sw-top{position:fixed;left:calc(18px + env(safe-area-inset-left,0px));bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:9989;width:48px;height:48px;min-height:0;margin:0;padding:0;border-radius:50%;border:1px solid var(--sw-hair);background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 10px 24px -12px rgba(0,0,0,.35);display:grid;place-items:center;cursor:pointer;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .3s,transform .3s}
+.sw-top.is-on{opacity:1;transform:none;pointer-events:auto}
+.sw-top svg{width:18px;height:18px;stroke:var(--sw-ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sw-top:hover{background:#fff}
+#top-link,.back-to-top{display:none!important} /* Flatsome's own back-to-top sits where the call button is */
+@media print{.sw-dock,.sw-top{display:none}}
 
 @media (prefers-reduced-motion:reduce){
   .sw *,.sw-dock *,.sw-dock *::before{animation:none!important;transition:none!important}
@@ -293,59 +309,56 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 </style></head><body>
 <header class="mock-head"><div><b><i></i>SWARNALOK</b><nav><span>Today's price</span><span>Process</span><span>Visit</span></nav></div></header>
 <section class="section sw sw-hero" style="background:#ffffff;--pad:56px;--pad-sm:24px"><div class="row align-middle"><div class="col large-6"><div class="sw-hero-copy">
-<p class="sw-kicker">Old gold buyers · North Bengaluru</p>
+<p class="sw-kicker">Old gold buyers · Bengaluru North</p>
 <h1 class="sw-h1">We only<br>buy gold.</h1>
-<p class="sw-lead">Live price. Tested before you.<br>Paid in 30 minutes.</p>
+<p class="sw-lead">Live price. Paid in 30 minutes.</p>
 <ul class="sw-places"><li><span class="sw-pin"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg></span>Jakkur</li><li>Yelahanka</li><li>Hebbal</li><li>Thanisandra</li></ul>
-<div class="sw-actions"><a class="sw-btn" href="#sw-price">See today's price</a><a class="sw-link" href="tel:+919815303553">Call +91 98153 03553</a></div>
+<div class="sw-actions"><a class="sw-btn" href="#sw-price">Today's price</a><a class="sw-link" href="tel:+919815303553">Call +91 98153 03553</a></div>
 </div></div><div class="col large-6"><div class="sw-visual">
 <figure class="sw-photo"><img class="" src="upload/sw-hero-model.webp" alt="A woman wearing a gold pendant and ring" width="1200" height="1500" loading="lazy" decoding="async"></figure>
-<div class="sw-ratecard"><small><span class="sw-pulse" data-sw="status"></span>Live · 24K per 10 g</small><strong data-sw="p24_10">…</strong><span>We pay today</span></div>
-<img class="sw-ring-float" src="upload/sw-ring.webp" alt="" width="1400" height="1204">
-</div></div></div></section><section class="section sw sw-snow sw-band" style="background:#F5F5F7;--pad:26px;--pad-sm:22px"><div class="row"><div class="col large-12"><ul class="sw-proof">
+<div class="sw-ratecard"><small><span class="sw-pulse" data-sw="status"></span>Live · 24K · 10 g</small><strong data-sw="p24_10">…</strong></div>
+<div class="sw-ring-wrap" data-sw-parallax="0.18"><div class="sw-ring-float sw-spin" data-frames="upload/sw-spin-"><img src="upload/sw-spin-00.webp" alt="" width="800" height="688"><canvas width="800" height="688" aria-hidden="true"></canvas></div></div>
+</div></div></div></section><section class="section sw sw-warm sw-band" style="background:#F7F2EE;--pad:26px;--pad-sm:22px"><div class="row"><div class="col large-12"><ul class="sw-proof">
 <li><i><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.3-7-11.5A7 7 0 0119 9.5C19 14.7 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></i><b>10 min away</b></li>
-<li><i><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></i><b>Live market rate</b></li>
+<li><i><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></i><b>Live rate</b></li>
 <li><i><svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></i><b>X-ray tested</b></li>
 <li><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><b>Paid in 30 min</b></li>
-<li><i><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9.5C7.4 20.4 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></i><b>KYC, bank only</b></li>
-</ul></div></div></section><section class="section sw sw-snow" style="background:#F5F5F7;--pad:130px;--pad-sm:70px"><div class="row"><div class="col large-12"><span id="sw-price" class="sw-anchor"></span><div class="sw-center sw-stack"><p class="sw-eyebrow">Today's buying price</p><h2 class="sw-h2 sw-rise">What we pay, right now.</h2></div>
+<li><i><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9.5C7.4 20.4 4 17 4 12V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></i><b>Bank transfer only</b></li>
+</ul></div></div></section><section class="section sw" style="background:#ffffff;--pad:120px;--pad-sm:70px"><div class="row"><div class="col large-12"><span id="sw-price" class="sw-anchor"></span>
+<div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">Today's price.</h2></div>
 <div class="sw-rates">
-<div class="sw-rate is-main sw-rise"><h3>24K · 999</h3><strong data-sw="p24_10">…</strong><span>per 10 g · <b data-sw="p24_1">…</b>/g</span></div>
-<div class="sw-rate sw-rise"><h3>22K · 916</h3><strong data-sw="p22_10">…</strong><span>per 10 g · <b data-sw="p22_1">…</b>/g</span></div>
-<div class="sw-rate sw-rise"><h3>18K · 750</h3><strong data-sw="p18_10">…</strong><span>per 10 g · <b data-sw="p18_1">…</b>/g</span></div>
+<div class="sw-rate is-main sw-rise"><h3>24K</h3><strong data-sw="p24_10">…</strong><span>per 10 g</span></div>
+<div class="sw-rate sw-rise"><h3>22K</h3><strong data-sw="p22_10">…</strong><span>per 10 g</span></div>
+<div class="sw-rate sw-rise"><h3>18K</h3><strong data-sw="p18_10">…</strong><span>per 10 g</span></div>
 </div>
-<div class="sw-rate-meta"><span><span class="sw-pulse" data-sw="status"></span><span data-sw="updated">Fetching live price</span></span><span>Refreshes every minute</span></div>
-<p class="sw-how sw-center">How we price: the international gold price, plus Indian customs duty, less ₹5,000 per 10 g. No GST, shipping or insurance is added. Your final amount is set by the X-ray purity and exact weight of your gold.</p></div></div></section><section class="section sw sw-dark sw-model" style="background:#0C0B0A;--pad:0px;--pad-sm:0px"><div class="row align-middle row-full row-collapse"><div class="col large-6"><img class="sw-model-img" src="upload/sw-model-main.webp" alt="A model in black" width="1200" height="1500" loading="lazy" decoding="async"></div><div class="col large-6"><div class="sw-model-copy">
+<div class="sw-rate-meta"><span><span class="sw-pulse" data-sw="status"></span><span data-sw="updated">Fetching live price</span></span><span>International rate + customs − ₹5,000 per 10 g</span></div></div></div></section><section class="section sw sw-dark sw-model" style="background:#1E1512;--pad:0px;--pad-sm:0px"><div class="row align-middle row-full row-collapse"><div class="col large-6"><img class="sw-model-img" src="upload/sw-model-main.webp" alt="A model in black" width="1200" height="1500" loading="lazy" decoding="async"></div><div class="col large-6"><div class="sw-model-copy">
 <p class="sw-eyebrow">Worn with love</p>
 <h2 class="sw-h2 sw-rise">Valued with<br>honesty.</h2>
-<p class="sw-sub sw-rise">Every piece has a story. We handle yours with care, on camera, and pay its true worth.</p>
 <div class="sw-details"><img class="sw-rise" src="upload/sw-model-ear.webp" alt="Gold hoop earring and chain" width="800" height="1000" loading="lazy" decoding="async"><img class="sw-rise" src="upload/sw-model-hands.webp" alt="Gold rings and bracelet" width="800" height="1000" loading="lazy" decoding="async"></div>
-</div></div></div></section><section class="section sw sw-dark" style="background:#000000;--pad:140px;--pad-sm:80px"><div class="row"><div class="col large-12"><div class="sw-center sw-stack">
+</div></div></div></section><section class="section sw sw-terra" style="background:#A9512F;--pad:130px;--pad-sm:80px"><div class="row"><div class="col large-12"><div class="sw-center sw-stack">
 <h2 class="sw-h2 sw-rise">We don't guess.</h2>
-<p class="sw-num sw-gold sw-rise" aria-label="91.6 percent">91.6%</p>
-<p class="sw-sub sw-rise">An X-ray reads the purity at up to four points. On a screen you can see.</p>
-<ul class="sw-readings sw-rise" aria-label="Sample reading"><li>Gold<b>91.62</b></li><li>Copper<b>5.10</b></li><li>Silver<b>2.90</b></li><li>Zinc<b>0.38</b></li></ul>
-</div></div></div></section><section class="section sw" style="background:#ffffff;--pad:140px;--pad-sm:80px"><div class="row"><div class="col large-12"><div class="sw-center sw-stack"><p class="sw-eyebrow">About 30 minutes, start to finish</p><h2 class="sw-h2 sw-rise">Six steps. All at the counter.</h2></div>
-<ol class="sw-steps"><li class="sw-step sw-rise"><i><svg viewBox="0 0 32 32"><path d="M8 3h11l5 5v21H8z"/><path d="M19 3v5h5M12 13h8M12 17h8M12 25c2-2.500 3 1.500 5-.500s2.500 1 4 0"/></svg></i><small>Step 1 · 0:00</small><h3>Consent</h3><p>You sign the form. We record the handover.</p></li><li class="sw-step sw-rise"><i><svg viewBox="0 0 32 32"><path d="M5 19h22v6a2 2 0 01-2 2H7a2 2 0 01-2-2z"/><path d="M9 19c0-4.500 3.500-5 3.500-9M17 19c0-4.500 3.500-5 3.500-9"/><circle cx="12.500" cy="6" r="1.300"/><circle cx="20.500" cy="5" r="1"/></svg></i><small>Step 2 · 0:05</small><h3>Clean</h3><p>Ultrasonic wash removes dirt, so only metal is weighed.</p></li><li class="sw-step sw-rise"><i><svg viewBox="0 0 32 32"><path d="M7 15h18l-2.500 12h-13z"/><path d="M16 3c1 3.500 4.500 4.500 4.500 8a4.500 4.500 0 01-9 0c0-2 1-3 2-4 0 1.500.500 2 1 2 .500-2 .500-4 1.500-6z"/></svg></i><small>Step 3 · 0:10</small><h3>Melt</h3><p>One even bar. Solder and alloys can't hide.</p></li><li class="sw-step sw-rise"><i><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="3.500"/><path d="M16 2v5M16 25v5M2 16h5M25 16h5"/></svg></i><small>Step 4 · 0:18</small><h3>Test</h3><p>X-ray purity at 2 to 4 points, on screen.</p></li><li class="sw-step sw-rise"><i><svg viewBox="0 0 32 32"><path d="M16 4v24M9 28h14M5 8h22"/><path d="M9 8l-4.500 9a4.500 4.500 0 009 0zM23 8l-4.500 9a4.500 4.500 0 009 0z"/></svg></i><small>Step 5 · 0:22</small><h3>Weigh</h3><p>Certified scale and today's live rate.</p></li><li class="sw-step sw-rise is-last"><i><svg viewBox="0 0 32 32"><path d="M4 12L16 4l12 8z"/><path d="M7 12v12M12.500 12v12M19.500 12v12M25 12v12M4 28h24"/></svg></i><small>Step 6 · 0:28</small><h3>Paid</h3><p>Bank transfer to your account. Never cash.</p></li></ol>
-<p class="sw-steps-note sw-center">You can stop at any step and take your gold home. No fee.</p></div></div></section><section class="section sw" style="background:#ffffff;--pad:140px;--pad-sm:80px"><div class="row"><div class="col large-12"><div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">We buy. We don't sell.</h2><p class="sw-sub">That one difference changes the price you get.</p></div>
+<p class="sw-num" data-count="91.6" data-decimals="1" data-suffix="%" aria-label="91.6 percent">91.6%</p>
+<p class="sw-sub sw-rise">X-ray tested in front of you.</p>
+</div></div></div></section><section class="section sw" style="background:#ffffff;--pad:130px;--pad-sm:80px"><div class="row"><div class="col large-12"><div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">Six steps.<br>30 minutes.</h2></div>
+<ol class="sw-steps"><li class="sw-step sw-rise"><i><svg viewBox="0 0 32 32"><path d="M8 3h11l5 5v21H8z"/><path d="M19 3v5h5M12 13h8M12 17h8M12 25c2-2.500 3 1.500 5-.500s2.500 1 4 0"/></svg></i><small>0:00</small><h3>Consent</h3></li><li class="sw-step sw-rise"><i><svg viewBox="0 0 32 32"><path d="M5 19h22v6a2 2 0 01-2 2H7a2 2 0 01-2-2z"/><path d="M9 19c0-4.500 3.500-5 3.500-9M17 19c0-4.500 3.500-5 3.500-9"/><circle cx="12.500" cy="6" r="1.300"/><circle cx="20.500" cy="5" r="1"/></svg></i><small>0:05</small><h3>Clean</h3></li><li class="sw-step sw-rise"><i><svg viewBox="0 0 32 32"><path d="M7 15h18l-2.500 12h-13z"/><path d="M16 3c1 3.500 4.500 4.500 4.500 8a4.500 4.500 0 01-9 0c0-2 1-3 2-4 0 1.500.500 2 1 2 .500-2 .500-4 1.500-6z"/></svg></i><small>0:10</small><h3>Melt</h3></li><li class="sw-step sw-rise"><i><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="3.500"/><path d="M16 2v5M16 25v5M2 16h5M25 16h5"/></svg></i><small>0:18</small><h3>Test</h3></li><li class="sw-step sw-rise"><i><svg viewBox="0 0 32 32"><path d="M16 4v24M9 28h14M5 8h22"/><path d="M9 8l-4.500 9a4.500 4.500 0 009 0zM23 8l-4.500 9a4.500 4.500 0 009 0z"/></svg></i><small>0:22</small><h3>Weigh</h3></li><li class="sw-step sw-rise is-last"><i><svg viewBox="0 0 32 32"><path d="M4 12L16 4l12 8z"/><path d="M7 12v12M12.500 12v12M19.500 12v12M25 12v12M4 28h24"/></svg></i><small>0:28</small><h3>Paid</h3></li></ol></div></div></section><section class="section sw sw-warm" style="background:#F7F2EE;--pad:130px;--pad-sm:80px"><div class="row"><div class="col large-12"><div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">We buy.<br>We don't sell.</h2></div>
 <div class="sw-vs">
-<div class="sw-rise"><h3>A jewellery shop<small>Buys old gold to sell you new jewellery</small></h3><ul><li>Better offers if you buy something new</li><li>Often deducts for melting and wastage</li><li>Purity often checked by eye or touchstone</li><li>Often paid in cash or store credit</li></ul></div>
-<div class="is-us sw-rise"><h3>Swarnalok<small>Buys gold. Only.</small></h3><ul><li>Nothing to sell you, so nothing to push</li><li>Live market rate, ₹0 hidden deductions</li><li>X-ray purity test in front of you</li><li>Bank transfer with a signed receipt</li></ul></div>
-</div></div></div></section><section class="section sw sw-snow" style="background:#F5F5F7;--pad:140px;--pad-sm:80px"><div class="row"><div class="col large-12"><span id="sw-value" class="sw-anchor"></span><div class="sw-center sw-stack"><p class="sw-eyebrow">At today's live rate</p><h2 class="sw-h2 sw-rise">What is yours worth?</h2></div>
+<div class="sw-rise"><h3>Jewellery shop</h3><ul><li>Wants to sell you new</li><li>Often deducts wastage</li><li>Often cash or credit</li></ul></div>
+<div class="is-us sw-rise"><h3>Swarnalok</h3><ul><li>Nothing to sell you</li><li>₹0 deductions</li><li>Bank transfer</li></ul></div>
+</div></div></div></section><section class="section sw" style="background:#ffffff;--pad:130px;--pad-sm:80px"><div class="row"><div class="col large-12"><span id="sw-value" class="sw-anchor"></span>
+<div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">What is yours worth?</h2></div>
 <form class="sw-calc" onsubmit="return false">
 <output id="sw-estimate" for="sw-grams">…</output>
 <div class="sw-seg" role="radiogroup" aria-label="Purity"><input type="radio" name="sw-k" id="sw-k24" value="24"><label for="sw-k24">24K</label><input type="radio" name="sw-k" id="sw-k22" value="22" checked><label for="sw-k22">22K</label><input type="radio" name="sw-k" id="sw-k18" value="18"><label for="sw-k18">18K</label><input type="radio" name="sw-k" id="sw-k14" value="14"><label for="sw-k14">14K</label></div>
 <div class="sw-stepper"><button type="button" id="sw-minus" aria-label="Less weight">−</button><label class="sw-grams"><input id="sw-grams" type="number" inputmode="decimal" min="0" step="0.5" value="20" aria-label="Weight in grams"><span>grams</span></label><button type="button" id="sw-plus" aria-label="More weight">+</button></div>
-<button class="sw-btn is-gold" type="button" id="sw-calc-wa">Get this price on WhatsApp</button>
-<p class="sw-fine">An estimate at the live rate. The final amount is set after the X-ray purity test and weighing at our office.</p>
-</form></div></div></section><section class="section sw" style="background:#ffffff;--pad:140px;--pad-sm:80px"><div class="row"><div class="col large-12"><div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">Bring four things.</h2><p class="sw-sub">We can't buy without all four. It keeps you and us safe.</p></div>
-<ul class="sw-bring"><li class="sw-rise"><i><svg viewBox="0 0 64 64"><ellipse class="g" cx="32" cy="38" rx="19" ry="17"/><ellipse class="g" cx="32" cy="38" rx="14" ry="12.500"/><path class="g" d="M26 20l6-10 6 10"/></svg></i>Your gold</li><li class="sw-rise"><i><svg viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="5"/><path d="M14 24h18M14 31h12M14 40h22"/><rect x="40" y="22" width="11" height="14" rx="2"/></svg></i>PAN card</li><li class="sw-rise"><i><svg viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="5"/><circle cx="21" cy="29" r="5"/><path d="M13 42c2-5 14-5 16 0M36 25h14M36 32h14M36 39h9"/></svg></i>Aadhaar</li><li class="sw-rise"><i><svg viewBox="0 0 64 64"><path d="M8 26L32 10l24 16z"/><path d="M14 26v20M26 26v20M38 26v20M50 26v20M8 52h48"/></svg></i>Bank account in your name</li></ul></div></div></section><section class="section sw sw-dark" style="background:#000000;--pad:140px;--pad-sm:80px"><div class="row"><div class="col large-12"><div class="sw-visit">
-<div class="sw-copy sw-stack"><p class="sw-eyebrow">Jakkur, North Bengaluru</p><h2 class="sw-h2 sw-rise">Come by.<br>Leave paid.</h2><p class="sw-sub">Serving Jakkur, Yelahanka, Hebbal, Thanisandra and homes within 8 km.</p>
-<div class="sw-actions" style="margin-top:10px"><a class="sw-btn is-gold" href="tel:+919815303553"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1z"/></svg> Call +91 98153 03553</a><a class="sw-link" href="#" data-sw-open-wa>WhatsApp us</a></div></div>
-<dl><div><dt>Hours</dt><dd>Mon to Sat, 12:30 to 18:00<br><span class="sw-open" data-sw-hours></span></dd></div><div><dt>Phone</dt><dd>+91 98153 03553</dd></div><div><dt>Email</dt><dd>hello@jumpkingindia.com</dd></div><div><dt>Office</dt><dd>Jakkur, Bengaluru 560064</dd></div><div><dt>Payment</dt><dd>Bank transfer only</dd></div></dl>
-</div></div></div></section><section class="section sw sw-snow sw-legal" style="background:#F5F5F7;--pad:34px;--pad-sm:28px"><div class="row"><div class="col large-12"><nav aria-label="Policies"><a href="/terms-and-conditions/">Terms and Conditions</a><a href="/privacy-policy/">Privacy Policy</a><a href="/kyc-aml-policy/">KYC and Anti-Money Laundering</a><a href="/anti-fraud-policy/">Stolen Property and Anti-Fraud</a><a href="/pricing-payment-policy/">Pricing and Payment</a></nav>
-<p>Rates shown are live estimates. Every purchase needs a signed consent form, PAN and Aadhaar, and is paid only by bank transfer to an account in the seller's name. We do not buy from anyone under 18, and we report suspected stolen property to the police.</p>
-<p class="sw-copy-line"><span>© <span class="sw-year">2026</span> Swarnalok. A unit of Jumpking International LLP.</span><span>swarnalok.com</span></p></div></div></section>
+<button class="sw-btn" type="button" id="sw-calc-wa">Get this on WhatsApp</button>
+<p class="sw-fine">Estimate. Final price after the X-ray test.</p>
+</form></div></div></section><section class="section sw sw-warm" style="background:#F7F2EE;--pad:130px;--pad-sm:80px"><div class="row"><div class="col large-12"><div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">Bring four things.</h2></div>
+<ul class="sw-bring"><li class="sw-rise"><i><svg viewBox="0 0 64 64"><ellipse class="g" cx="32" cy="38" rx="19" ry="17"/><ellipse class="g" cx="32" cy="38" rx="14" ry="12.500"/><path class="g" d="M26 20l6-10 6 10"/></svg></i>Gold</li><li class="sw-rise"><i><svg viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="5"/><path d="M14 24h18M14 31h12M14 40h22"/><rect x="40" y="22" width="11" height="14" rx="2"/></svg></i>PAN</li><li class="sw-rise"><i><svg viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="5"/><circle cx="21" cy="29" r="5"/><path d="M13 42c2-5 14-5 16 0M36 25h14M36 32h14M36 39h9"/></svg></i>Aadhaar</li><li class="sw-rise"><i><svg viewBox="0 0 64 64"><path d="M8 26L32 10l24 16z"/><path d="M14 26v20M26 26v20M38 26v20M50 26v20M8 52h48"/></svg></i>Bank account</li></ul></div></div></section><section class="section sw sw-dark" style="background:#1E1512;--pad:130px;--pad-sm:80px"><div class="row"><div class="col large-12"><div class="sw-visit">
+<div class="sw-copy sw-stack"><h2 class="sw-h2 sw-rise">Come by.<br>Leave paid.</h2>
+<div class="sw-actions"><a class="sw-btn" href="tel:+919815303553"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1z"/></svg> Call +91 98153 03553</a><a class="sw-link" href="#" data-sw-open-wa>WhatsApp</a></div></div>
+<dl><div><dt>Hours</dt><dd>Mon to Sat · 12:30 to 18:00<br><span class="sw-open" data-sw-hours></span></dd></div><div><dt>Phone</dt><dd>+91 98153 03553</dd></div><div><dt>Email</dt><dd>hello@jumpkingindia.com</dd></div><div><dt>Office</dt><dd>Jakkur, Bengaluru 560064</dd></div></dl>
+</div></div></div></section><section class="section sw sw-warm sw-legal" style="background:#F7F2EE;--pad:30px;--pad-sm:26px"><div class="row"><div class="col large-12"><nav aria-label="Policies"><a href="/terms-and-conditions/">Terms</a><a href="/privacy-policy/">Privacy</a><a href="/kyc-aml-policy/">KYC and AML</a><a href="/anti-fraud-policy/">Anti-fraud</a><a href="/pricing-payment-policy/">Pricing and payment</a></nav>
+<p class="sw-copy-line"><span>© <span class="sw-year">2026</span> Swarnalok. A unit of Jumpking International LLP.</span><span>Live rates are estimates.</span></p></div></div></section>
 <script>/*!
  * Swarnalok site script (sitewide). Paste into Custom CSS & JS as a JavaScript
  * file: Linking type "Internal", Where on page "Footer", Where in site "In Frontend".
@@ -378,6 +391,22 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
   SW.config = CFG;
 
   var inr = function (n) { return '₹' + Math.round(n).toLocaleString('en-IN'); };
+  var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // numbers glide from their last value (or zero) to the new one
+  function tweenTo(el, to, fmt, ms) {
+    fmt = fmt || inr;
+    var from = el._swv == null ? 0 : el._swv;
+    el._swv = to;
+    if (REDUCE || from === to) { el.textContent = fmt(to); return; }
+    var t0 = performance.now(), dur = ms || (from === 0 ? 1400 : 700);
+    cancelAnimationFrame(el._swraf);
+    (function step(t) {
+      var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = fmt(from + (to - from) * e);
+      if (k < 1) el._swraf = requestAnimationFrame(step);
+    })(t0);
+  }
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
@@ -424,7 +453,7 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
         return;
       }
       if (key === 'status') { el.classList.toggle('is-live', !!r && !SW.rateError); return; }
-      if (r && r[key] != null) el.textContent = inr(r[key]);
+      if (r && r[key] != null) tweenTo(el, r[key]);
       else if (!r) el.textContent = SW.rateError ? 'Call us' : '…';
     });
     calc();
@@ -452,7 +481,7 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
     var g = Math.max(0, parseFloat(($('#sw-grams', box) || {}).value) || 0);
     var out = $('#sw-estimate', box);
     if (!SW.rates) { out.textContent = SW.rateError ? 'Call for price' : '…'; return; }
-    out.textContent = inr(g * SW.rates['p' + k + '_1']);
+    tweenTo(out, g * SW.rates['p' + k + '_1'], null, 500);
   }
   function initCalc() {
     var box = $('.sw-calc'); if (!box) return;
@@ -560,7 +589,7 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
 
     // rotating bubble text
     var bi = 0;
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!REDUCE) {
       setInterval(function () {
         if (dock.classList.contains('is-open')) return;
         bubble.classList.add('is-out');
@@ -569,13 +598,66 @@ body{margin:0;background:#fff;overflow-x:hidden}*{box-sizing:border-box}
     }
   }
 
+
+  // ---------- count-up numbers (e.g. 91.6%) when they scroll into view ----------
+  function initCount() {
+    var els = $$('[data-count]'); if (!els.length || REDUCE || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        var el = e.target, to = parseFloat(el.getAttribute('data-count')), d = +(el.getAttribute('data-decimals') || 0), suf = el.getAttribute('data-suffix') || '';
+        el._swv = 0;
+        tweenTo(el, to, function (v) { return v.toFixed(d) + suf; }, 1800);
+      });
+    }, { threshold: .5 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  // ---------- ring that turns and drifts as you scroll ----------
+  function initSpin() {
+    var box = $('.sw-spin'); if (!box || REDUCE) return;
+    var base = box.getAttribute('data-frames'), cv = $('canvas', box), cx = cv.getContext('2d');
+    var N = 48, frames = [], loaded = 0, cur = -1, intro = 0;
+    var wrap = box.closest('[data-sw-parallax]'), speed = wrap ? parseFloat(wrap.getAttribute('data-sw-parallax')) : 0;
+    function draw(i) { i = ((i % N) + N) % N; if (i === cur || !frames[i] || !frames[i].complete) return; cur = i; cx.clearRect(0, 0, cv.width, cv.height); cx.drawImage(frames[i], 0, 0, cv.width, cv.height); }
+    function frameFor() { return Math.round(window.scrollY / 14 + intro); }
+    function parallax() { if (wrap) wrap.style.transform = 'translate3d(0,' + (-window.scrollY * speed).toFixed(1) + 'px,0)'; }
+    for (var i = 0; i < N; i++) {
+      var im = new Image(); im.decoding = 'async';
+      im.onload = function () { if (++loaded === N) start(); };
+      im.src = base + (i < 10 ? '0' : '') + i + '.webp';
+      frames.push(im);
+    }
+    function start() {
+      box.classList.add('is-live');
+      var t0 = performance.now();
+      (function introSpin(t) { var k = Math.min(1, (t - t0) / 1800); intro = Math.round((1 - Math.pow(1 - k, 3)) * N) - N; draw(frameFor()); if (k < 1) requestAnimationFrame(introSpin); else intro = 0; })(t0);
+      var ticking = false;
+      window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { draw(frameFor()); parallax(); ticking = false; }); } }, { passive: true });
+      parallax();
+    }
+  }
+
+  // ---------- back to top (bottom left) ----------
+  function initTop() {
+    if ($('.sw-top')) return;
+    var b = document.createElement('button');
+    b.className = 'sw-top'; b.type = 'button'; b.setAttribute('aria-label', 'Back to top');
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+    document.body.appendChild(b);
+    b.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: REDUCE ? 'auto' : 'smooth' }); });
+    function show() { b.classList.toggle('is-on', window.scrollY > 600); }
+    window.addEventListener('scroll', show, { passive: true }); show();
+  }
+
   // ---------- small extras ----------
   function initRail() {
     $$('.sw-year').forEach(function (e) { e.textContent = new Date().getFullYear(); });
   }
 
   function init() {
-    buildDock(); initCalc(); initRail(); paintHours(); paint();
+    buildDock(); initTop(); initCalc(); initRail(); initCount(); initSpin(); paintHours(); paint();
     refresh().then(schedule);
     setInterval(paintHours, 60000);
   }

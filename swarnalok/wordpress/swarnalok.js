@@ -30,6 +30,22 @@
   SW.config = CFG;
 
   var inr = function (n) { return '₹' + Math.round(n).toLocaleString('en-IN'); };
+  var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // numbers glide from their last value (or zero) to the new one
+  function tweenTo(el, to, fmt, ms) {
+    fmt = fmt || inr;
+    var from = el._swv == null ? 0 : el._swv;
+    el._swv = to;
+    if (REDUCE || from === to) { el.textContent = fmt(to); return; }
+    var t0 = performance.now(), dur = ms || (from === 0 ? 1400 : 700);
+    cancelAnimationFrame(el._swraf);
+    (function step(t) {
+      var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = fmt(from + (to - from) * e);
+      if (k < 1) el._swraf = requestAnimationFrame(step);
+    })(t0);
+  }
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
@@ -76,7 +92,7 @@
         return;
       }
       if (key === 'status') { el.classList.toggle('is-live', !!r && !SW.rateError); return; }
-      if (r && r[key] != null) el.textContent = inr(r[key]);
+      if (r && r[key] != null) tweenTo(el, r[key]);
       else if (!r) el.textContent = SW.rateError ? 'Call us' : '…';
     });
     calc();
@@ -104,7 +120,7 @@
     var g = Math.max(0, parseFloat(($('#sw-grams', box) || {}).value) || 0);
     var out = $('#sw-estimate', box);
     if (!SW.rates) { out.textContent = SW.rateError ? 'Call for price' : '…'; return; }
-    out.textContent = inr(g * SW.rates['p' + k + '_1']);
+    tweenTo(out, g * SW.rates['p' + k + '_1'], null, 500);
   }
   function initCalc() {
     var box = $('.sw-calc'); if (!box) return;
@@ -212,7 +228,7 @@
 
     // rotating bubble text
     var bi = 0;
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!REDUCE) {
       setInterval(function () {
         if (dock.classList.contains('is-open')) return;
         bubble.classList.add('is-out');
@@ -221,13 +237,66 @@
     }
   }
 
+
+  // ---------- count-up numbers (e.g. 91.6%) when they scroll into view ----------
+  function initCount() {
+    var els = $$('[data-count]'); if (!els.length || REDUCE || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        var el = e.target, to = parseFloat(el.getAttribute('data-count')), d = +(el.getAttribute('data-decimals') || 0), suf = el.getAttribute('data-suffix') || '';
+        el._swv = 0;
+        tweenTo(el, to, function (v) { return v.toFixed(d) + suf; }, 1800);
+      });
+    }, { threshold: .5 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  // ---------- ring that turns and drifts as you scroll ----------
+  function initSpin() {
+    var box = $('.sw-spin'); if (!box || REDUCE) return;
+    var base = box.getAttribute('data-frames'), cv = $('canvas', box), cx = cv.getContext('2d');
+    var N = 48, frames = [], loaded = 0, cur = -1, intro = 0;
+    var wrap = box.closest('[data-sw-parallax]'), speed = wrap ? parseFloat(wrap.getAttribute('data-sw-parallax')) : 0;
+    function draw(i) { i = ((i % N) + N) % N; if (i === cur || !frames[i] || !frames[i].complete) return; cur = i; cx.clearRect(0, 0, cv.width, cv.height); cx.drawImage(frames[i], 0, 0, cv.width, cv.height); }
+    function frameFor() { return Math.round(window.scrollY / 14 + intro); }
+    function parallax() { if (wrap) wrap.style.transform = 'translate3d(0,' + (-window.scrollY * speed).toFixed(1) + 'px,0)'; }
+    for (var i = 0; i < N; i++) {
+      var im = new Image(); im.decoding = 'async';
+      im.onload = function () { if (++loaded === N) start(); };
+      im.src = base + (i < 10 ? '0' : '') + i + '.webp';
+      frames.push(im);
+    }
+    function start() {
+      box.classList.add('is-live');
+      var t0 = performance.now();
+      (function introSpin(t) { var k = Math.min(1, (t - t0) / 1800); intro = Math.round((1 - Math.pow(1 - k, 3)) * N) - N; draw(frameFor()); if (k < 1) requestAnimationFrame(introSpin); else intro = 0; })(t0);
+      var ticking = false;
+      window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { draw(frameFor()); parallax(); ticking = false; }); } }, { passive: true });
+      parallax();
+    }
+  }
+
+  // ---------- back to top (bottom left) ----------
+  function initTop() {
+    if ($('.sw-top')) return;
+    var b = document.createElement('button');
+    b.className = 'sw-top'; b.type = 'button'; b.setAttribute('aria-label', 'Back to top');
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+    document.body.appendChild(b);
+    b.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: REDUCE ? 'auto' : 'smooth' }); });
+    function show() { b.classList.toggle('is-on', window.scrollY > 600); }
+    window.addEventListener('scroll', show, { passive: true }); show();
+  }
+
   // ---------- small extras ----------
   function initRail() {
     $$('.sw-year').forEach(function (e) { e.textContent = new Date().getFullYear(); });
   }
 
   function init() {
-    buildDock(); initCalc(); initRail(); paintHours(); paint();
+    buildDock(); initTop(); initCalc(); initRail(); initCount(); initSpin(); paintHours(); paint();
     refresh().then(schedule);
     setInterval(paintHours, 60000);
   }

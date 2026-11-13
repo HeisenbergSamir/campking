@@ -40,143 +40,137 @@ def img(name, alt, w, h, cls=""):
 
 # ---- page model: list of sections; each section = (section attrs, [rows]); row = (row attrs, [cols]); col = (span, html) ----
 S = []
+WHITE, WARM, DARK, TERRA = "#ffffff", "#F7F2EE", "#1E1512", "#A9512F"
 
-# 1. HERO: short copy, model photo with the ring and a live price card
-S.append(('bg_color="#ffffff" padding="56px" padding__sm="24px" class="sw sw-hero"', [
+# 1. HERO
+S.append((f'bg_color="{WHITE}" padding="56px" padding__sm="24px" class="sw sw-hero"', [
   ('width="custom" custom_width="1600px" v_align="middle"', [
     (6, f"""<div class="sw-hero-copy">
-<p class="sw-kicker">Old gold buyers · North Bengaluru</p>
+<p class="sw-kicker">Old gold buyers · Bengaluru North</p>
 <h1 class="sw-h1">We only<br>buy gold.</h1>
-<p class="sw-lead">Live price. Tested before you.<br>Paid in 30 minutes.</p>
+<p class="sw-lead">Live price. Paid in 30 minutes.</p>
 <ul class="sw-places"><li><span class="sw-pin">{I["pin"]}</span>Jakkur</li><li>Yelahanka</li><li>Hebbal</li><li>Thanisandra</li></ul>
-<div class="sw-actions"><a class="sw-btn" href="#sw-price">See today's price</a><a class="sw-link" href="tel:{PHONE}">Call {PHONE_LABEL}</a></div>
+<div class="sw-actions"><a class="sw-btn" href="#sw-price">Today's price</a><a class="sw-link" href="tel:{PHONE}">Call {PHONE_LABEL}</a></div>
 </div>"""),
     (6, f"""<div class="sw-visual">
 <figure class="sw-photo">{img("sw-hero-model.webp","A woman wearing a gold pendant and ring",1200,1500)}</figure>
-<div class="sw-ratecard"><small><span class="sw-pulse" data-sw="status"></span>Live · 24K per 10 g</small><strong data-sw="p24_10">…</strong><span>We pay today</span></div>
-<img class="sw-ring-float" src="{{IMG}}sw-ring.webp" alt="" width="1400" height="1204">
+<div class="sw-ratecard"><small><span class="sw-pulse" data-sw="status"></span>Live · 24K · 10 g</small><strong data-sw="p24_10">…</strong></div>
+<div class="sw-ring-wrap" data-sw-parallax="0.18"><div class="sw-ring-float sw-spin" data-frames="{{IMG}}sw-spin-"><img src="{{IMG}}sw-spin-00.webp" alt="" width="800" height="688"><canvas width="800" height="688" aria-hidden="true"></canvas></div></div>
 </div>"""),
   ]),
 ]))
 
-# 1b. TRUST BAND: five promises, two or three words each
-S.append(('bg_color="#F5F5F7" padding="26px" padding__sm="22px" class="sw sw-snow sw-band"', [
+# 2. PROMISES
+S.append((f'bg_color="{WARM}" padding="26px" padding__sm="22px" class="sw sw-warm sw-band"', [
   ('width="custom" custom_width="1600px"', [
     (12, f"""<ul class="sw-proof">
 <li><i>{I["near"]}</i><b>10 min away</b></li>
-<li><i>{I["rate"]}</i><b>Live market rate</b></li>
+<li><i>{I["rate"]}</i><b>Live rate</b></li>
 <li><i>{I["eye"]}</i><b>X-ray tested</b></li>
 <li><i>{I["clock"]}</i><b>Paid in 30 min</b></li>
-<li><i>{I["shield"]}</i><b>KYC, bank only</b></li>
+<li><i>{I["shield"]}</i><b>Bank transfer only</b></li>
 </ul>"""),
   ]),
 ]))
 
-# 2. LIVE RATES
-S.append(('bg_color="#F5F5F7" padding="130px" padding__sm="70px" class="sw sw-snow"', [
+# 3. LIVE RATES
+S.append((f'bg_color="{WHITE}" padding="120px" padding__sm="70px" class="sw"', [
   ('width="custom" custom_width="1600px"', [
-    (12, '''<span id="sw-price" class="sw-anchor"></span><div class="sw-center sw-stack"><p class="sw-eyebrow">Today's buying price</p><h2 class="sw-h2 sw-rise">What we pay, right now.</h2></div>
+    (12, """<span id="sw-price" class="sw-anchor"></span>
+<div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">Today's price.</h2></div>
 <div class="sw-rates">
-<div class="sw-rate is-main sw-rise"><h3>24K · 999</h3><strong data-sw="p24_10">…</strong><span>per 10 g · <b data-sw="p24_1">…</b>/g</span></div>
-<div class="sw-rate sw-rise"><h3>22K · 916</h3><strong data-sw="p22_10">…</strong><span>per 10 g · <b data-sw="p22_1">…</b>/g</span></div>
-<div class="sw-rate sw-rise"><h3>18K · 750</h3><strong data-sw="p18_10">…</strong><span>per 10 g · <b data-sw="p18_1">…</b>/g</span></div>
+<div class="sw-rate is-main sw-rise"><h3>24K</h3><strong data-sw="p24_10">…</strong><span>per 10 g</span></div>
+<div class="sw-rate sw-rise"><h3>22K</h3><strong data-sw="p22_10">…</strong><span>per 10 g</span></div>
+<div class="sw-rate sw-rise"><h3>18K</h3><strong data-sw="p18_10">…</strong><span>per 10 g</span></div>
 </div>
-<div class="sw-rate-meta"><span><span class="sw-pulse" data-sw="status"></span><span data-sw="updated">Fetching live price</span></span><span>Refreshes every minute</span></div>
-<p class="sw-how sw-center">How we price: the international gold price, plus Indian customs duty, less ₹5,000 per 10 g. No GST, shipping or insurance is added. Your final amount is set by the X-ray purity and exact weight of your gold.</p>'''),
+<div class="sw-rate-meta"><span><span class="sw-pulse" data-sw="status"></span><span data-sw="updated">Fetching live price</span></span><span>International rate + customs − ₹5,000 per 10 g</span></div>"""),
   ]),
 ]))
 
-# 2b. MODEL EDITORIAL
-S.append(('bg_color="#0C0B0A" padding="0px" padding__sm="0px" class="sw sw-dark sw-model"', [
+# 4. MODEL
+S.append((f'bg_color="{DARK}" padding="0px" padding__sm="0px" class="sw sw-dark sw-model"', [
   ('width="full-width" v_align="middle" col_style="collapse"', [
     (6, img("sw-model-main.webp","A model in black",1200,1500,"sw-model-img")),
     (6, f"""<div class="sw-model-copy">
 <p class="sw-eyebrow">Worn with love</p>
 <h2 class="sw-h2 sw-rise">Valued with<br>honesty.</h2>
-<p class="sw-sub sw-rise">Every piece has a story. We handle yours with care, on camera, and pay its true worth.</p>
 <div class="sw-details">{img("sw-model-ear.webp","Gold hoop earring and chain",800,1000,"sw-rise")}{img("sw-model-hands.webp","Gold rings and bracelet",800,1000,"sw-rise")}</div>
 </div>"""),
   ]),
 ]))
 
-# 3. PURITY
-S.append(('bg_color="#000000" padding="140px" padding__sm="80px" class="sw sw-dark"', [
+# 5. PURITY
+S.append((f'bg_color="{TERRA}" padding="130px" padding__sm="80px" class="sw sw-terra"', [
   ('width="custom" custom_width="1600px"', [
-    (12, '''<div class="sw-center sw-stack">
+    (12, """<div class="sw-center sw-stack">
 <h2 class="sw-h2 sw-rise">We don't guess.</h2>
-<p class="sw-num sw-gold sw-rise" aria-label="91.6 percent">91.6%</p>
-<p class="sw-sub sw-rise">An X-ray reads the purity at up to four points. On a screen you can see.</p>
-<ul class="sw-readings sw-rise" aria-label="Sample reading"><li>Gold<b>91.62</b></li><li>Copper<b>5.10</b></li><li>Silver<b>2.90</b></li><li>Zinc<b>0.38</b></li></ul>
-</div>'''),
+<p class="sw-num" data-count="91.6" data-decimals="1" data-suffix="%" aria-label="91.6 percent">91.6%</p>
+<p class="sw-sub sw-rise">X-ray tested in front of you.</p>
+</div>"""),
   ]),
 ]))
 
-# 4. STEPS
-steps = [("sign","0:00","Consent","You sign the form. We record the handover."),
-         ("clean","0:05","Clean","Ultrasonic wash removes dirt, so only metal is weighed."),
-         ("melt","0:10","Melt","One even bar. Solder and alloys can't hide."),
-         ("xrf","0:18","Test","X-ray purity at 2 to 4 points, on screen."),
-         ("scale","0:22","Weigh","Certified scale and today's live rate."),
-         ("bank","0:28","Paid","Bank transfer to your account. Never cash.")]
-tiles = "".join(f'<li class="sw-step sw-rise{" is-last" if i==5 else ""}"><i>{I[ic]}</i><small>Step {i+1} · {t}</small><h3>{h}</h3><p>{p}</p></li>' for i,(ic,t,h,p) in enumerate(steps))
-S.append(('bg_color="#ffffff" padding="140px" padding__sm="80px" class="sw"', [
+# 6. STEPS
+steps = [("sign", "0:00", "Consent"), ("clean", "0:05", "Clean"), ("melt", "0:10", "Melt"),
+         ("xrf", "0:18", "Test"), ("scale", "0:22", "Weigh"), ("bank", "0:28", "Paid")]
+tiles = "".join(f'<li class="sw-step sw-rise{" is-last" if i == 5 else ""}"><i>{I[ic]}</i><small>{t}</small><h3>{h}</h3></li>' for i, (ic, t, h) in enumerate(steps))
+S.append((f'bg_color="{WHITE}" padding="130px" padding__sm="80px" class="sw"', [
   ('width="custom" custom_width="1600px"', [
-    (12, f'''<div class="sw-center sw-stack"><p class="sw-eyebrow">About 30 minutes, start to finish</p><h2 class="sw-h2 sw-rise">Six steps. All at the counter.</h2></div>
-<ol class="sw-steps">{tiles}</ol>
-<p class="sw-steps-note sw-center">You can stop at any step and take your gold home. No fee.</p>'''),
+    (12, f"""<div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">Six steps.<br>30 minutes.</h2></div>
+<ol class="sw-steps">{tiles}</ol>"""),
   ]),
 ]))
 
-# 6. COMPARE
-S.append(('bg_color="#ffffff" padding="140px" padding__sm="80px" class="sw"', [
+# 7. COMPARE
+S.append((f'bg_color="{WARM}" padding="130px" padding__sm="80px" class="sw sw-warm"', [
   ('width="custom" custom_width="1600px"', [
-    (12, '''<div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">We buy. We don't sell.</h2><p class="sw-sub">That one difference changes the price you get.</p></div>
+    (12, """<div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">We buy.<br>We don't sell.</h2></div>
 <div class="sw-vs">
-<div class="sw-rise"><h3>A jewellery shop<small>Buys old gold to sell you new jewellery</small></h3><ul><li>Better offers if you buy something new</li><li>Often deducts for melting and wastage</li><li>Purity often checked by eye or touchstone</li><li>Often paid in cash or store credit</li></ul></div>
-<div class="is-us sw-rise"><h3>Swarnalok<small>Buys gold. Only.</small></h3><ul><li>Nothing to sell you, so nothing to push</li><li>Live market rate, ₹0 hidden deductions</li><li>X-ray purity test in front of you</li><li>Bank transfer with a signed receipt</li></ul></div>
-</div>'''),
+<div class="sw-rise"><h3>Jewellery shop</h3><ul><li>Wants to sell you new</li><li>Often deducts wastage</li><li>Often cash or credit</li></ul></div>
+<div class="is-us sw-rise"><h3>Swarnalok</h3><ul><li>Nothing to sell you</li><li>₹0 deductions</li><li>Bank transfer</li></ul></div>
+</div>"""),
   ]),
 ]))
 
-# 7. CALCULATOR
-S.append(('bg_color="#F5F5F7" padding="140px" padding__sm="80px" class="sw sw-snow"', [
+# 8. CALCULATOR
+S.append((f'bg_color="{WHITE}" padding="130px" padding__sm="80px" class="sw"', [
   ('width="custom" custom_width="1600px"', [
-    (12, '''<span id="sw-value" class="sw-anchor"></span><div class="sw-center sw-stack"><p class="sw-eyebrow">At today's live rate</p><h2 class="sw-h2 sw-rise">What is yours worth?</h2></div>
+    (12, """<span id="sw-value" class="sw-anchor"></span>
+<div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">What is yours worth?</h2></div>
 <form class="sw-calc" onsubmit="return false">
 <output id="sw-estimate" for="sw-grams">…</output>
 <div class="sw-seg" role="radiogroup" aria-label="Purity"><input type="radio" name="sw-k" id="sw-k24" value="24"><label for="sw-k24">24K</label><input type="radio" name="sw-k" id="sw-k22" value="22" checked><label for="sw-k22">22K</label><input type="radio" name="sw-k" id="sw-k18" value="18"><label for="sw-k18">18K</label><input type="radio" name="sw-k" id="sw-k14" value="14"><label for="sw-k14">14K</label></div>
 <div class="sw-stepper"><button type="button" id="sw-minus" aria-label="Less weight">−</button><label class="sw-grams"><input id="sw-grams" type="number" inputmode="decimal" min="0" step="0.5" value="20" aria-label="Weight in grams"><span>grams</span></label><button type="button" id="sw-plus" aria-label="More weight">+</button></div>
-<button class="sw-btn is-gold" type="button" id="sw-calc-wa">Get this price on WhatsApp</button>
-<p class="sw-fine">An estimate at the live rate. The final amount is set after the X-ray purity test and weighing at our office.</p>
-</form>'''),
+<button class="sw-btn" type="button" id="sw-calc-wa">Get this on WhatsApp</button>
+<p class="sw-fine">Estimate. Final price after the X-ray test.</p>
+</form>"""),
   ]),
 ]))
 
-# 8. BRING
-S.append(('bg_color="#ffffff" padding="140px" padding__sm="80px" class="sw"', [
+# 9. BRING
+S.append((f'bg_color="{WARM}" padding="130px" padding__sm="80px" class="sw sw-warm"', [
   ('width="custom" custom_width="1600px"', [
-    (12, f'''<div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">Bring four things.</h2><p class="sw-sub">We can't buy without all four. It keeps you and us safe.</p></div>
-<ul class="sw-bring"><li class="sw-rise"><i>{I["ring"]}</i>Your gold</li><li class="sw-rise"><i>{I["pan"]}</i>PAN card</li><li class="sw-rise"><i>{I["aadhaar"]}</i>Aadhaar</li><li class="sw-rise"><i>{I["acct"]}</i>Bank account in your name</li></ul>'''),
+    (12, f"""<div class="sw-center sw-stack"><h2 class="sw-h2 sw-rise">Bring four things.</h2></div>
+<ul class="sw-bring"><li class="sw-rise"><i>{I["ring"]}</i>Gold</li><li class="sw-rise"><i>{I["pan"]}</i>PAN</li><li class="sw-rise"><i>{I["aadhaar"]}</i>Aadhaar</li><li class="sw-rise"><i>{I["acct"]}</i>Bank account</li></ul>"""),
   ]),
 ]))
 
-# 9. VISIT
-S.append(('bg_color="#000000" padding="140px" padding__sm="80px" class="sw sw-dark"', [
+# 10. VISIT
+S.append((f'bg_color="{DARK}" padding="130px" padding__sm="80px" class="sw sw-dark"', [
   ('width="custom" custom_width="1600px"', [
-    (12, f'''<div class="sw-visit">
-<div class="sw-copy sw-stack"><p class="sw-eyebrow">Jakkur, North Bengaluru</p><h2 class="sw-h2 sw-rise">Come by.<br>Leave paid.</h2><p class="sw-sub">Serving Jakkur, Yelahanka, Hebbal, Thanisandra and homes within 8 km.</p>
-<div class="sw-actions" style="margin-top:10px"><a class="sw-btn is-gold" href="tel:{PHONE}">{I["phone"]} Call {PHONE_LABEL}</a><a class="sw-link" href="#" data-sw-open-wa>WhatsApp us</a></div></div>
-<dl><div><dt>Hours</dt><dd>Mon to Sat, 12:30 to 18:00<br><span class="sw-open" data-sw-hours></span></dd></div><div><dt>Phone</dt><dd>{PHONE_LABEL}</dd></div><div><dt>Email</dt><dd>{EMAIL}</dd></div><div><dt>Office</dt><dd>Jakkur, Bengaluru 560064</dd></div><div><dt>Payment</dt><dd>Bank transfer only</dd></div></dl>
-</div>'''),
+    (12, f"""<div class="sw-visit">
+<div class="sw-copy sw-stack"><h2 class="sw-h2 sw-rise">Come by.<br>Leave paid.</h2>
+<div class="sw-actions"><a class="sw-btn" href="tel:{PHONE}">{I["phone"]} Call {PHONE_LABEL}</a><a class="sw-link" href="#" data-sw-open-wa>WhatsApp</a></div></div>
+<dl><div><dt>Hours</dt><dd>Mon to Sat · 12:30 to 18:00<br><span class="sw-open" data-sw-hours></span></dd></div><div><dt>Phone</dt><dd>{PHONE_LABEL}</dd></div><div><dt>Email</dt><dd>{EMAIL}</dd></div><div><dt>Office</dt><dd>Jakkur, Bengaluru 560064</dd></div></dl>
+</div>"""),
   ]),
 ]))
 
-# 10. LEGAL STRIP
-S.append(('bg_color="#F5F5F7" padding="34px" padding__sm="28px" class="sw sw-snow sw-legal"', [
+# 11. LEGAL
+S.append((f'bg_color="{WARM}" padding="30px" padding__sm="26px" class="sw sw-warm sw-legal"', [
   ('width="custom" custom_width="1600px"', [
-    (12, '''<nav aria-label="Policies"><a href="/terms-and-conditions/">Terms and Conditions</a><a href="/privacy-policy/">Privacy Policy</a><a href="/kyc-aml-policy/">KYC and Anti-Money Laundering</a><a href="/anti-fraud-policy/">Stolen Property and Anti-Fraud</a><a href="/pricing-payment-policy/">Pricing and Payment</a></nav>
-<p>Rates shown are live estimates. Every purchase needs a signed consent form, PAN and Aadhaar, and is paid only by bank transfer to an account in the seller's name. We do not buy from anyone under 18, and we report suspected stolen property to the police.</p>
-<p class="sw-copy-line"><span>© <span class="sw-year">2026</span> Swarnalok. A unit of Jumpking International LLP.</span><span>swarnalok.com</span></p>'''),
+    (12, """<nav aria-label="Policies"><a href="/terms-and-conditions/">Terms</a><a href="/privacy-policy/">Privacy</a><a href="/kyc-aml-policy/">KYC and AML</a><a href="/anti-fraud-policy/">Anti-fraud</a><a href="/pricing-payment-policy/">Pricing and payment</a></nav>
+<p class="sw-copy-line"><span>© <span class="sw-year">2026</span> Swarnalok. A unit of Jumpking International LLP.</span><span>Live rates are estimates.</span></p>"""),
   ]),
 ]))
 
@@ -226,7 +220,7 @@ body{{margin:0;background:#fff;overflow-x:hidden}}*{{box-sizing:border-box}}
 .mock-head{{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,0,0,.08);font-family:"Inter",sans-serif}}
 .mock-head div{{max-width:1600px;margin:auto;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 max(16px,env(safe-area-inset-left,0px))}}
 .mock-head b{{font:500 .85rem "Inter Tight",sans-serif;letter-spacing:.42em;display:flex;align-items:center;gap:10px}}
-.mock-head b i{{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFF6D8 0,#F2CF7A 22%,#C99A3F 58%,#6F4C12 100%)}}
+.mock-head b i{{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFE9DC 0,#E08A62 30%,#A9512F 70%,#6E2E18 100%)}}
 .mock-head nav{{display:flex;gap:28px;font-size:.82rem}}@media(max-width:760px){{.mock-head nav{{display:none}}}}
 .section{{position:relative;padding-block:var(--pad)}}@media(max-width:549px){{.section{{padding-block:var(--pad-sm)}}}}
 .row{{display:flex;flex-wrap:wrap;max-width:1600px;margin:0 auto;width:100%;padding:0 max(1px,env(safe-area-inset-left,0px))}}
