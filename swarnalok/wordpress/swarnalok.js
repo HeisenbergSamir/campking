@@ -75,7 +75,9 @@
 
   function buildRates(spot) {
     var per10g24 = spot.perGram * 10 * (1 + CFG.customsDuty) - CFG.marginPer10g;
-    var out = { at: spot.at, spotPerGram: spot.perGram };
+    var out = { at: spot.at, spotPerGram: spot.perGram,
+      spot_10: spot.perGram * 10, duty_10: spot.perGram * 10 * CFG.customsDuty,
+      gross_10: spot.perGram * 10 * (1 + CFG.customsDuty), margin_10: CFG.marginPer10g };
     Object.keys(CFG.purity).forEach(function (k) {
       out['p' + k + '_10'] = per10g24 * CFG.purity[k];
       out['p' + k + '_1'] = per10g24 * CFG.purity[k] / 10;
@@ -198,6 +200,7 @@
     SW.openWhatsApp = function (pre) {
       pre = pre || {};
       if (pre.grams) $('#sw-wa-grams').value = pre.grams;
+      if (pre.area) { var sel = $('#sw-wa-area'), hit = [].some.call(sel.options, function (o) { return o.text === pre.area; }); sel.value = hit ? pre.area : 'Other area in Bengaluru'; }
       $('#sw-wa-karat').value = pre.karat || '';
       open(true);
     };
@@ -211,8 +214,21 @@
     $('[data-sw-wa-step]', dock).addEventListener('click', function () { open(true); });
     $('.sw-dock__back', dock).addEventListener('click', function () { open(false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    document.addEventListener('click', function (e) { if (!dock.contains(e.target) && !e.target.closest('[data-sw-open-wa]')) close(); });
-    $$('[data-sw-open-wa]').forEach(function (b) { b.addEventListener('click', function (e) { e.preventDefault(); SW.openWhatsApp(); }); });
+    document.addEventListener('click', function (e) { if (!dock.contains(e.target) && !e.target.closest('[data-sw-open-wa],[data-sw-area],[data-sw-karat]')) close(); });
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-sw-area]');
+      if (a) { e.preventDefault(); SW.openWhatsApp({ area: a.getAttribute('data-sw-area') }); return; }
+      var w = e.target.closest('[data-sw-open-wa]');
+      if (w) { e.preventDefault(); SW.openWhatsApp(); return; }
+      var k = e.target.closest('[data-sw-karat]');
+      if (k) {
+        e.preventDefault();
+        var r = document.getElementById('sw-k' + k.getAttribute('data-sw-karat'));
+        if (r) { r.checked = true; calc(); }
+        var v = document.getElementById('sw-value');
+        if (v) v.scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();

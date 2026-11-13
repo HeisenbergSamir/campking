@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Swarnalok Soft</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Swarnalok buys old gold in North Bengaluru. Live price, X-ray purity test in front of you, paid to your bank in about 30 minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+:root{--bg:#EEE8DF;--bg2:#E4DCCF;--ink:#34302A;--ink2:#7A7166;--line:rgba(52,48,42,.12);
+      --acc:#8E7442;--acc-hi:#D8BE8C;--grad:linear-gradient(180deg,#E9D3A6 0%,#C3A16A 50%,#8E7442 100%);
+      --dk:#E4DCCF;--dk-ink:#34302A;--dk-ink2:#7A7166;--btn:#34302A;--btn-ink:#F4EFE7;--chip:#F6F1EA;
+  --display:"Manrope","SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --pad:max(20px,env(safe-area-inset-left,0px));--pad-r:max(20px,env(safe-area-inset-right,0px));
+  /* engine dock and back-to-top, in this theme */
+  --sw-white:#fff;--sw-ink:var(--ink);--sw-terra:var(--btn);--sw-btn:var(--grad);--sw-hair:var(--line);
+  --sw-text:var(--display);--sw-display:var(--display);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 17px/1.5 var(--display);letter-spacing:-.01em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:70;background:var(--bg)}
+img,canvas{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1600px;margin-inline:auto;padding-left:var(--pad);padding-right:var(--pad-r)}
+h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.045em;text-wrap:balance}
+p{margin:0}
+.gold{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--acc)}
+.h2{font-size:clamp(2.5rem,6.2vw,5.6rem);line-height:.98}
+.sec{padding-block:clamp(84px,11vw,160px)}
+.center{text-align:center}
+.grain{position:fixed;inset:-128px;z-index:65;pointer-events:none;opacity:.08;mix-blend-mode:overlay;background-size:128px 128px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 28px;border-radius:999px;border:0;cursor:pointer;background:var(--btn);color:var(--btn-ink);font-weight:700;font-size:1rem;letter-spacing:-.01em;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -18px rgba(0,0,0,.45)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.gold-btn{background:var(--grad);color:#1B140C}
+.btn svg{width:18px;height:18px}
+
+/* header */
+.head{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(160%) blur(16px);-webkit-backdrop-filter:saturate(160%) blur(16px);border-bottom:1px solid var(--line)}
+.head .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.84rem;letter-spacing:.42em}
+.orb{width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFF6D8 0,#F2CF7A 24%,#C99A3F 60%,#6F4C12 100%)}
+.nav{display:flex;gap:clamp(18px,2.4vw,36px);font-size:.86rem;font-weight:600}
+.nav a{opacity:.72;transition:opacity .2s}
+.nav a:hover{opacity:1}
+.head-cta{display:flex;gap:8px}
+.icon-btn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--chip);box-shadow:inset 0 0 0 1px var(--line);cursor:pointer;border:0}
+.icon-btn svg{width:19px;height:19px}
+.head .btn{min-height:44px;padding:0 20px;font-size:.88rem}
+@media (max-width:860px){.nav{display:none}.head .btn span{display:none}.head .btn{width:44px;padding:0}}
+
+/* live price ticker (top) */
+.tick{background:var(--ink);color:var(--bg);font-size:.8rem;font-weight:600;overflow:hidden;white-space:nowrap}
+.tick-track{display:inline-flex;padding-block:9px;animation:tick 40s linear infinite}
+.tick:hover .tick-track{animation-play-state:paused}
+.tick span{padding-inline:22px;display:inline-flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}
+.tick b{color:var(--acc-hi);font-weight:700}
+.tick span+span::before{content:"✦";color:var(--acc-hi);font-size:.6rem;margin-right:22px}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* hero */
+.hero{position:relative;padding-block:clamp(28px,4vw,64px) clamp(56px,7vw,110px);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,80px);align-items:center}
+.hero h1{font-size:clamp(3.4rem,8.4vw,8.6rem);line-height:.9;letter-spacing:-.06em;margin-top:18px}
+.lead{font-size:clamp(1.15rem,1.7vw,1.5rem);color:var(--ink2);margin-top:20px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 30px;padding:0;list-style:none}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:999px;background:var(--chip);box-shadow:inset 0 0 0 1px var(--line);font-weight:700;font-size:.95rem;cursor:pointer;border:0;transition:background .25s,color .25s,transform .25s}
+.chip svg{width:14px;height:14px;color:var(--acc)}
+.chip:hover{background:var(--ink);color:var(--bg);transform:translateY(-2px)}
+.chip:hover svg{color:var(--acc-hi)}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.visual{position:relative;max-width:620px;justify-self:end;width:100%;padding:0 0 12% 10%}
+.photo{position:relative;border-radius:999px 999px 36px 36px;overflow:hidden;aspect-ratio:4/5;background:var(--bg2);box-shadow:0 60px 100px -60px rgba(40,25,5,.55)}
+.photo img{position:absolute;inset:0;width:100%;height:115%;object-fit:cover;will-change:transform}
+.ring-zone{position:absolute;left:-6%;bottom:-2%;width:62%;aspect-ratio:1;will-change:transform;pointer-events:none}
+.ring-zone canvas#gl{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s}
+.ring-zone .sw-spin{position:absolute;inset:6% 0 auto;aspect-ratio:800/688;transition:opacity .6s}
+.ring-zone .sw-spin img,.ring-zone .sw-spin canvas{position:absolute;inset:0;width:100%;height:100%}
+.ring-zone .sw-spin canvas{opacity:0}.ring-zone .sw-spin.is-live canvas{opacity:1}.ring-zone .sw-spin.is-live img{opacity:0}
+.gl-on .ring-zone canvas#gl{opacity:1}.gl-on .ring-zone .sw-spin{opacity:0}
+.live{position:absolute;right:4%;top:10%;display:grid;gap:4px;padding:14px 18px;border-radius:20px;background:color-mix(in srgb,var(--chip) 84%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 20px 40px -24px rgba(0,0,0,.4),inset 0 0 0 1px var(--line);cursor:pointer;border:0;text-align:left}
+.live small{font-size:.72rem;font-weight:700;color:var(--ink2);display:flex;align-items:center;gap:7px;letter-spacing:.04em}
+.live strong{font-size:clamp(1.4rem,2.2vw,1.9rem);font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.sw-pulse{width:7px;height:7px;border-radius:50%;background:#B0B0B5}
+.sw-pulse.is-live{background:#2FA45A;animation:ping 2.2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(47,164,90,.5)}70%{box-shadow:0 0 0 8px rgba(47,164,90,0)}100%{box-shadow:0 0 0 0 rgba(47,164,90,0)}}
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-copy{text-align:center}
+  .chips,.actions{justify-content:center}
+  .visual{justify-self:center;max-width:420px;padding:0 0 14% 8%}
+  .live{right:0;top:6%}
+}
+
+/* bold ticker band */
+.band{overflow:hidden;border-block:1px solid var(--line);padding-block:clamp(26px,3.6vw,52px);user-select:none}
+.band-track{display:flex;white-space:nowrap;will-change:transform}
+.band span{font-size:clamp(4.4rem,13vw,13rem);font-weight:800;letter-spacing:-.06em;line-height:.88;padding-right:.3em;color:transparent;-webkit-text-stroke:1.4px color-mix(in srgb,var(--ink) 38%,transparent)}
+.band span.fill{-webkit-text-stroke:0;background:var(--grad);-webkit-background-clip:text;background-clip:text}
+
+/* prices */
+.prices{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:clamp(12px,1.4vw,20px);margin-top:clamp(36px,4vw,60px)}
+.price{display:grid;align-content:end;gap:8px;min-height:clamp(190px,18vw,280px);padding:clamp(24px,2.6vw,40px);border-radius:30px;background:var(--bg2);border:0;text-align:left;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.price:hover{transform:translateY(-4px);box-shadow:0 30px 60px -36px rgba(0,0,0,.45)}
+.price.main{background:var(--ink);color:var(--bg)}
+.price small{font-size:.8rem;font-weight:700;letter-spacing:.14em;color:var(--ink2)}
+.price.main small{color:var(--acc-hi)}
+.price strong{font-size:clamp(2.4rem,4.4vw,4rem);font-weight:800;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.price span{font-size:.9rem;color:var(--ink2);display:flex;justify-content:space-between;gap:10px}
+.price.main span{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.formula{display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;gap:10px;margin-top:22px;font-variant-numeric:tabular-nums}
+.term{display:grid;gap:2px;padding:14px 18px;border-radius:18px;box-shadow:inset 0 0 0 1px var(--line);min-width:150px;text-align:center}
+.term b{font-size:1.15rem;font-weight:800;letter-spacing:-.02em}
+.term small{font-size:.74rem;color:var(--ink2);font-weight:600}
+.term.res{background:var(--grad);box-shadow:none;color:#1B140C}
+.term.res small{color:#4A3712}
+.op{display:grid;place-items:center;font-size:1.4rem;font-weight:800;color:var(--acc);padding-inline:2px}
+.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:16px;font-size:.85rem;color:var(--ink2)}
+.meta span{display:inline-flex;align-items:center;gap:8px}
+@media (max-width:860px){.prices{grid-template-columns:1fr}.price{min-height:0;grid-template-columns:1fr auto;align-items:end}.price small{grid-column:1/-1}.op{width:100%}.term{flex:1 1 40%}}
+
+/* model reveal */
+.reveal{position:relative;height:200vh}
+.reveal-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center}
+.reveal-img{position:absolute;inset:0;clip-path:inset(var(--ci,22%) var(--cx,30%) round 32px);will-change:clip-path}
+.reveal-img img{width:100%;height:100%;object-fit:cover;transform:scale(var(--sc,1.2))}
+.reveal-copy{position:relative;z-index:2;text-align:center;color:#fff;opacity:var(--co,0);transform:translateY(calc((1 - var(--co,0)) * 30px));text-shadow:0 10px 40px rgba(0,0,0,.4)}
+.reveal-copy .eyebrow{color:#F3D58C}
+
+/* dark section */
+.dark{background:var(--dk);color:var(--dk-ink)}
+.dark .sub{color:var(--dk-ink2)}
+.num{font-size:clamp(6rem,23vw,21rem);font-weight:800;letter-spacing:-.07em;line-height:.88;font-variant-numeric:tabular-nums;margin-block:14px}
+.sub{font-size:clamp(1.1rem,1.6vw,1.35rem);color:var(--ink2);font-weight:600}
+
+/* steps */
+.steps{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(10px,1.2vw,18px);margin:clamp(40px,5vw,70px) 0 0;padding:0;list-style:none}
+.steps::before{content:"";position:absolute;left:0;right:0;top:27px;height:2px;background:var(--line)}
+.steps::after{content:"";position:absolute;left:0;top:27px;height:2px;width:calc(var(--prog,0) * 100%);background:var(--grad);transition:width .1s linear}
+.step{position:relative}
+.step button{display:grid;gap:10px;width:100%;padding:0;border:0;background:none;text-align:left;cursor:pointer}
+.step i{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--bg);box-shadow:inset 0 0 0 1.5px var(--line);font-style:normal;font-weight:800;font-size:.9rem;transition:background .3s,color .3s,box-shadow .3s}
+.step.lit i{background:var(--ink);color:var(--bg);box-shadow:none}
+.step h3{font-size:clamp(1.3rem,1.9vw,1.7rem);letter-spacing:-.035em}
+.step small{font-size:.8rem;color:var(--ink2);font-weight:700;font-variant-numeric:tabular-nums}
+.step p{font-size:.92rem;color:var(--ink2);max-height:0;overflow:hidden;opacity:0;transition:max-height .4s,opacity .4s}
+.step.open p{max-height:120px;opacity:1}
+.step-hint{margin-top:22px;font-size:.85rem;color:var(--ink2)}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr;row-gap:28px}.steps::before,.steps::after{display:none}}
+
+/* buy vs sell */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.4vw,20px);max-width:1100px;margin:clamp(36px,4vw,60px) auto 0}
+.vs>div{border-radius:30px;padding:clamp(26px,3vw,44px);background:var(--bg2)}
+.vs .us{background:var(--ink);color:var(--bg)}
+.vs h3{font-size:clamp(1.5rem,2.2vw,2rem);letter-spacing:-.035em}
+.vs ul{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px;font-size:1.08rem}
+.vs li{display:flex;gap:12px}
+.vs li::before{content:"–";color:var(--ink2);width:16px;flex:none}
+.vs .us li::before{content:"✓";color:var(--acc-hi)}
+@media (max-width:760px){.vs{grid-template-columns:1fr}}
+
+/* calculator */
+.calc{display:grid;gap:22px;justify-items:center;margin-top:clamp(26px,3vw,40px)}
+.calc output{font-size:clamp(3.4rem,10vw,8.6rem);font-weight:800;letter-spacing:-.06em;line-height:1;font-variant-numeric:tabular-nums}
+.seg{display:inline-grid;grid-template-columns:repeat(4,1fr);padding:4px;border-radius:999px;background:var(--bg2)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{min-width:clamp(62px,8vw,88px);min-height:44px;display:grid;place-items:center;border-radius:999px;font-weight:700;cursor:pointer;color:var(--ink2);transition:background .3s,color .3s}
+.seg input:checked+label{background:var(--ink);color:var(--bg)}
+.seg input:focus-visible+label{outline:2px solid var(--acc);outline-offset:2px}
+.stepper{display:flex;align-items:center;gap:16px}
+.stepper button{width:50px;height:50px;border-radius:50%;border:0;background:var(--bg2);font-size:1.4rem;cursor:pointer}
+.grams{display:flex;align-items:baseline;gap:6px}
+.grams input{width:4.4ch;border:0;border-bottom:2px solid var(--line);background:none;text-align:center;font:800 2.3rem/1.1 var(--display);letter-spacing:-.04em;color:var(--ink);padding:2px 0;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+.grams input::-webkit-outer-spin-button,.grams input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.grams input:focus{outline:none;border-color:var(--acc)}
+.grams span{color:var(--ink2)}
+.fine{font-size:.82rem;color:var(--ink2)}
+
+/* bring */
+.bring{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.4vw,20px);max-width:1200px;margin:clamp(36px,4vw,60px) auto 0;padding:0;list-style:none}
+.bring a{display:grid;gap:14px;justify-items:center;padding:clamp(24px,3vw,40px) 16px;border-radius:28px;background:var(--bg2);font-weight:800;font-size:clamp(1.05rem,1.4vw,1.3rem);letter-spacing:-.02em;transition:transform .3s,background .3s}
+.bring a:hover{transform:translateY(-4px)}
+.bring a small{font-weight:600;font-size:.8rem;color:var(--ink2);letter-spacing:0}
+.bring svg{width:48px;height:48px;color:var(--acc)}
+@media (max-width:760px){.bring{grid-template-columns:1fr 1fr}}
+
+/* visit: everything is a working link */
+.contact{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.4vw,20px);margin-top:clamp(36px,4vw,60px)}
+.contact a,.contact button{display:grid;gap:10px;align-content:space-between;min-height:170px;padding:clamp(22px,2.4vw,32px);border-radius:28px;background:var(--bg2);border:0;text-align:left;cursor:pointer;transition:transform .3s,background .3s,color .3s}
+.contact a:hover,.contact button:hover{transform:translateY(-4px);background:var(--ink);color:var(--bg)}
+.contact svg{width:26px;height:26px;color:var(--acc)}
+.contact b{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;overflow-wrap:anywhere}
+.contact small{font-size:.85rem;color:var(--ink2);font-weight:600}
+.contact a:hover small,.contact button:hover small{color:inherit;opacity:.75}
+.hours{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;margin-top:22px;font-weight:600;color:var(--ink2)}
+.sw-open{display:inline-flex;align-items:center;gap:8px}
+.sw-open::before{content:"";width:8px;height:8px;border-radius:50%;background:#9A9A9A}
+.sw-open.is-open{color:#2E7D4F}.sw-open.is-open::before{background:#2FA45A}
+@media (max-width:960px){.contact{grid-template-columns:repeat(2,minmax(0,1fr))}.contact a,.contact button{min-height:140px}}
+@media (max-width:520px){.contact{grid-template-columns:minmax(0,1fr)}.contact a,.contact button{min-height:0;grid-template-columns:auto 1fr;align-items:center}}
+
+/* footer */
+.foot{border-top:1px solid var(--line);font-size:.82rem;color:var(--ink2)}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;padding-block:28px}
+.foot nav{display:flex;flex-wrap:wrap;gap:6px 20px}
+.foot a:hover{color:var(--ink);text-decoration:underline}
+
+/* entrance */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.no-js .rv{opacity:1;transform:none}
+.line{display:block;overflow:hidden;padding-bottom:.2em;margin-bottom:-.12em}
+.line>span{display:block;animation:up 1s cubic-bezier(.2,.8,.2,1) both}
+.line:nth-child(2)>span{animation-delay:.12s}
+@keyframes up{from{transform:translateY(105%)}}
+
+/* engine: dock (bottom right) and back to top (bottom left) */
+.sw-dock{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:9990;display:flex;flex-direction:row-reverse;align-items:center;gap:12px;font-family:var(--display)}
+.sw-dock__btn{position:relative;width:62px;height:62px;border-radius:50%;border:0;padding:0;cursor:pointer;display:grid;place-items:center;background:var(--grad);box-shadow:0 14px 30px -10px rgba(120,80,10,.6)}
+.sw-dock__btn svg{width:26px;height:26px;fill:#1B140C}
+.sw-dock__btn::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--acc-hi);animation:halo 2.4s ease-out infinite}
+@keyframes halo{from{transform:scale(1);opacity:1}to{transform:scale(1.55);opacity:0}}
+.sw-dock__bubble{background:var(--ink);color:var(--bg);font-size:.82rem;font-weight:600;padding:9px 14px;border-radius:14px 14px 4px 14px;white-space:nowrap;transition:opacity .3s}
+.sw-dock__bubble span{display:inline-block;transition:opacity .3s,transform .3s}.sw-dock__bubble span.is-out{opacity:0;transform:translateY(6px)}
+.sw-dock.is-open .sw-dock__bubble{opacity:0;pointer-events:none}
+.sw-dock__panel{position:absolute;right:0;bottom:76px;width:min(320px,calc(100vw - 36px));background:#fff;color:#1D1D1F;border-radius:22px;box-shadow:0 30px 70px -20px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.05);padding:18px}
+.sw-dock__panel[hidden],.sw-dock__form[hidden],.sw-dock__menu[hidden],.sw-dock__err[hidden]{display:none}
+.sw-dock__title{font-weight:800;font-size:1.1rem;letter-spacing:-.02em;margin:0 0 2px}
+.sw-dock__hours{font-size:.8rem;color:#86868B;margin:0 0 12px}.sw-dock__hours.is-open{color:#2E7D4F}
+.sw-dock__opt{display:flex;align-items:center;gap:12px;width:100%;padding:12px;margin:0 0 8px;border-radius:16px;border:0;background:#F5F5F7;cursor:pointer;text-align:left;color:#1D1D1F}
+.sw-dock__opt b{display:block;font-size:.98rem}.sw-dock__opt small{display:block;font-size:.8rem;color:#6E6E73}
+.sw-dock__ic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex:none}
+.sw-dock__ic svg{width:20px;height:20px;fill:#fff}
+.sw-dock__ic.is-call{background:var(--grad)}.sw-dock__ic.is-call svg{fill:#1B140C}
+.sw-dock__ic.is-wa{background:#25D366}
+.sw-dock__form{display:grid;gap:12px}
+.sw-dock__back{justify-self:start;background:none;border:0;padding:0;color:var(--acc);font-weight:700;cursor:pointer}
+.sw-dock__f{display:grid;gap:6px;font-size:.8rem;font-weight:600;color:#6E6E73}
+.sw-dock__f input,.sw-dock__f select{width:100%;height:48px;border:1px solid #D2D2D7;border-radius:12px;padding:0 14px;font:500 1rem var(--display);color:#1D1D1F;background:#fff}
+.sw-dock__err{margin:0;font-size:.82rem;color:#B3261E}
+.sw-dock__send{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;border:0;border-radius:999px;background:#25D366;color:#fff;font-weight:700;cursor:pointer}
+.sw-dock__send svg{width:20px;height:20px;fill:#fff}
+.sw-top{position:fixed;left:calc(18px + env(safe-area-inset-left,0px));bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:9989;width:48px;height:48px;border-radius:50%;border:0;background:var(--chip);box-shadow:0 10px 24px -12px rgba(0,0,0,.35),inset 0 0 0 1px var(--line);display:grid;place-items:center;cursor:pointer;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .3s,transform .3s}
+.sw-top.is-on{opacity:1;transform:none;pointer-events:auto}
+.sw-top svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#top-link,.back-to-top{display:none!important}
+@media (max-width:480px){.sw-dock__btn{width:56px;height:56px}.sw-dock__panel{bottom:70px}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  .reveal{height:auto}.reveal-stage{position:relative;height:80vh}
+  .reveal-img{clip-path:none}.reveal-copy{opacity:1;transform:none}
+  .grain{display:none}
+}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div class="grain" id="grain" aria-hidden="true"></div>
+
+<div class="tick" aria-label="Live gold buying prices"><div class="tick-track"><span>24K <b data-sw="p24_10">…</b>/10 g</span><span>22K <b data-sw="p22_10">…</b>/10 g</span><span>18K <b data-sw="p18_10">…</b>/10 g</span><span>We only buy gold</span><span>Paid in 30 minutes</span><span>Jakkur · Yelahanka · Hebbal · Thanisandra</span><span data-sw="updated">Live price</span><span>24K <b data-sw="p24_10">…</b>/10 g</span><span>22K <b data-sw="p22_10">…</b>/10 g</span><span>18K <b data-sw="p18_10">…</b>/10 g</span><span>We only buy gold</span><span>Paid in 30 minutes</span><span>Jakkur · Yelahanka · Hebbal · Thanisandra</span><span data-sw="updated">Live price</span></div></div>
+
+<header class="head">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Swarnalok home"><span class="orb" aria-hidden="true"></span>SWARNALOK</a>
+    <nav class="nav" aria-label="Main"><a href="#price">Price</a><a href="#how">How it works</a><a href="#sw-value">Value</a><a href="#visit">Visit</a></nav>
+    <div class="head-cta">
+      <button class="icon-btn" type="button" data-sw-open-wa aria-label="WhatsApp us"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.15l-.3-.18-3 .78.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.25-.13-1.47-.73-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.65.81-.8.98-.14.17-.3.19-.54.06a6.7 6.7 0 01-3.35-2.93c-.25-.44.25-.4.72-1.34.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48a.92.92 0 00-.67.31 2.8 2.8 0 00-.87 2.08 4.9 4.9 0 001.02 2.6 11.2 11.2 0 004.3 3.8c1.6.69 2.23.75 3.03.63.49-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.15-1.18-.06-.1-.23-.17-.48-.29z"/></svg></button>
+      <a class="btn" href="tel:+919815303553" aria-label="Call +91 98153 03553"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1z"/></svg><span>Call</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Old gold buyers · Bengaluru North</p>
+        <h1><span class="line"><span>We only</span></span><span class="line"><span class="gold">buy gold.</span></span></h1>
+        <p class="lead">Live price. Paid in 30 minutes.</p>
+        <ul class="chips" aria-label="Areas we serve. Tap yours to WhatsApp us."><li><button class="chip" type="button" data-sw-area="Jakkur" aria-label="WhatsApp us from Jakkur"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 00-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg>Jakkur</button></li><li><button class="chip" type="button" data-sw-area="Yelahanka" aria-label="WhatsApp us from Yelahanka">Yelahanka</button></li><li><button class="chip" type="button" data-sw-area="Hebbal" aria-label="WhatsApp us from Hebbal">Hebbal</button></li><li><button class="chip" type="button" data-sw-area="Thanisandra" aria-label="WhatsApp us from Thanisandra">Thanisandra</button></li></ul>
+        <div class="actions"><a class="btn" href="#price">Today's price <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></a><button class="btn ghost" type="button" data-sw-open-wa><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.15l-.3-.18-3 .78.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.25-.13-1.47-.73-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.65.81-.8.98-.14.17-.3.19-.54.06a6.7 6.7 0 01-3.35-2.93c-.25-.44.25-.4.72-1.34.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48a.92.92 0 00-.67.31 2.8 2.8 0 00-.87 2.08 4.9 4.9 0 001.02 2.6 11.2 11.2 0 004.3 3.8c1.6.69 2.23.75 3.03.63.49-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.15-1.18-.06-.1-.23-.17-.48-.29z"/></svg> WhatsApp</button></div>
+      </div>
+      <div class="visual" id="visual">
+        <div class="photo"><img id="heroImg" src="../v5/img/m-pendant.webp" alt="A woman wearing gold jewellery" width="1200" height="1500" fetchpriority="high"></div>
+        <button class="live" type="button" data-sw-karat="24" aria-label="See today's 24K price in the calculator"><small><span class="sw-pulse" data-sw="status"></span>LIVE · 24K · 10 G</small><strong data-sw="p24_10">…</strong></button>
+        <div class="ring-zone" id="ringZone">
+          <div class="sw-spin" data-frames="../v5/img/spin/f"><img src="../v5/img/spin/f00.webp" alt="" width="800" height="688"><canvas width="800" height="688" aria-hidden="true"></canvas></div>
+          <canvas id="gl" aria-hidden="true"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" aria-hidden="true"><div class="band-track" id="band"><span>WE ONLY BUY GOLD</span><span class="fill">SWARNALOK</span><span>WE ONLY BUY GOLD</span><span class="fill">SWARNALOK</span><span>WE ONLY BUY GOLD</span><span class="fill">SWARNALOK</span></div></div>
+
+  <section class="sec" id="price">
+    <div class="wrap">
+      <div class="center rv"><p class="eyebrow">Live · refreshes every minute</p><h2 class="h2" style="margin-top:14px">Today's price.</h2></div>
+      <div class="prices">
+        <button class="price main rv" type="button" data-sw-karat="24"><small>24K · 999</small><strong data-sw="p24_10">…</strong><span><em style="font-style:normal">per 10 g</em><em style="font-style:normal" data-sw="p24_1">…</em></span></button>
+        <button class="price rv" type="button" data-sw-karat="22"><small>22K · 916</small><strong data-sw="p22_10">…</strong><span><em style="font-style:normal">per 10 g</em><em style="font-style:normal" data-sw="p22_1">…</em></span></button>
+        <button class="price rv" type="button" data-sw-karat="18"><small>18K · 750</small><strong data-sw="p18_10">…</strong><span><em style="font-style:normal">per 10 g</em><em style="font-style:normal" data-sw="p18_1">…</em></span></button>
+      </div>
+      <div class="formula rv" aria-label="How the 24K price is worked out, per 10 grams">
+        <div class="term"><b data-sw="spot_10">…</b><small>International rate</small></div><span class="op">+</span>
+        <div class="term"><b data-sw="duty_10">…</b><small>Customs 6%</small></div><span class="op">−</span>
+        <div class="term"><b>₹5,000</b><small>Our margin</small></div><span class="op">=</span>
+        <div class="term res"><b data-sw="p24_10">…</b><small>You get · 24K · 10 g</small></div>
+      </div>
+      <div class="meta"><span><span class="sw-pulse" data-sw="status"></span><span data-sw="updated">Fetching live price</span></span><span>No GST, shipping or insurance added</span></div>
+    </div>
+  </section>
+
+  <section class="reveal" id="reveal" aria-label="Valued with honesty">
+    <div class="reveal-stage">
+      <div class="reveal-img"><img src="../v5/img/m-black.webp" alt="A model wearing a gold chain and bracelet" width="1200" height="1500" loading="lazy"></div>
+      <div class="reveal-copy"><p class="eyebrow">Worn with love</p><h2 class="h2" style="margin-top:12px">Valued with honesty.</h2></div>
+    </div>
+  </section>
+
+  <section class="sec center " id="purity">
+    <div class="wrap">
+      <h2 class="h2 rv">We don't guess.</h2>
+      <p class="num gold" data-count="91.6" data-decimals="1" data-suffix="%" aria-label="91.6 percent">91.6%</p>
+      <p class="sub rv">X-ray tested in front of you.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <div class="wrap">
+      <div class="center rv"><h2 class="h2">Six steps. 30 minutes.</h2></div>
+      <ol class="steps" id="steps"><li class="step" data-i="0"><button type="button" aria-expanded="false"><i>1</i><small>0:00</small><h3>Consent</h3><p>You sign the form and show PAN and Aadhaar. The handover is filmed.</p></button></li><li class="step" data-i="1"><button type="button" aria-expanded="false"><i>2</i><small>0:05</small><h3>Clean</h3><p>An ultrasonic bath removes dirt, so only metal is weighed.</p></button></li><li class="step" data-i="2"><button type="button" aria-expanded="false"><i>3</i><small>0:10</small><h3>Melt</h3><p>Melted into one even bar, so solder and alloys can't hide.</p></button></li><li class="step" data-i="3"><button type="button" aria-expanded="false"><i>4</i><small>0:18</small><h3>Test</h3><p>X-ray (XRF) reads the purity at 2 to 4 points, on screen.</p></button></li><li class="step" data-i="4"><button type="button" aria-expanded="false"><i>5</i><small>0:22</small><h3>Weigh</h3><p>Certified scale, today's live rate, the full sum shown.</p></button></li><li class="step" data-i="5"><button type="button" aria-expanded="false"><i>6</i><small>0:28</small><h3>Paid</h3><p>Bank transfer to your own account. Never cash.</p></button></li></ol>
+      <p class="step-hint center">Tap a step for details. Stop at any step and take your gold home, free.</p>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0">
+    <div class="wrap">
+      <div class="center rv"><h2 class="h2">We buy.<br>We don't sell.</h2></div>
+      <div class="vs">
+        <div class="rv"><h3>Jewellery shop</h3><ul><li>Wants to sell you new</li><li>Often deducts wastage</li><li>Often cash or credit</li></ul></div>
+        <div class="us rv"><h3>Swarnalok</h3><ul><li>Nothing to sell you</li><li>₹0 hidden deductions</li><li>Bank transfer</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="sw-value" style="background:var(--bg2)">
+    <div class="wrap center">
+      <h2 class="h2 rv">What is yours worth?</h2>
+      <form class="calc sw-calc" onsubmit="return false">
+        <output id="sw-estimate" for="sw-grams">…</output>
+        <div class="seg" role="radiogroup" aria-label="Purity"><input type="radio" name="sw-k" id="sw-k24" value="24"><label for="sw-k24">24K</label><input type="radio" name="sw-k" id="sw-k22" value="22" checked><label for="sw-k22">22K</label><input type="radio" name="sw-k" id="sw-k18" value="18"><label for="sw-k18">18K</label><input type="radio" name="sw-k" id="sw-k14" value="14"><label for="sw-k14">14K</label></div>
+        <div class="stepper"><button type="button" id="sw-minus" aria-label="Less weight">−</button><label class="grams"><input id="sw-grams" type="number" inputmode="decimal" min="0" step="0.5" value="20" aria-label="Weight in grams"><span>grams</span></label><button type="button" id="sw-plus" aria-label="More weight">+</button></div>
+        <button class="btn gold-btn" type="button" id="sw-calc-wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.15l-.3-.18-3 .78.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.25-.13-1.47-.73-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.65.81-.8.98-.14.17-.3.19-.54.06a6.7 6.7 0 01-3.35-2.93c-.25-.44.25-.4.72-1.34.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48a.92.92 0 00-.67.31 2.8 2.8 0 00-.87 2.08 4.9 4.9 0 001.02 2.6 11.2 11.2 0 004.3 3.8c1.6.69 2.23.75 3.03.63.49-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.15-1.18-.06-.1-.23-.17-.48-.29z"/></svg> Get this price on WhatsApp</button>
+        <p class="fine">Estimate at the live rate. Final price after the X-ray test.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="center rv"><h2 class="h2">Bring four things.</h2></div>
+      <ul class="bring">
+        <li class="rv"><a href="#sw-value"><svg viewBox="0 0 48 48"><ellipse cx="24" cy="29" rx="14" ry="12.5" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="24" cy="29" rx="10" ry="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19 15l5-8 5 8" fill="none" stroke="currentColor" stroke-width="2"/></svg>Gold<small>Check its value</small></a></li>
+        <li class="rv"><a href="/kyc-aml-policy/"><svg viewBox="0 0 48 48"><rect x="5" y="11" width="38" height="26" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 19h13M11 25h9M11 31h16" stroke="currentColor" stroke-width="2"/></svg>PAN<small>Why we ask</small></a></li>
+        <li class="rv"><a href="/kyc-aml-policy/"><svg viewBox="0 0 48 48"><rect x="5" y="11" width="38" height="26" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="22" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 31c2-4 10-4 12 0M27 19h10M27 25h10" stroke="currentColor" stroke-width="2" fill="none"/></svg>Aadhaar<small>Why we ask</small></a></li>
+        <li class="rv"><a href="/pricing-payment-policy/"><svg viewBox="0 0 48 48"><path d="M6 19L24 8l18 11z M10 19v15M19 19v15M29 19v15M38 19v15M6 39h36" fill="none" stroke="currentColor" stroke-width="2"/></svg>Bank account<small>How you're paid</small></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="visit" style="padding-top:0">
+    <div class="wrap">
+      <div class="center rv"><h2 class="h2">Come by. Leave paid.</h2></div>
+      <div class="contact">
+        <a class="rv" href="tel:+919815303553"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1z"/></svg><span><b>+91 98153 03553</b><br><small>Call now</small></span></a>
+        <button class="rv" type="button" data-sw-open-wa><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.15l-.3-.18-3 .78.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.25-.13-1.47-.73-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.65.81-.8.98-.14.17-.3.19-.54.06a6.7 6.7 0 01-3.35-2.93c-.25-.44.25-.4.72-1.34.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48a.92.92 0 00-.67.31 2.8 2.8 0 00-.87 2.08 4.9 4.9 0 001.02 2.6 11.2 11.2 0 004.3 3.8c1.6.69 2.23.75 3.03.63.49-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.15-1.18-.06-.1-.23-.17-.48-.29z"/></svg><span><b>WhatsApp</b><br><small>Grams and area, we reply with a price</small></span></button>
+        <a class="rv" href="mailto:hello@jumpkingindia.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" d="M3 6h18v12H3z M3 7l9 6 9-6"/></svg><span><b>hello@jumpkingindia.com</b><br><small>Email us</small></span></a>
+        <a class="rv" href="https://www.google.com/maps/search/?api=1&query=Jakkur%2C%20Bengaluru%20560064" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 00-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg><span><b>Jakkur, Bengaluru 560064</b><br><small>Open in Maps</small></span></a>
+      </div>
+      <p class="hours"><span>Mon to Sat · 12:30 to 18:00</span><span class="sw-open" data-sw-hours></span></p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav aria-label="Policies"><a href="/terms-and-conditions/">Terms</a><a href="/privacy-policy/">Privacy</a><a href="/kyc-aml-policy/">KYC and AML</a><a href="/anti-fraud-policy/">Anti-fraud</a><a href="/pricing-payment-policy/">Pricing and payment</a></nav>
+    <span>© <span class="sw-year">2026</span> Swarnalok. A unit of Jumpking International LLP.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  document.documentElement.classList.remove('no-js');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+
+  // film grain: four 128px noise tiles, cycled about 12 times a second at their real size
+  var g = document.getElementById('grain'), tiles = [];
+  (function () {
+    var c = document.createElement('canvas'); c.width = c.height = 128;
+    var x = c.getContext('2d'), d = x.createImageData(128, 128);
+    for (var t = 0; t < 4; t++) {
+      for (var i = 0; i < d.data.length; i += 4) { var v = Math.random() * 255 | 0; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+      x.putImageData(d, 0, 0); tiles.push('url(' + c.toDataURL() + ')');
+    }
+  })();
+  var gi = 0;
+  function grain() { g.style.backgroundImage = tiles[gi = (gi + 1) % 4]; g.style.backgroundPosition = (Math.random() * 128 | 0) + 'px ' + (Math.random() * 128 | 0) + 'px'; }
+  grain();
+
+  // reveal on scroll
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .12 });
+    document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+  } else document.querySelectorAll('.rv').forEach(function (el) { el.classList.add('in'); });
+
+  // steps: tap to open, and they light up in order as you scroll
+  var steps = document.getElementById('steps');
+  steps.querySelectorAll('.step button').forEach(function (b) {
+    b.addEventListener('click', function () { var li = b.parentNode, open = !li.classList.contains('open'); li.classList.toggle('open', open); b.setAttribute('aria-expanded', open); });
+  });
+
+  // hero parallax (scroll + mouse), ring zone drift, model reveal, steps progress, bold band velocity
+  var visual = document.getElementById('visual'), img = document.getElementById('heroImg'), ringZone = document.getElementById('ringZone');
+  var reveal = document.getElementById('reveal'), band = document.getElementById('band');
+  var mx = 0, my = 0, cx = 0, cy = 0, lastY = scrollY, vel = 0, bx = 0, gt = 0;
+  if (fine) addEventListener('pointermove', function (e) { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; }, { passive: true });
+
+  function frame(t) {
+    var y = scrollY; vel += ((y - lastY) - vel) * .12; lastY = y;
+    if (!document.hidden && t - gt > 80) { grain(); gt = t; }
+    if (!reduce) {
+      cx += (mx - cx) * .06; cy += (my - cy) * .06;
+      var hy = Math.min(y, innerHeight * 1.2);
+      img.style.transform = 'translate3d(' + (cx * -14).toFixed(1) + 'px,' + (hy * -.08 + cy * -10).toFixed(1) + 'px,0)';
+      ringZone.style.transform = 'translate3d(' + (cx * 28).toFixed(1) + 'px,' + (hy * -.26 + cy * 20).toFixed(1) + 'px,0)';
+      // model reveal: a window opening to full bleed
+      var r = reveal.getBoundingClientRect(), p = clamp(-r.top / (r.height - innerHeight), 0, 1);
+      reveal.style.setProperty('--ci', (22 * (1 - p)).toFixed(2) + '%');
+      reveal.style.setProperty('--cx', (30 * (1 - p)).toFixed(2) + '%');
+      reveal.style.setProperty('--sc', (1.2 - .2 * p).toFixed(3));
+      reveal.style.setProperty('--co', clamp((p - .55) / .3, 0, 1).toFixed(2));
+      // steps progress
+      var s = steps.getBoundingClientRect(), sp = clamp((innerHeight * .75 - s.top) / (s.height + innerHeight * .2), 0, 1);
+      steps.style.setProperty('--prog', sp.toFixed(3));
+      steps.querySelectorAll('.step').forEach(function (li, i) { li.classList.toggle('lit', sp * 6 > i + .2); });
+      // bold band: drifts, speeds up and leans with scroll speed
+      bx -= .7 + Math.abs(vel) * .55;
+      var w = band.scrollWidth / 2; if (-bx > w) bx += w;
+      band.style.transform = 'translate3d(' + bx.toFixed(1) + 'px,0,0) skewX(' + clamp(-vel * .15, -8, 8).toFixed(2) + 'deg)';
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+<script type="module">
+// Real-time 3D gold ring in the hero, with parallax handled by the ring zone.
+// Falls back to the scroll-turning frames when WebGL or the module is unavailable.
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const hero = document.getElementById('hero'), canvas = document.getElementById('gl');
+async function start() {
+  if (reduce) return;
+  const THREE = await import('three');
+  const { RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(2, devicePixelRatio));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.08;
+  renderer.setClearColor(0x000000, 0);
+  const scene = new THREE.Scene();
+  scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(renderer), .03).texture;
+  const key = new THREE.DirectionalLight(0xffffff, 1.5); key.position.set(3, 5, 4); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xfff1d6, 1); rim.position.set(-4, 2, -3); scene.add(rim);
+  const camera = new THREE.PerspectiveCamera(30, 1, .1, 100); camera.position.set(0, 0, 5.6);
+  const pts = [];
+  for (let i = 0; i <= 160; i++) {
+    const t = Math.PI / 2 - (i / 160) * Math.PI * 2, c = Math.cos(t), s = Math.sin(t), p = .42;
+    pts.push(new THREE.Vector2(1 + .085 * Math.sign(c) * Math.abs(c) ** p, .24 * Math.sign(s) * Math.abs(s) ** p));
+  }
+  const ring = new THREE.Mesh(new THREE.LatheGeometry(pts, 320),
+    new THREE.MeshPhysicalMaterial({ color: 0xE8B04A, metalness: 1, roughness: .13, clearcoat: .3, clearcoatRoughness: .08, envMapIntensity: 1.3 }));
+  ring.rotation.x = 1.12;
+  const pivot = new THREE.Group(); pivot.add(ring); scene.add(pivot);
+  function size() { const w = canvas.clientWidth, h = canvas.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+  size(); addEventListener('resize', size);
+  let mx = 0, my = 0, tx = 0, ty = 0, visible = true;
+  addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; }, { passive: true });
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(hero);
+  const clock = new THREE.Clock();
+  (function frame() {
+    requestAnimationFrame(frame);
+    if (!visible) return;
+    const t = clock.getElapsedTime(), sy = scrollY;
+    tx += (mx - tx) * .06; ty += (my - ty) * .06;
+    ring.rotation.z = t * .3 + sy * .008;
+    pivot.rotation.x = ty * .6 + Math.sin(t * .6) * .06;
+    pivot.rotation.y = tx * .8;
+    pivot.position.y = Math.sin(t * .9) * .05;
+    renderer.render(scene, camera);
+    document.body.classList.add('gl-on');
+  })();
+}
+start().catch(err => console.info('3D ring unavailable, using the turning frames:', err && err.message));
+</script>
+<script src="../wordpress/swarnalok.js" defer></script>
+</body>
+</html>
