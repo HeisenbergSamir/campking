@@ -41,26 +41,34 @@ def img(name, alt, w, h, cls=""):
 # ---- page model: list of sections; each section = (section attrs, [rows]); row = (row attrs, [cols]); col = (span, html) ----
 S = []
 
-# 1. HERO
-S.append(('bg_color="#ffffff" padding="70px" padding__sm="30px" class="sw sw-hero"', [
+# 1. HERO: short copy, model photo with the ring and a live price card
+S.append(('bg_color="#ffffff" padding="56px" padding__sm="24px" class="sw sw-hero"', [
   ('width="custom" custom_width="1600px" v_align="middle"', [
-    (7, f'''<div class="sw-hero-copy">
-<div class="sw-live"><span class="sw-pulse" data-sw="status"></span>Live 24K buying price <b data-sw="p24_10">…</b> per 10 g</div>
-<h1 class="sw-h1">We only buy gold.<span>Nothing else.</span></h1>
-<p class="sw-lead">No showroom. Nothing to sell you. Just the true price for yours.</p>
-<ul class="sw-places"><li><span class="sw-pin">{I["pin"]}</span>Jakkur</li><li>Yelahanka</li><li>Hebbal</li><li>Thanisandra</li><small>North Bengaluru, within 8 km of our Jakkur office</small></ul>
+    (6, f"""<div class="sw-hero-copy">
+<p class="sw-kicker">Old gold buyers · North Bengaluru</p>
+<h1 class="sw-h1">We only<br>buy gold.</h1>
+<p class="sw-lead">Live price. Tested before you.<br>Paid in 30 minutes.</p>
+<ul class="sw-places"><li><span class="sw-pin">{I["pin"]}</span>Jakkur</li><li>Yelahanka</li><li>Hebbal</li><li>Thanisandra</li></ul>
 <div class="sw-actions"><a class="sw-btn" href="#sw-price">See today's price</a><a class="sw-link" href="tel:{PHONE}">Call {PHONE_LABEL}</a></div>
-</div>'''),
-    (5, f'<div class="sw-stage"><span class="sw-tag">We buy this</span>{img("sw-ring.webp","A gold ring",1400,1204)}</div>'),
+</div>"""),
+    (6, f"""<div class="sw-visual">
+<figure class="sw-photo">{img("sw-hero-model.webp","A woman wearing a gold pendant and ring",1200,1500)}</figure>
+<div class="sw-ratecard"><small><span class="sw-pulse" data-sw="status"></span>Live · 24K per 10 g</small><strong data-sw="p24_10">…</strong><span>We pay today</span></div>
+<img class="sw-ring-float" src="{{IMG}}sw-ring.webp" alt="" width="1400" height="1204">
+</div>"""),
   ]),
+]))
+
+# 1b. TRUST BAND: five promises, two or three words each
+S.append(('bg_color="#F5F5F7" padding="26px" padding__sm="22px" class="sw sw-snow sw-band"', [
   ('width="custom" custom_width="1600px"', [
-    (12, f'''<ul class="sw-proof">
-<li><i>{I["near"]}</i><span><b>10 min from you</b><small>Jakkur, North Bengaluru</small></span></li>
-<li><i>{I["rate"]}</i><span><b>Live market rate</b><small>Updated every minute</small></span></li>
-<li><i>{I["eye"]}</i><span><b>Tested in front of you</b><small>X-ray purity, on camera</small></span></li>
-<li><i>{I["clock"]}</i><span><b>Paid in 30 min</b><small>Straight to your bank</small></span></li>
-<li><i>{I["shield"]}</i><span><b>Genuine and legal</b><small>Consent, PAN, Aadhaar</small></span></li>
-</ul>'''),
+    (12, f"""<ul class="sw-proof">
+<li><i>{I["near"]}</i><b>10 min away</b></li>
+<li><i>{I["rate"]}</i><b>Live market rate</b></li>
+<li><i>{I["eye"]}</i><b>X-ray tested</b></li>
+<li><i>{I["clock"]}</i><b>Paid in 30 min</b></li>
+<li><i>{I["shield"]}</i><b>KYC, bank only</b></li>
+</ul>"""),
   ]),
 ]))
 
@@ -75,6 +83,19 @@ S.append(('bg_color="#F5F5F7" padding="130px" padding__sm="70px" class="sw sw-sn
 </div>
 <div class="sw-rate-meta"><span><span class="sw-pulse" data-sw="status"></span><span data-sw="updated">Fetching live price</span></span><span>Refreshes every minute</span></div>
 <p class="sw-how sw-center">How we price: the international gold price, plus Indian customs duty, less ₹5,000 per 10 g. No GST, shipping or insurance is added. Your final amount is set by the X-ray purity and exact weight of your gold.</p>'''),
+  ]),
+]))
+
+# 2b. MODEL EDITORIAL
+S.append(('bg_color="#0C0B0A" padding="0px" padding__sm="0px" class="sw sw-dark sw-model"', [
+  ('width="full-width" v_align="middle" col_style="collapse"', [
+    (6, img("sw-model-main.webp","A model in black",1200,1500,"sw-model-img")),
+    (6, f"""<div class="sw-model-copy">
+<p class="sw-eyebrow">Worn with love</p>
+<h2 class="sw-h2 sw-rise">Valued with<br>honesty.</h2>
+<p class="sw-sub sw-rise">Every piece has a story. We handle yours with care, on camera, and pay its true worth.</p>
+<div class="sw-details">{img("sw-model-ear.webp","Gold hoop earring and chain",800,1000,"sw-rise")}{img("sw-model-hands.webp","Gold rings and bracelet",800,1000,"sw-rise")}</div>
+</div>"""),
   ]),
 ]))
 
@@ -103,14 +124,6 @@ S.append(('bg_color="#ffffff" padding="140px" padding__sm="80px" class="sw"', [
     (12, f'''<div class="sw-center sw-stack"><p class="sw-eyebrow">About 30 minutes, start to finish</p><h2 class="sw-h2 sw-rise">Six steps. All at the counter.</h2></div>
 <ol class="sw-steps">{tiles}</ol>
 <p class="sw-steps-note sw-center">You can stop at any step and take your gold home. No fee.</p>'''),
-  ]),
-]))
-
-# 5. MELT (bar)
-S.append(('bg_color="#F5F5F7" padding="120px" padding__sm="70px" class="sw sw-snow sw-melt"', [
-  ('width="custom" custom_width="1600px" v_align="middle"', [
-    (6, img("sw-bar.webp","A gold bar",1400,875,"sw-rise")),
-    (6, '''<div class="sw-stack"><h2 class="sw-h3 sw-rise">Melted into one.<br>Measured as one.</h2><p class="sw-sub sw-rise">Jewellery hides solder and mixed metals. One even bar gives one honest reading.</p></div>'''),
   ]),
 ]))
 
@@ -197,6 +210,8 @@ def preview():
         for rattrs, cols in rows:
             ra = dict(re.findall(r'(\w+)="([^"]*)"', rattrs))
             al = " align-middle" if ra.get("v_align") == "middle" else ""
+            al += " row-full" if ra.get("width") == "full-width" else ""
+            al += " row-collapse" if ra.get("col_style") == "collapse" else ""
             body.append(f'<div class="row{al}">' + "".join(
                 f'<div class="col large-{span}">{html.replace("{IMG}", IMG_PREVIEW)}</div>' for span, html in cols) + "</div>")
         parts.append(f'<section class="section {a.get("class","")}"{sid} style="background:{a.get("bg_color","#fff")};--pad:{pad};--pad-sm:{pad_sm}">{"".join(body)}</section>')
@@ -215,7 +230,7 @@ body{{margin:0;background:#fff;overflow-x:hidden}}*{{box-sizing:border-box}}
 .mock-head nav{{display:flex;gap:28px;font-size:.82rem}}@media(max-width:760px){{.mock-head nav{{display:none}}}}
 .section{{position:relative;padding-block:var(--pad)}}@media(max-width:549px){{.section{{padding-block:var(--pad-sm)}}}}
 .row{{display:flex;flex-wrap:wrap;max-width:1600px;margin:0 auto;width:100%;padding:0 max(1px,env(safe-area-inset-left,0px))}}
-.row.align-middle{{align-items:center}}
+.row.align-middle{{align-items:center}}.row-full{{max-width:none!important;padding:0!important}}.row-collapse>.col{{padding:0}}
 .col{{padding:0 15px 30px;width:100%;min-width:0}}
 @media(min-width:850px){{.large-5{{flex-basis:41.66%;max-width:41.66%}}.large-6{{flex-basis:50%;max-width:50%}}.large-7{{flex-basis:58.33%;max-width:58.33%}}.large-12{{flex-basis:100%;max-width:100%}}}}
 @media(max-width:549px){{.col{{padding:0 max(15px,env(safe-area-inset-left,0px)) 30px}}}}

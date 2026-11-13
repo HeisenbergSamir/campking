@@ -76,8 +76,7 @@ def inspect():
 def install():
     inspect()
     # 1. images and sitewide files
-    ring = upload(HERE / "upload/sw-ring.webp", "sw-ring.webp", "image/webp")
-    bar = upload(HERE / "upload/sw-bar.webp", "sw-bar.webp", "image/webp")
+    urls = {f.name: upload(f, f.name, "image/webp") for f in sorted((HERE / "upload").glob("sw-*.webp"))}
     inline = "<style id=\"swarnalok-css\">" + (HERE / "swarnalok.css").read_text() + "</style><script id=\"swarnalok-js\">" + (HERE / "swarnalok.js").read_text() + "</script>"
 
     # 2. policy pages
@@ -92,7 +91,8 @@ def install():
 
     # 3. homepage content: real image URLs, plus the sitewide CSS/JS loaded from the uploaded files
     home = (HERE / "flatsome-homepage.txt").read_text()
-    home = home.replace("/wp-content/uploads/2026/11/sw-ring.webp", ring).replace("/wp-content/uploads/2026/11/sw-bar.webp", bar)
+    for name, url in urls.items():
+        home = home.replace("/wp-content/uploads/2026/11/" + name, url)
 
     code, st = call("GET", f"{API}/settings")
     old_front = st.get("page_on_front") if code == 200 and st.get("show_on_front") == "page" else 0

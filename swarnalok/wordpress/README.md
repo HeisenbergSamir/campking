@@ -6,7 +6,7 @@ Install kit for swarnalok.com, built for Flatsome UX Builder and the "Simple Cus
 |---|---|
 | `swarnalok.css` | Custom CSS & JS → Add CSS. Linking: Internal · Where on page: Header · Where in site: In Frontend |
 | `swarnalok.js` | Custom CSS & JS → Add JS. Linking: Internal · Where on page: Footer · Where in site: In Frontend |
-| `upload/sw-ring.webp`, `upload/sw-bar.webp` | Media → Add New. If uploaded in a month other than Nov 2026, update the `/wp-content/uploads/2026/11/` paths in `flatsome-homepage.txt` |
+| `upload/sw-*.webp` (ring + 4 model photos) | Media → Add New. If uploaded in a month other than Nov 2026, update the `/wp-content/uploads/2026/11/` paths in `flatsome-homepage.txt` |
 | `flatsome-homepage.txt` | Pages → Home → Text tab (or UX Builder → Edit as code). Page template: "Page - Full Width" |
 | `policies/*.html` | One page each, with these slugs: `terms-and-conditions`, `privacy-policy`, `kyc-aml-policy`, `anti-fraud-policy`, `pricing-payment-policy` |
 | `preview.html` | Local preview only |
