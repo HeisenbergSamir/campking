@@ -42,7 +42,7 @@ h1,h2,h3{font-weight:700;letter-spacing:-.045em;line-height:.98;text-wrap:balanc
 .muted{color:var(--nx-silver)}
 
 /* film grain over everything */
-.grain{position:fixed;inset:-50%;width:200%;height:200%;z-index:60;pointer-events:none;opacity:.11;mix-blend-mode:overlay;image-rendering:pixelated}
+.grain{position:fixed;inset:-128px;z-index:60;pointer-events:none;opacity:.14;mix-blend-mode:overlay;background-size:128px 128px;will-change:background-position}
 .vignette{position:fixed;inset:0;z-index:59;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.45) 100%)}
 
 /* buttons */
@@ -261,7 +261,7 @@ h1,h2,h3{font-weight:700;letter-spacing:-.045em;line-height:.98;text-wrap:balanc
 </style>
 </head>
 <body>
-<canvas class="grain" id="grain" width="256" height="256" aria-hidden="true"></canvas>
+<div class="grain" id="grain" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
 
 <header class="head" id="head">
@@ -399,16 +399,23 @@ h1,h2,h3{font-weight:700;letter-spacing:-.045em;line-height:.98;text-wrap:balanc
   document.documentElement.classList.add('js');
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
 
-  // film grain: a small noise tile redrawn ~14 times a second, scaled up by CSS
-  var g = document.getElementById('grain'), gx = g.getContext('2d'), gd = gx.createImageData(256, 256);
+  // film grain: four small noise tiles made once, cycled ~12 times a second and tiled at their real size
+  var g = document.getElementById('grain'), tiles = [];
+  (function makeTiles() {
+    var c = document.createElement('canvas'); c.width = c.height = 128;
+    var x = c.getContext('2d'), d = x.createImageData(128, 128);
+    for (var t = 0; t < 4; t++) {
+      for (var i = 0; i < d.data.length; i += 4) { var v = Math.random() * 255 | 0; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+      x.putImageData(d, 0, 0); tiles.push('url(' + c.toDataURL() + ')');
+    }
+  })();
+  var gi = 0;
   function noise() {
-    var d = gd.data;
-    for (var i = 0; i < d.length; i += 4) { var v = Math.random() * 255 | 0; d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; }
-    gx.putImageData(gd, 0, 0);
-    g.style.transform = 'translate(' + (Math.random() * 10 - 5).toFixed(1) + '%,' + (Math.random() * 10 - 5).toFixed(1) + '%)';
+    g.style.backgroundImage = tiles[gi = (gi + 1) % tiles.length];
+    g.style.backgroundPosition = (Math.random() * 128 | 0) + 'px ' + (Math.random() * 128 | 0) + 'px';
   }
   noise();
-  if (!reduce) { var last = 0; (function loop(t) { if (t - last > 70 && !document.hidden) { noise(); last = t; } requestAnimationFrame(loop); })(0); }
+  if (!reduce) { var last = 0; (function loop(t) { if (t - last > 80 && !document.hidden) { noise(); last = t; } requestAnimationFrame(loop); })(0); }
 
   // header turns solid after the hero starts to scroll
   var head = document.getElementById('head');

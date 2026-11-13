@@ -26,7 +26,7 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--porcelain);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--cobalt)}
-img,canvas{display:block;max-width:100%}
+img,canvas{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:8px}
@@ -84,14 +84,14 @@ p{margin:0}
 .scroll-cue i{width:1px;height:34px;background:linear-gradient(#F3D58C,transparent);animation:cue 2.2s ease-in-out infinite}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (max-width:820px){
-  .hero .wrap{justify-content:flex-end;padding-top:120px;padding-bottom:110px}
+  .hero .wrap{justify-content:flex-end;padding-top:calc(96px + 50vw);padding-bottom:110px}
   .hero-copy{text-align:center;justify-items:center;margin-inline:auto}
   .places,.actions{justify-content:center}
   .places{font-size:.9rem;flex-wrap:nowrap;white-space:nowrap}
   .places li+li::before{margin:0 9px}
-  .ring-fallback{left:50%;right:auto;top:26%;width:min(62vw,340px);transform:translate(-50%,-50%)}
+  .ring-fallback{left:50%;right:auto;top:calc(76px + 22vw);width:min(46vw,240px);transform:translate(-50%,-50%)}
   @keyframes float{50%{transform:translate(-50%,-53%) rotate(-2deg)}}
-  .live{left:50%;transform:translateX(-50%);bottom:28px;white-space:nowrap}
+  .live{left:50%;transform:translateX(-50%);bottom:auto;top:calc(84px + 44vw);white-space:nowrap}
   .scroll-cue{display:none}
 }
 
@@ -252,6 +252,7 @@ p{margin:0}
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
 }
+
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
@@ -487,9 +488,9 @@ async function start() {
   function size() {
     w = hero.clientWidth; h = hero.clientHeight; wide = w > 820;
     renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
-    const s = wide ? 1 : .6;
+    const s = wide ? 1 : .4;
     pivot.scale.setScalar(s);
-    pivot.position.set(wide ? 1.55 * Math.min(1, camera.aspect / 1.6) : 0, wide ? .05 : 1.05, 0);
+    pivot.position.set(wide ? 1.55 * Math.min(1, camera.aspect / 1.6) : 0, wide ? .05 : 1.32, 0);
   }
   size(); addEventListener('resize', size);
 
@@ -506,7 +507,7 @@ async function start() {
     ring.rotation.z = t * .25 + sy * .006;            // spins with time and scroll
     pivot.rotation.x = ty * .5 + Math.sin(t * .6) * .05; // tilts toward the cursor
     pivot.rotation.y = tx * .7;
-    pivot.position.y = (wide ? .05 : 1.05) + Math.sin(t * .9) * .06 + sy * .0022;
+    pivot.position.y = (wide ? .05 : 1.32) + Math.sin(t * .9) * .06 + sy * .0022;
     const a = g.attributes.position.array;
     for (let i = 0; i < N; i++) { a[i * 3 + 1] += spd[i]; if (a[i * 3 + 1] > 4) a[i * 3 + 1] = -4; }
     g.attributes.position.needsUpdate = true;
