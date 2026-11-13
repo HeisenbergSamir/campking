@@ -2,11 +2,12 @@
 
 Run from this folder:  python3 install.py inspect   (read-only report)
                        python3 install.py install   (make the changes)
-Auth is an Application Password that the session's network proxy adds to requests;
-this script never handles the password itself. Nothing is deleted: the old front
+Auth: an Application Password. Locally, set WP_USER and WP_APP_PASSWORD
+(PowerShell: $env:WP_USER="name"; $env:WP_APP_PASSWORD="xxxx xxxx ..."). In the cloud
+session the network proxy added it instead. Nothing is deleted: the old front
 page is set to draft so it can be restored from Pages > Drafts.
 """
-import json, subprocess, sys, pathlib, re
+import json, subprocess, sys, pathlib, re, os
 
 SITE = "https://swarnalok.com"
 API = SITE + "/wp-json/wp/v2"
@@ -23,6 +24,9 @@ LOG = []
 
 def call(method, url, data=None, file=None, mime=None, name=None):
     cmd = ["curl", "-sS", "-m", "60", "-X", method, url, "-w", "\n%{http_code}"]
+    # on your own PC: set WP_USER and WP_APP_PASSWORD (an Application Password, never your login password)
+    if os.environ.get("WP_USER") and os.environ.get("WP_APP_PASSWORD"):
+        cmd += ["-u", os.environ["WP_USER"] + ":" + os.environ["WP_APP_PASSWORD"]]
     if data is not None:
         cmd += ["-H", "Content-Type: application/json", "--data-binary", json.dumps(data)]
     if file:
