@@ -123,6 +123,8 @@
     var out = $('#sw-estimate', box);
     if (!SW.rates) { out.textContent = SW.rateError ? 'Call for price' : '…'; return; }
     tweenTo(out, g * SW.rates['p' + k + '_1'], null, 500);
+    $$('[data-sw-calc-rate]').forEach(function (e) { tweenTo(e, SW.rates['p' + k + '_1'], null, 400); });
+    $$('[data-sw-calc-k]').forEach(function (e) { e.textContent = k + 'K'; });
   }
   function initCalc() {
     var box = $('.sw-calc'); if (!box) return;
@@ -259,13 +261,13 @@
     var els = $$('[data-count]'); if (!els.length || REDUCE || !('IntersectionObserver' in window)) return;
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        io.unobserve(e.target);
+        var el0 = e.target;
+        if (!e.isIntersecting) { el0._swv = 0; el0.textContent = (0).toFixed(+(el0.getAttribute('data-decimals') || 0)) + (el0.getAttribute('data-suffix') || ''); return; }
         var el = e.target, to = parseFloat(el.getAttribute('data-count')), d = +(el.getAttribute('data-decimals') || 0), suf = el.getAttribute('data-suffix') || '';
         el._swv = 0;
         tweenTo(el, to, function (v) { return v.toFixed(d) + suf; }, 1800);
       });
-    }, { threshold: .5 });
+    }, { threshold: .35 });
     els.forEach(function (el) { io.observe(el); });
   }
 

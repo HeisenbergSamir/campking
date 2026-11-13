@@ -110,7 +110,7 @@ p{margin:0}
 .chip:hover svg{color:var(--acc-hi)}
 .actions{display:flex;flex-wrap:wrap;gap:12px}
 .visual{position:relative;max-width:620px;justify-self:end;width:100%;padding:0 0 12% 10%}
-.photo{position:relative;border-radius:999px 999px 36px 36px;overflow:hidden;aspect-ratio:4/5;background:var(--bg2);box-shadow:0 60px 100px -60px rgba(40,25,5,.55)}
+.photo{position:relative;border-radius:0;overflow:hidden;aspect-ratio:4/5;background:var(--bg2);box-shadow:0 60px 100px -60px rgba(40,25,5,.55)}
 .photo img{position:absolute;inset:0;width:100%;height:115%;object-fit:cover;will-change:transform}
 .ring-zone{position:absolute;left:-6%;bottom:-2%;width:62%;aspect-ratio:1;will-change:transform;pointer-events:none}
 .ring-zone canvas#gl{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s}
@@ -162,7 +162,7 @@ p{margin:0}
 /* model reveal */
 .reveal{position:relative;height:200vh}
 .reveal-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center}
-.reveal-img{position:absolute;inset:0;clip-path:inset(var(--ci,22%) var(--cx,30%) round 32px);will-change:clip-path}
+.reveal-img{position:absolute;inset:0;clip-path:inset(var(--ci,22%) var(--cx,30%));will-change:clip-path}
 .reveal-img img{width:100%;height:100%;object-fit:cover;transform:scale(var(--sc,1.2))}
 .reveal-copy{position:relative;z-index:2;text-align:center;color:#fff;opacity:var(--co,0);transform:translateY(calc((1 - var(--co,0)) * 30px));text-shadow:0 10px 40px rgba(0,0,0,.4)}
 .reveal-copy .eyebrow{color:#F3D58C}
@@ -175,9 +175,9 @@ p{margin:0}
 
 /* steps */
 .steps{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(10px,1.2vw,18px);margin:clamp(40px,5vw,70px) 0 0;padding:0;list-style:none}
-.steps::before{content:"";position:absolute;left:0;right:0;top:27px;height:2px;background:var(--line)}
-.steps::after{content:"";position:absolute;left:0;top:27px;height:2px;width:calc(var(--prog,0) * 100%);background:var(--grad);transition:width .1s linear}
-.step{position:relative}
+.steps::before{content:"";position:absolute;left:28px;right:28px;top:27px;height:2px;background:var(--line);z-index:0}
+.steps::after{content:"";position:absolute;left:28px;top:27px;height:2px;width:calc(var(--prog,0) * (100% - 56px));background:var(--grad);transition:width .1s linear;z-index:0}
+.step{position:relative;z-index:1}
 .step button{display:grid;gap:10px;width:100%;padding:0;border:0;background:none;text-align:left;cursor:pointer}
 .step i{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--bg);box-shadow:inset 0 0 0 1.5px var(--line);font-style:normal;font-weight:800;font-size:.9rem;transition:background .3s,color .3s,box-shadow .3s}
 .step.lit i{background:var(--ink);color:var(--bg);box-shadow:none}
@@ -249,7 +249,8 @@ p{margin:0}
 .rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 .no-js .rv{opacity:1;transform:none}
-.line{display:block;overflow:hidden;padding-bottom:.2em;margin-bottom:-.12em}
+.line{display:block;overflow:hidden;padding-bottom:.16em;margin-bottom:-.16em}
+.line>span{padding-bottom:.06em}
 .line>span{display:block;animation:up 1s cubic-bezier(.2,.8,.2,1) both}
 .line:nth-child(2)>span{animation-delay:.12s}
 @keyframes up{from{transform:translateY(105%)}}
@@ -416,7 +417,7 @@ def page(key, t):
         <div class="seg" role="radiogroup" aria-label="Purity"><input type="radio" name="sw-k" id="sw-k24" value="24"><label for="sw-k24">24K</label><input type="radio" name="sw-k" id="sw-k22" value="22" checked><label for="sw-k22">22K</label><input type="radio" name="sw-k" id="sw-k18" value="18"><label for="sw-k18">18K</label><input type="radio" name="sw-k" id="sw-k14" value="14"><label for="sw-k14">14K</label></div>
         <div class="stepper"><button type="button" id="sw-minus" aria-label="Less weight">−</button><label class="grams"><input id="sw-grams" type="number" inputmode="decimal" min="0" step="0.5" value="20" aria-label="Weight in grams"><span>grams</span></label><button type="button" id="sw-plus" aria-label="More weight">+</button></div>
         <button class="btn gold-btn" type="button" id="sw-calc-wa">{ICON["wa"]} Get this price on WhatsApp</button>
-        <p class="fine">Estimate at the live rate. Final price after the X-ray test.</p>
+        <p class="fine">Tentative, at today's live <span data-sw-calc-k>22K</span> rate <b data-sw-calc-rate>…</b> per gram. Final price after the X-ray test.</p>
       </form>
     </div>
   </section>
