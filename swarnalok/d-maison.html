@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Swarnalok Maison</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Swarnalok only buys old gold. A private buying salon in Jakkur, Bengaluru North. X-ray tested in front of you, paid to your bank in about thirty minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@300;400;500;600&display=swap">
+<style>
+/* Concept: a couture house that only buys. Black salon (30) · warm ivory paper (60) · gold hairlines (10).
+   Split-screen cinematic hero, then quiet bands. Content max 1600px, bands full width. */
+:root{
+  color-scheme: light;
+  --noir:#0B0A09; --noir-2:#151311; --ivory:#F6F1E8; --paper:#FBF8F2; --stone:#E7DFD2;
+  --ink:#1A1714; --ink-2:#5E574F; --mist:#A49C90;
+  --gold:#C6A15B; --gold-hi:#E3C88E; --gold-deep:#8C6A2A;
+  --hair-d:rgba(198,161,91,.32); --hair-l:rgba(26,23,20,.14);
+  --serif:"Instrument Serif","Times New Roman",Georgia,serif;
+  --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --gl:max(16px,env(safe-area-inset-left,0px)); --gr:max(16px,env(safe-area-inset-right,0px));
+  --pad:clamp(16px,4vw,72px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--noir)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:1.5px solid var(--gold);outline-offset:4px}
+.wrap{max-width:1600px;margin-inline:auto;padding-left:max(var(--pad),var(--gl));padding-right:max(var(--pad),var(--gr))}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h1 em,h2 em{font-style:italic;color:var(--gold-deep)}
+.on-noir h1 em,.on-noir h2 em{color:var(--gold-hi)}
+p{margin:0}
+.label{font:500 .7rem/1.4 var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--gold-deep)}
+.on-noir .label{color:var(--gold)}
+.on-noir{background:var(--noir);color:var(--ivory)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 30px;font:500 .74rem/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;border:1px solid var(--gold);background:var(--gold);color:var(--noir);cursor:pointer;transition:background .5s,color .5s,border-color .5s}
+.btn:hover{background:var(--gold-hi);border-color:var(--gold-hi)}
+.btn.line{background:transparent;color:var(--ivory);border-color:rgba(246,241,232,.4)}
+.btn.line:hover{border-color:var(--gold);color:var(--gold-hi)}
+.btn.ink{background:var(--noir);border-color:var(--noir);color:var(--ivory)}
+.btn.ink:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
+
+/* header */
+.head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(11,10,9,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ivory);border-bottom:1px solid rgba(198,161,91,.18)}
+.head .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:72px;gap:16px}
+.nav{display:flex;gap:clamp(18px,2.4vw,40px);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase}
+.nav a{opacity:.72;transition:opacity .3s;padding-block:8px}
+.nav a:hover{opacity:1}
+.mark{display:flex;align-items:center;gap:14px;justify-self:center}
+.mono{width:34px;height:34px;flex:none}
+.word{font:500 .9rem/1 var(--sans);letter-spacing:.56em;margin-right:-.56em}
+.head .cta{justify-self:end;font:500 .7rem/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--gold-hi);background:none;border:0;border-bottom:1px solid var(--hair-d);padding:10px 0;cursor:pointer}
+.head .cta:hover{border-color:var(--gold-hi)}
+@media (max-width:860px){
+  .head .wrap{grid-template-columns:1fr auto;height:62px}
+  .nav{display:none}
+  .mark{justify-self:start}
+  .word{font-size:.78rem;letter-spacing:.42em;margin-right:-.42em}
+  .mono{width:28px;height:28px}
+}
+@media (max-width:380px){.word{letter-spacing:.3em}.head .cta{letter-spacing:.14em}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:min(calc(100svh - 72px),940px);background:var(--noir)}
+.hero-img{position:relative;overflow:hidden;min-height:440px}
+.hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;filter:sepia(.22) saturate(.9) contrast(1.04) brightness(.96);animation:settle 2.8s cubic-bezier(.2,.7,.2,1) both}
+.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,10,9,0) 60%,rgba(11,10,9,.55) 100%),linear-gradient(0deg,rgba(11,10,9,.35),rgba(11,10,9,0) 30%)}
+.hero-img figcaption{position:absolute;left:var(--pad);bottom:28px;z-index:1;font:500 .66rem/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:rgba(246,241,232,.82)}
+@keyframes settle{from{transform:scale(1.09);opacity:.4}}
+.hero-copy{display:flex;flex-direction:column;justify-content:center;gap:clamp(22px,2.6vw,36px);padding:clamp(44px,6vw,110px) max(var(--pad),var(--gr)) clamp(44px,6vw,110px) clamp(28px,5vw,96px);max-width:820px;min-width:0}
+.hero-copy > *{animation:rise 1.4s cubic-bezier(.2,.7,.2,1) both}
+.hero-copy > :nth-child(2){animation-delay:.15s}.hero-copy > :nth-child(3){animation-delay:.3s}.hero-copy > :nth-child(4){animation-delay:.45s}.hero-copy > :nth-child(5){animation-delay:.6s}.hero-copy > :nth-child(6){animation-delay:.75s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+.hero h1{font-size:clamp(3rem,6.2vw,6.6rem);line-height:.98}
+.lede{font-size:clamp(1.02rem,1.25vw,1.18rem);color:#CFC6B8;max-width:40ch;font-weight:300}
+.promises{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair-d)}
+.promises li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid var(--hair-d);font-size:.95rem;color:var(--ivory)}
+.promises li span{font:italic 400 1.05rem/1 var(--serif);color:var(--gold-hi);white-space:nowrap}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.rate{font-size:.78rem;color:var(--mist);letter-spacing:.04em}
+.rate b{color:var(--ivory);font-weight:500;font-variant-numeric:tabular-nums}
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:0}
+  .hero-img{min-height:0;aspect-ratio:4/4.6}
+  .hero-img::after{background:linear-gradient(0deg,rgba(11,10,9,1) 0%,rgba(11,10,9,0) 20%)}
+  .hero-copy{padding:8px var(--gr) 56px var(--gl);margin-top:-64px;position:relative;z-index:1}
+  .hero h1{font-size:clamp(2.7rem,11.5vw,4.4rem)}
+  .cta-row .btn{flex:1 1 200px}
+}
+
+/* bands */
+.band{padding-block:clamp(80px,11vw,170px)}
+.paper{background:var(--paper)}
+.head-block{display:grid;gap:18px;max-width:900px}
+.head-block.c{margin-inline:auto;text-align:center;justify-items:center}
+.h2{font-size:clamp(2.4rem,5.2vw,5rem);line-height:1.02}
+.on-noir .h2 em{color:var(--gold-hi)}
+.quiet{color:var(--ink-2);font-size:clamp(1rem,1.2vw,1.12rem);max-width:46ch;font-weight:300}
+.on-noir .quiet{color:#BDB4A6}
+
+/* promise pillars */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(48px,6vw,96px);border-top:1px solid var(--hair-l)}
+.pillar{padding:clamp(28px,3vw,48px) clamp(0px,2.4vw,40px) 0;border-left:1px solid var(--hair-l);display:grid;gap:14px;align-content:start}
+.pillar:first-child{border-left:0;padding-left:0}
+.pillar small{font:italic 400 1.2rem/1 var(--serif);color:var(--gold-deep)}
+.pillar h3{font-size:clamp(1.9rem,2.6vw,2.6rem);line-height:1.05}
+.pillar p{color:var(--ink-2);max-width:32ch}
+@media (max-width:820px){.pillars{grid-template-columns:1fr}.pillar{border-left:0;padding-left:0;border-bottom:1px solid var(--hair-l);padding-bottom:30px}}
+
+/* ritual */
+.ritual-top{display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px}
+.ritual-top img{width:clamp(180px,22vw,360px);opacity:.95}
+.steps{list-style:none;margin:clamp(48px,6vw,90px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--hair-d)}
+.steps li{padding:clamp(26px,3vw,44px) clamp(18px,2.4vw,40px) clamp(26px,3vw,44px) 0;border-bottom:1px solid var(--hair-d);display:grid;grid-template-columns:3.2em 1fr;gap:6px 14px;align-items:baseline;transition:background .6s}
+.steps li:hover{background:var(--noir-2)}
+.steps .n{font:italic 400 1.5rem/1 var(--serif);color:var(--gold)}
+.steps h3{font-size:clamp(1.7rem,2.2vw,2.2rem);line-height:1.1}
+.steps p{grid-column:2;color:#BDB4A6;font-size:.98rem}
+.steps li.paid h3{color:var(--gold-hi)}
+@media (max-width:1000px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.steps{grid-template-columns:1fr}.ritual-top{grid-template-columns:1fr}.ritual-top img{width:180px}}
+
+/* valuation card */
+.value-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(36px,6vw,110px);align-items:center}
+.rates{width:100%;max-width:440px;border-collapse:collapse;margin-top:12px;font-variant-numeric:tabular-nums}
+.rates th,.rates td{padding:12px 0;border-bottom:1px solid var(--hair-l);text-align:left;font-weight:400}
+.rates th{font:500 .72rem var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2)}
+.rates td:last-child{text-align:right;font-family:var(--serif);font-size:1.3rem}
+.card{background:var(--paper);border:1px solid var(--hair-l);padding:10px;box-shadow:0 50px 90px -60px rgba(26,23,20,.5)}
+.card-in{border:1px solid var(--gold);padding:clamp(24px,3.4vw,52px);display:grid;gap:26px}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.card-head span{font:500 .66rem/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--ink-2)}
+.karat{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair-l)}
+.karat input{position:absolute;opacity:0;pointer-events:none}
+.karat label{min-height:50px;display:grid;place-items:center;font:400 1.3rem var(--serif);cursor:pointer;border-left:1px solid var(--hair-l);transition:background .4s,color .4s}
+.karat label:first-of-type{border-left:0}
+.karat input:checked+label{background:var(--noir);color:var(--gold-hi)}
+.karat input:focus-visible+label{outline:1.5px solid var(--gold);outline-offset:-4px}
+.weigh{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--hair-l);padding-bottom:12px}
+.weigh label{font:500 .7rem var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--ink-2)}
+.weigh .ctl{display:flex;align-items:center;gap:8px}
+.weigh button{width:44px;height:44px;border:1px solid var(--hair-l);background:none;cursor:pointer;font-size:1.2rem;transition:border-color .3s}
+.weigh button:hover{border-color:var(--gold)}
+.weigh input{width:5ch;border:0;background:none;text-align:center;font:400 2rem var(--serif);color:var(--ink);font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+.weigh input::-webkit-outer-spin-button,.weigh input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.weigh input:focus{outline:none;box-shadow:0 1px 0 var(--gold)}
+.total{display:grid;gap:4px}
+.total span{font:500 .7rem var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--ink-2)}
+.total output{font:400 clamp(3rem,6vw,5.4rem)/1 var(--serif);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.fine{font-size:.78rem;color:var(--ink-2)}
+@media (max-width:900px){.value-grid{grid-template-columns:1fr}}
+
+/* appointment */
+.salon{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,6vw,110px);align-items:center}
+.orb{width:min(100%,520px);justify-self:center;position:relative}
+.orb img{animation:float 9s ease-in-out infinite}
+.orb::after{content:"";position:absolute;left:18%;right:18%;bottom:-4%;height:8%;border-radius:50%;background:radial-gradient(closest-side,rgba(198,161,91,.28),rgba(0,0,0,0))}
+@keyframes float{50%{transform:translateY(-14px)}}
+.big8{font:400 clamp(6rem,14vw,13rem)/.85 var(--serif);color:var(--gold-hi);letter-spacing:-.03em}
+.big8 small{font-size:.28em;font-style:italic;color:var(--ivory);margin-left:.15em}
+.places{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 0;color:#BDB4A6;font-size:.95rem;max-width:560px}
+.places li:not(:last-child)::after{content:"·";margin:0 12px;color:var(--gold)}
+.addr{display:grid;gap:2px;border-left:1px solid var(--gold);padding-left:18px;font-size:.95rem;color:var(--ivory)}
+.addr span{color:var(--mist);font-size:.82rem}
+@media (max-width:900px){.salon{grid-template-columns:1fr}.orb{width:min(70%,320px);order:-1}}
+
+/* bring */
+.bring{list-style:none;margin:clamp(44px,5vw,80px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--hair-l)}
+.bring li{padding:30px 20px 30px 0;border-bottom:1px solid var(--hair-l);display:grid;gap:10px}
+.bring b{font:italic 400 1.2rem/1 var(--serif);color:var(--gold-deep);font-weight:400}
+.bring span{font:400 clamp(1.6rem,2.2vw,2.2rem)/1.1 var(--serif)}
+@media (max-width:820px){.bring{grid-template-columns:1fr 1fr}}
+
+/* close */
+.closing{text-align:center}
+.closing .h2{font-size:clamp(2.6rem,6vw,6rem)}
+.closing .cta-row{justify-content:center;margin-top:36px}
+
+/* footer */
+.foot{background:var(--noir);color:var(--mist);font-size:.82rem;border-top:1px solid rgba(198,161,91,.18)}
+.foot .wrap{padding-block:56px 34px;display:grid;gap:34px}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px}
+.foot h4{margin:0 0 12px;font:500 .66rem var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.foot .mark{justify-self:start;color:var(--ivory)}
+.foot-bot{border-top:1px solid rgba(198,161,91,.18);padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:.74rem}
+@media (max-width:860px){.foot-top{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.foot-top{grid-template-columns:1fr}}
+
+/* booking sheet */
+dialog{border:0;padding:0;width:min(560px,calc(100vw - 32px));max-height:calc(100dvh - 32px);background:var(--paper);color:var(--ink)}
+dialog::backdrop{background:rgba(11,10,9,.72);backdrop-filter:blur(6px)}
+dialog[open]{animation:sheet .6s cubic-bezier(.2,.7,.2,1)}
+@keyframes sheet{from{opacity:0;transform:translateY(24px)}}
+.sheet{margin:10px;border:1px solid var(--gold);padding:clamp(26px,4vw,44px);display:grid;gap:18px;position:relative}
+.sheet h2{font-size:clamp(2rem,4vw,2.6rem);line-height:1.05}
+.sheet .x{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;background:none;font-size:1.5rem;cursor:pointer;color:var(--ink-2)}
+.field{display:grid;gap:6px}
+.field label{font:500 .66rem var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--ink-2)}
+.field input,.field select{min-height:50px;border:0;border-bottom:1px solid var(--hair-l);background:transparent;padding:0 2px;font:400 1.05rem var(--sans);color:var(--ink);width:100%;border-radius:0}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:460px){.two{grid-template-columns:1fr}}
+.ok{border-left:1px solid var(--gold);padding:6px 0 6px 14px;font-size:.95rem}
+
+/* scroll reveal: settles in as it arrives, visible at rest */
+@supports (animation-timeline: view()){
+  .reveal{animation:veil linear both;animation-timeline:view();animation-range:entry 0% cover 25%}
+  @keyframes veil{from{opacity:.2;transform:translateY(36px)}}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mono" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18.500" fill="none" stroke="currentColor" stroke-width=".8"/><circle cx="20" cy="20" r="15.500" fill="none" stroke="currentColor" stroke-width=".4"/><text x="20" y="27.2" text-anchor="middle" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="21" fill="currentColor">S</text></symbol>
+</svg>
+
+<header class="head">
+  <div class="wrap">
+    <nav class="nav" aria-label="Main">
+      <a href="#promise">Promise</a>
+      <a href="#ritual">Ritual</a>
+      <a href="#price">Price</a>
+      <a href="#salon">Salon</a>
+    </nav>
+    <a class="mark" href="#top" aria-label="Swarnalok home"><svg class="mono" style="color:var(--gold)"><use href="#mono"/></svg><span class="word">SWARNALOK</span></a>
+    <button class="cta" type="button" data-book>Book a visit</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="h1">
+    <figure class="hero-img" style="margin:0">
+      <img src="media/portrait.jpg" alt="A woman wearing a fine gold chain" width="1400" height="1750" fetchpriority="high">
+      <figcaption>Jakkur · Bengaluru North</figcaption>
+    </figure>
+    <div class="hero-copy on-noir">
+      <p class="label">Old gold buyers · By appointment</p>
+      <h1 id="h1">We don't sell gold.<br><em>We only buy it.</em></h1>
+      <p class="lede">No showroom, no exchange offer, nothing to sell you. So nothing to deduct.</p>
+      <ul class="promises" aria-label="Our promises">
+        <li>About ten minutes from you<span>Near</span></li>
+        <li>Live market rate, ₹0 deductions<span>Fair</span></li>
+        <li>X-ray tested before your eyes<span>Open</span></li>
+        <li>Paid in about thirty minutes<span>Quick</span></li>
+        <li>KYC, consent, bank transfer only<span>Genuine</span></li>
+      </ul>
+      <div class="cta-row">
+        <a class="btn" href="#price">See today's price</a>
+        <button class="btn line" type="button" data-book>Book a private visit</button>
+      </div>
+      <p class="rate">22K today <b class="r22">₹11,734</b> per gram · sample rate</p>
+    </div>
+  </section>
+
+  <section class="band paper" id="promise">
+    <div class="wrap">
+      <div class="head-block reveal">
+        <p class="label">The Swarnalok promise</p>
+        <h2 class="h2">A buyer with <em>nothing</em> to sell you.</h2>
+      </div>
+      <div class="pillars">
+        <article class="pillar reveal"><small>i.</small><h3>Nothing to sell.</h3><p>We are not a jeweller. Your price is never a lure for a new purchase.</p></article>
+        <article class="pillar reveal"><small>ii.</small><h3>Nothing hidden.</h3><p>Every step happens in front of you, and on camera.</p></article>
+        <article class="pillar reveal"><small>iii.</small><h3>Nothing in cash.</h3><p>Paid to your own bank account, with a signed receipt.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band on-noir" id="ritual">
+    <div class="wrap">
+      <div class="ritual-top">
+        <div class="head-block reveal">
+          <p class="label">The ritual</p>
+          <h2 class="h2">Six steps. <em>Thirty minutes.</em></h2>
+          <p class="quiet">Stop at any step and your gold goes home with you. No fee.</p>
+        </div>
+        <img class="reveal" src="media/bar.webp" alt="" width="1400" height="875" loading="lazy">
+      </div>
+      <ol class="steps">
+        <li class="reveal"><span class="n">I</span><h3>Consent</h3><p>You sign. We record. PAN and Aadhaar checked.</p></li>
+        <li class="reveal"><span class="n">II</span><h3>Cleanse</h3><p>An ultrasonic bath leaves only metal.</p></li>
+        <li class="reveal"><span class="n">III</span><h3>Melt</h3><p>One even bar, so nothing can hide.</p></li>
+        <li class="reveal"><span class="n">IV</span><h3>Assay</h3><p>X-ray purity at up to four points, on your screen.</p></li>
+        <li class="reveal"><span class="n">V</span><h3>Weigh</h3><p>A certified scale. The live rate.</p></li>
+        <li class="reveal paid"><span class="n">VI</span><h3>Settle</h3><p>Paid to your bank. Signed receipt in hand.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="price">
+    <div class="wrap value-grid">
+      <div class="head-block reveal">
+        <p class="label">Today's price</p>
+        <h2 class="h2">The rate, <em>written down.</em></h2>
+        <p class="quiet">What you see here is what we pay, adjusted only for the purity the X-ray finds.</p>
+        <table class="rates" aria-label="Sample rates per gram">
+          <thead><tr><th>Purity</th><th style="text-align:right">Per gram</th></tr></thead>
+          <tbody id="rateTable"></tbody>
+        </table>
+        <p class="fine">Sample rates for this prototype.</p>
+      </div>
+      <form class="card reveal" id="calc" onsubmit="return false" aria-label="Valuation">
+        <div class="card-in">
+          <div class="card-head"><span>Swarnalok · Valuation</span><span>Indicative</span></div>
+          <fieldset style="border:0;margin:0;padding:0">
+            <legend class="label" style="margin-bottom:10px;color:var(--ink-2)">Purity</legend>
+            <div class="karat">
+              <input type="radio" name="k" id="k24" value="1"><label for="k24">24K</label>
+              <input type="radio" name="k" id="k22" value="0.9167" checked><label for="k22">22K</label>
+              <input type="radio" name="k" id="k18" value="0.75"><label for="k18">18K</label>
+              <input type="radio" name="k" id="k14" value="0.585"><label for="k14">14K</label>
+            </div>
+          </fieldset>
+          <div class="weigh">
+            <label for="grams">Weight, grams</label>
+            <div class="ctl">
+              <button type="button" id="minus" aria-label="Less weight">−</button>
+              <input id="grams" type="number" inputmode="decimal" min="0" step="0.5" value="20">
+              <button type="button" id="plus" aria-label="More weight">+</button>
+            </div>
+          </div>
+          <div class="total"><span>You would receive about</span><output id="estimate" for="grams">₹2,34,675</output></div>
+          <button class="btn ink" type="button" data-book>Book a private visit</button>
+          <p class="fine">Final price is set after the X-ray assay in front of you.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="band on-noir" id="salon">
+    <div class="wrap salon">
+      <div class="head-block reveal">
+        <p class="label">By appointment</p>
+        <h2 class="h2">A private room, <em>not a shop counter.</em></h2>
+        <p class="quiet">One guest at a time, in our Jakkur salon. About ten minutes from most of North Bengaluru.</p>
+        <p class="big8" aria-label="8 kilometre radius">8<small>km</small></p>
+        <ul class="places" aria-label="Neighbourhoods we serve">
+          <li>Jakkur</li><li>Yelahanka</li><li>Hebbal</li><li>Thanisandra</li><li>Sahakar Nagar</li><li>Kodigehalli</li><li>Amruthahalli</li><li>Hegde Nagar</li><li>Nagavara</li><li>Kogilu</li>
+        </ul>
+        <p class="addr">Jakkur, Bengaluru 560064<span>Monday to Saturday, 10 am to 7 pm</span></p>
+      </div>
+      <div class="orb reveal"><img src="media/drop.webp" alt="" width="1000" height="1000" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="band paper">
+    <div class="wrap">
+      <div class="head-block reveal">
+        <p class="label">For your visit</p>
+        <h2 class="h2">Bring <em>four</em> things.</h2>
+      </div>
+      <ul class="bring">
+        <li class="reveal"><b>i.</b><span>Your gold</span></li>
+        <li class="reveal"><b>ii.</b><span>PAN card</span></li>
+        <li class="reveal"><b>iii.</b><span>Aadhaar</span></li>
+        <li class="reveal"><b>iv.</b><span>Bank account</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band closing">
+    <div class="wrap">
+      <p class="label reveal">Swarnalok</p>
+      <h2 class="h2 reveal" style="margin-top:18px">Your gold, <em>valued honestly.</em></h2>
+      <div class="cta-row reveal">
+        <button class="btn ink" type="button" data-book>Request a private visit</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="mark" href="#top" aria-label="Swarnalok home"><svg class="mono" style="color:var(--gold)"><use href="#mono"/></svg><span class="word">SWARNALOK</span></a>
+        <p style="margin-top:16px;max-width:36ch">Old gold buyers. We do not sell gold or jewellery.</p>
+      </div>
+      <div><h4>Compliance</h4><ul><li>Signed consent form</li><li>PAN and Aadhaar KYC</li><li>Every step on camera</li><li>Bank transfer only</li></ul></div>
+      <div><h4>Salon</h4><ul><li>Jakkur, Bengaluru 560064</li><li>Mon to Sat, 10 to 7</li><li>By appointment</li></ul></div>
+      <div><h4>Contact</h4><ul><li>+91 00000 00000</li><li>hello@swarnalok.com</li></ul></div>
+    </div>
+    <div class="foot-bot"><span>© 2026 Swarnalok. Rates shown are samples. Final price follows the X-ray assay and the market rate at the time of sale.</span><span>swarnalok.com</span></div>
+  </div>
+</footer>
+
+<dialog id="book" aria-labelledby="bookTitle">
+  <form class="sheet" id="bookForm" novalidate>
+    <button class="x" type="button" id="close" aria-label="Close">×</button>
+    <p class="label">By appointment</p>
+    <h2 id="bookTitle">Request a private visit.</h2>
+    <p style="color:var(--ink-2)">We will call to confirm your time.</p>
+    <div class="field"><label for="name">Name</label><input id="name" autocomplete="name"></div>
+    <div class="field"><label for="phone">Mobile</label><input id="phone" type="tel" inputmode="numeric" autocomplete="tel"></div>
+    <div class="two">
+      <div class="field"><label for="area">Area</label><select id="area"><option>Jakkur</option><option>Yelahanka</option><option>Hebbal</option><option>Thanisandra</option><option>Sahakar Nagar</option><option>Other nearby</option></select></div>
+      <div class="field"><label for="slot">Time</label><select id="slot"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></div>
+    </div>
+    <button class="btn ink" type="submit">Request a call</button>
+    <p class="ok" id="ok" role="status" hidden></p>
+  </form>
+</dialog>
+
+<script>
+(function(){
+  var RATE_24K = 12800; // sample ₹ per gram for 24K; replace with a live feed
+  var inr = function(n){ return '₹' + Math.round(n).toLocaleString('en-IN'); };
+  document.querySelectorAll('.r22').forEach(function(e){ e.textContent = inr(RATE_24K * .9167); });
+  document.getElementById('rateTable').innerHTML = [['24K',1],['22K',.9167],['18K',.75],['14K',.585]].map(function(r){ return '<tr><td>' + r[0] + '</td><td>' + inr(RATE_24K * r[1]) + '</td></tr>'; }).join('');
+
+  var g = document.getElementById('grams'), out = document.getElementById('estimate');
+  function calc(){ var k = document.querySelector('input[name="k"]:checked').value; out.textContent = inr(Math.max(0, parseFloat(g.value) || 0) * RATE_24K * k); }
+  document.getElementById('calc').addEventListener('input', calc);
+  document.getElementById('minus').addEventListener('click', function(){ g.value = Math.max(0, (parseFloat(g.value) || 0) - 1); calc(); });
+  document.getElementById('plus').addEventListener('click', function(){ g.value = (parseFloat(g.value) || 0) + 1; calc(); });
+  calc();
+
+  var dlg = document.getElementById('book'), ok = document.getElementById('ok');
+  document.querySelectorAll('[data-book]').forEach(function(b){ b.addEventListener('click', function(){ ok.hidden = true; if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }); });
+  document.getElementById('close').addEventListener('click', function(){ dlg.close(); });
+  dlg.addEventListener('click', function(e){ if (e.target === dlg) dlg.close(); });
+  document.getElementById('bookForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var n = document.getElementById('name').value.trim(), p = document.getElementById('phone').value.trim();
+    ok.hidden = false;
+    ok.textContent = (!n || !p) ? 'Please add your name and mobile number.' : 'Thank you, ' + n + '. This prototype does not send requests yet.';
+  });
+})();
+</script>
+</body>
+</html>

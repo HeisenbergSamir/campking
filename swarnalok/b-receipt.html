@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Swarnalok Receipt</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Swarnalok buys old gold in North Bengaluru. We don't sell jewellery, so there's nothing to deduct. X-ray purity test, live rate, paid to your bank in about 30 minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Concept: transparency made literal. A Swiss grid, hairline rules, numbers as heroes.
+   60 paper · 30 graphite · 10 gold (used only for marks, totals and focus). */
+:root{
+  color-scheme: light;
+  --paper:#F2F2F0; --sheet:#FAFAF8; --ink:#1A1A19; --graphite:#232322; --graphite-2:#2E2E2C;
+  --mute:#64645F; --mute-d:#9A9A94; --rule:#CACAC5; --rule-d:#3E3E3B;
+  --gold:#B08A3E; --gold-ink:#7E6224; --gold-hi:#D9B66A;
+  --sans:"Geist","Inter","Helvetica Neue",Arial,sans-serif;
+  --mono:"Geist Mono","JetBrains Mono","IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --gl:max(16px,env(safe-area-inset-left,0px)); --gr:max(16px,env(safe-area-inset-right,0px));
+  --pad:clamp(16px,3vw,48px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--graphite)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1600px;margin-inline:auto;padding-left:max(var(--pad),var(--gl));padding-right:max(var(--pad),var(--gr))}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-weight:500;letter-spacing:-.035em;text-wrap:balance}
+.mono{font-family:var(--mono);font-size:.75rem;letter-spacing:.04em;text-transform:uppercase}
+.label{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:10px}
+.label i{width:8px;height:8px;background:var(--gold);flex:none}
+.num{font-variant-numeric:tabular-nums}
+
+/* buttons: square, exact */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 24px;background:var(--ink);color:var(--sheet);border:1px solid var(--ink);font:500 .95rem/1 var(--sans);letter-spacing:-.01em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:var(--gold-ink);border-color:var(--gold-ink)}
+.btn.line{background:transparent;color:var(--ink)}
+.btn.line:hover{background:var(--ink);color:var(--sheet)}
+.btn .arr{font-family:var(--mono)}
+
+/* data strip */
+.strip{background:var(--graphite);color:#D8D8D3;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase}
+.strip .wrap{display:flex;gap:28px;height:34px;align-items:center;white-space:nowrap;overflow:hidden}
+.strip b{color:var(--gold-hi);font-weight:500}
+.strip span{display:inline-flex;gap:8px}
+@media (max-width:700px){.strip .hide-s{display:none}}
+
+/* header */
+.head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(242,242,240,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.head .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;height:64px}
+.brand{display:flex;align-items:baseline;gap:12px;text-decoration:none}
+.brand b{font-weight:600;font-size:1.2rem;letter-spacing:-.04em}
+.brand b::after{content:"";display:inline-block;width:7px;height:7px;background:var(--gold);margin-left:3px}
+.brand small{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.nav{display:flex;justify-content:center;gap:clamp(18px,2.6vw,40px);font-size:.86rem}
+.nav a{text-decoration:none;display:inline-flex;gap:6px;align-items:baseline}
+.nav a em{font-style:normal;font-family:var(--mono);font-size:.66rem;color:var(--mute)}
+.nav a:hover{color:var(--gold-ink)}
+.head .btn{min-height:40px;padding:0 16px;font-size:.85rem}
+@media (max-width:900px){.nav{display:none}.head .wrap{grid-template-columns:1fr auto}}
+@media (max-width:420px){.brand small{display:none}}
+
+/* hero */
+.hero .wrap{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);padding-block:clamp(36px,5vw,80px) clamp(28px,4vw,56px)}
+.hero-copy{grid-column:1 / span 7;display:flex;flex-direction:column;gap:clamp(18px,2vw,28px);min-width:0;align-self:center}
+.hero h1{font-size:clamp(3rem,7.4vw,8rem);line-height:.94;letter-spacing:-.055em;font-weight:500}
+.hero h1 span{display:block;color:var(--mute-d)}
+.hero .lede{font-size:clamp(1.15rem,1.6vw,1.5rem);line-height:1.35;letter-spacing:-.02em;max-width:26ch}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.receipt-col{grid-column:9 / span 4;min-width:0;align-self:center}
+@media (max-width:1100px){.hero-copy{grid-column:1 / span 12}.receipt-col{grid-column:1 / span 12;margin-top:40px;max-width:520px}}
+
+/* the receipt */
+.receipt{background:var(--sheet);border:1px solid var(--rule);font-family:var(--mono);font-size:.8rem;letter-spacing:.01em;position:relative;box-shadow:0 1px 0 var(--rule),0 30px 60px -40px rgba(0,0,0,.35)}
+.receipt::after{content:"";position:absolute;left:-1px;right:-1px;bottom:-9px;height:10px;background:linear-gradient(-45deg,transparent 6px,var(--sheet) 0) 0 0/12px 10px,linear-gradient(45deg,transparent 6px,var(--sheet) 0) 0 0/12px 10px;filter:drop-shadow(0 1px 0 var(--rule))}
+.r-head{display:flex;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--rule);text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;color:var(--mute)}
+.r-head b{color:var(--ink);font-weight:500}
+.r-body{padding:10px 20px 6px;margin:0;list-style:none}
+.r-body li{display:flex;align-items:baseline;gap:8px;padding:7px 0}
+.r-body li span:first-child{color:var(--mute);white-space:nowrap}
+.r-body li .lead{flex:1;border-bottom:1px dotted var(--rule);transform:translateY(-3px);min-width:12px}
+.r-body li b{font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
+.r-body li.zero b{color:var(--gold-ink)}
+.r-total{border-top:1px solid var(--ink);margin:6px 20px 0;padding:16px 0 12px;display:grid;gap:4px}
+.r-total small{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.r-total strong{font:500 clamp(2.2rem,3.4vw,3rem)/1 var(--sans);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.r-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px 22px;color:var(--mute);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase}
+.bars{height:26px;width:120px;background:repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 3px,var(--ink) 3px 5px,transparent 5px 6px,var(--ink) 6px 7px,transparent 7px 10px)}
+.stamp{position:absolute;bottom:84px;right:20px;border:1px solid var(--gold);color:var(--gold-ink);padding:3px 7px;font-size:.62rem;letter-spacing:.14em;transform:rotate(6deg)}
+@media (prefers-reduced-motion:no-preference){
+  .r-body li,.r-total,.r-foot{animation:print .5s cubic-bezier(.2,.7,.2,1) both}
+  .r-body li:nth-child(1){animation-delay:.25s}.r-body li:nth-child(2){animation-delay:.4s}.r-body li:nth-child(3){animation-delay:.55s}.r-body li:nth-child(4){animation-delay:.7s}.r-body li:nth-child(5){animation-delay:.85s}.r-body li:nth-child(6){animation-delay:1s}.r-body li:nth-child(7){animation-delay:1.15s}
+  .r-total{animation-delay:1.35s}.r-foot{animation-delay:1.5s}
+  @keyframes print{from{opacity:0;transform:translateY(-6px)}}
+}
+
+/* spec grid */
+.specs{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.hero .specs .wrap{display:block;padding-block:0}
+.specs ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.specs li{padding:22px clamp(14px,1.6vw,26px) 24px;border-left:1px solid var(--rule);display:grid;gap:6px;min-width:0}
+.specs li:first-child{border-left:0;padding-left:0}
+.specs .v{font-size:clamp(1.6rem,2.4vw,2.4rem);letter-spacing:-.045em;line-height:1;font-weight:500;font-variant-numeric:tabular-nums}
+.specs .n{font-size:.88rem;color:var(--mute)}
+@media (max-width:1000px){
+  .specs ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .specs li{border-left:0;border-top:1px solid var(--rule);padding-left:0}
+  .specs li:nth-child(even){border-left:1px solid var(--rule);padding-left:16px}
+  .specs li:nth-child(-n+2){border-top:0}
+  .specs li:last-child{grid-column:1 / -1;border-left:0;padding-left:0}
+}
+
+/* sections */
+.sec{padding-block:clamp(72px,9vw,140px);border-bottom:1px solid var(--rule)}
+.sec-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);row-gap:16px;margin-bottom:clamp(36px,4vw,64px)}
+.sec-head .label{grid-column:1 / span 3;align-self:start;padding-top:.6em}
+.sec-head h2{grid-column:4 / span 9;font-size:clamp(2.2rem,4.6vw,4.6rem);line-height:1;letter-spacing:-.05em}
+.sec-head h2 span{color:var(--mute-d)}
+@media (max-width:800px){.sec-head .label,.sec-head h2{grid-column:1 / -1}}
+.indent{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px)}
+.indent > *{grid-column:4 / span 9;min-width:0}
+@media (max-width:800px){.indent > *{grid-column:1 / -1}}
+
+/* comparison table */
+.cmp{width:100%;border-collapse:collapse;font-size:clamp(.95rem,1.2vw,1.1rem)}
+.cmp th,.cmp td{text-align:left;padding:16px 12px 16px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.cmp thead th{font-family:var(--mono);font-size:.7rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--ink)}
+.cmp tbody th{font-weight:400;color:var(--mute);width:28%}
+.cmp td:last-child{font-weight:500}
+.cmp td:last-child::before{content:"";display:inline-block;width:7px;height:7px;background:var(--gold);margin-right:10px;transform:translateY(-1px)}
+.cmp td:nth-child(2){color:var(--mute);width:34%}
+@media (max-width:560px){.cmp tbody th{width:auto}.cmp th,.cmp td{padding-right:8px;font-size:.9rem}}
+
+/* process timeline table */
+.proc{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.proc li{display:grid;grid-template-columns:90px minmax(0,1fr) minmax(0,1.4fr) 40px;gap:clamp(12px,2vw,32px);align-items:baseline;padding:clamp(18px,2vw,26px) 0;border-bottom:1px solid var(--rule);transition:background .25s}
+.proc li:hover{background:rgba(176,138,62,.06)}
+.proc time{font-family:var(--mono);font-size:.85rem;color:var(--gold-ink);font-variant-numeric:tabular-nums}
+.proc h3{font-size:clamp(1.5rem,2.4vw,2.2rem);letter-spacing:-.045em;line-height:1}
+.proc p{color:var(--mute);font-size:1rem}
+.proc .k{font-family:var(--mono);font-size:.7rem;color:var(--mute);text-align:right}
+@media (max-width:700px){.proc li{grid-template-columns:64px minmax(0,1fr)}.proc p{grid-column:2}.proc .k{display:none}}
+.proc-fig{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);margin-bottom:clamp(20px,3vw,40px)}
+.proc-fig figure{grid-column:4 / span 5;margin:0;position:relative}
+.proc-fig figcaption{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);border-top:1px solid var(--rule);padding-top:8px;margin-top:4px}
+@media (max-width:800px){.proc-fig figure{grid-column:1 / -1}}
+
+/* instrument */
+.inst-band{background:var(--graphite);color:#ECECE8;border-bottom:0}
+.inst-band .label{color:var(--mute-d)}
+.inst-band .sec-head h2 span{color:#7D7D78}
+.inst{border:1px solid var(--rule-d);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+.screen{padding:clamp(22px,3vw,40px);border-right:1px solid var(--rule-d);display:grid;gap:18px;align-content:space-between;background:#1B1B1A;min-width:0}
+.screen .row{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute-d)}
+.screen output{display:block;font:500 clamp(2.8rem,7vw,6.4rem)/1 var(--mono);letter-spacing:-.04em;color:var(--gold-hi);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.screen .formula{font-family:var(--mono);font-size:.8rem;color:#B8B8B2;font-variant-numeric:tabular-nums}
+.keys{padding:clamp(22px,3vw,40px);display:grid;gap:22px;align-content:start;min-width:0}
+.keys fieldset{border:0;margin:0;padding:0;min-width:0}
+.keys legend,.keys .lbl{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute-d);padding:0;margin-bottom:10px;display:block}
+.karats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--rule-d)}
+.karats input{position:absolute;opacity:0;pointer-events:none}
+.karats label{display:grid;place-items:center;min-height:52px;font-family:var(--mono);font-size:.95rem;cursor:pointer;border-left:1px solid var(--rule-d);transition:background .2s,color .2s}
+.karats label:first-of-type{border-left:0}
+.karats input:checked+label{background:#ECECE8;color:var(--ink)}
+.karats input:focus-visible+label{outline:2px solid var(--gold-hi);outline-offset:-4px}
+.weight{display:grid;grid-template-columns:52px minmax(0,1fr) 52px;border:1px solid var(--rule-d)}
+.weight button{min-height:52px;border:0;background:transparent;cursor:pointer;font-family:var(--mono);font-size:1.2rem}
+.weight button:hover{background:#2E2E2C}
+.weight input{width:100%;min-width:0;border:0;border-left:1px solid var(--rule-d);border-right:1px solid var(--rule-d);background:transparent;color:#ECECE8;text-align:center;font:500 1.3rem var(--mono);font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+.weight input::-webkit-outer-spin-button,.weight input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input[type=range]{width:100%;accent-color:var(--gold-hi);margin:0;min-height:30px}
+.keys .note{font-size:.82rem;color:var(--mute-d)}
+.keys .btn{background:var(--gold-hi);border-color:var(--gold-hi);color:var(--ink)}
+.keys .btn:hover{background:#ECECE8;border-color:#ECECE8}
+@media (max-width:860px){.inst{grid-template-columns:1fr}.screen{border-right:0;border-bottom:1px solid var(--rule-d)}}
+
+/* area list */
+.area{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(16px,3vw,48px);border-top:1px solid var(--ink)}
+.area li{display:flex;align-items:baseline;gap:10px;padding:14px 0;border-bottom:1px solid var(--rule);font-size:clamp(1rem,1.3vw,1.2rem);letter-spacing:-.015em}
+.area li .lead{flex:1;border-bottom:1px dotted var(--rule);transform:translateY(-4px)}
+.area li b{font-family:var(--mono);font-size:.85rem;font-weight:400;color:var(--mute);font-variant-numeric:tabular-nums}
+.area li.home{font-weight:600}
+.area li.home b{color:var(--gold-ink)}
+.fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-top:14px}
+@media (max-width:900px){.area{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.area{grid-template-columns:1fr}}
+
+/* bring */
+.bring{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink)}
+.bring li{padding:22px clamp(12px,1.6vw,24px) 28px;border-left:1px solid var(--rule);display:grid;gap:40px;min-width:0}
+.bring li:first-child{border-left:0;padding-left:0}
+.bring small{font-family:var(--mono);font-size:.72rem;color:var(--mute)}
+.bring b{font-size:clamp(1.25rem,1.8vw,1.7rem);font-weight:500;letter-spacing:-.035em;line-height:1.1}
+.bring span{display:block;font-size:.88rem;color:var(--mute);font-weight:400;letter-spacing:0;margin-top:6px}
+@media (max-width:760px){.bring{grid-template-columns:repeat(2,minmax(0,1fr))}.bring li:nth-child(3){border-left:0;padding-left:0}.bring li:nth-child(n+3){border-top:1px solid var(--rule)}}
+
+/* visit */
+.visit{border-bottom:0}
+.visit-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);row-gap:28px;align-items:end}
+.visit h2{grid-column:1 / span 8;font-size:clamp(2.8rem,7vw,7rem);line-height:.95;letter-spacing:-.055em}
+.visit h2 span{color:var(--mute-d)}
+.visit-side{grid-column:9 / span 4;display:grid;gap:16px;min-width:0}
+.visit dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 20px;font-size:.95rem;border-top:1px solid var(--ink);padding-top:14px}
+.visit dt{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:3px}
+.visit dd{margin:0;user-select:all}
+@media (max-width:900px){.visit h2,.visit-side{grid-column:1 / -1}}
+
+/* footer */
+.foot{background:var(--graphite);color:#A9A9A3;font-size:.8rem}
+.foot .wrap{padding-block:36px calc(28px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);row-gap:22px}
+.foot .brand{grid-column:1 / span 3;color:#ECECE8}
+.foot .brand small{color:#8C8C86}
+.foot .notes{grid-column:4 / span 9;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.foot h4{margin:0 0 6px;font-family:var(--mono);font-size:.68rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-hi)}
+.foot .base{grid-column:1 / -1;border-top:1px solid var(--rule-d);padding-top:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:860px){.foot .brand,.foot .notes{grid-column:1 / -1}.foot .notes{grid-template-columns:1fr}}
+
+/* dialog */
+dialog{border:1px solid var(--ink);padding:0;width:min(560px,calc(100vw - 32px));max-height:calc(100dvh - 32px);background:var(--sheet);color:var(--ink);border-radius:0}
+dialog::backdrop{background:rgba(26,26,25,.55)}
+.sheet{padding:clamp(22px,4vw,36px);display:grid;gap:16px}
+.sheet-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--rule);padding-bottom:12px}
+.sheet h2{font-size:clamp(1.8rem,4vw,2.4rem);line-height:1}
+.x{width:40px;height:40px;border:1px solid var(--rule);background:transparent;cursor:pointer;font-family:var(--mono)}
+.field{display:grid;gap:6px}
+.field label{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.field input,.field select{min-height:50px;border:1px solid var(--rule);border-radius:0;background:var(--paper);padding:0 14px;font:400 1rem var(--sans);color:var(--ink);width:100%}
+.field input:focus,.field select:focus{outline:none;border-color:var(--ink);box-shadow:inset 0 -2px 0 var(--gold)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:480px){.row2{grid-template-columns:1fr}}
+.ok{font-family:var(--mono);font-size:.78rem;border:1px solid var(--gold);padding:12px 14px;color:var(--gold-ink)}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="strip" aria-label="Sample gold rates">
+  <div class="wrap">
+    <span>24K <b class="num" data-k="1">₹12,800</b>/g</span>
+    <span>22K <b class="num" data-k=".9167">₹11,734</b>/g</span>
+    <span class="hide-s">18K <b class="num" data-k=".75">₹9,600</b>/g</span>
+    <span>Sample rates</span>
+    <span class="hide-s">Jakkur · 560064</span>
+    <span class="hide-s">Mon–Sat 10:00–19:00</span>
+  </div>
+</div>
+
+<header class="head">
+  <div class="wrap">
+    <a class="brand" href="#top"><b>Swarnalok</b><small>Gold buyers · Not sellers</small></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#why"><em>01</em>Why</a>
+      <a href="#process"><em>02</em>Process</a>
+      <a href="#value"><em>03</em>Value</a>
+      <a href="#area"><em>04</em>Area</a>
+    </nav>
+    <button class="btn" type="button" data-book>Book a visit</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="label"><i></i>Old gold buyers · Jakkur, North Bengaluru</p>
+        <h1>We buy gold.<span>We don't sell it.</span></h1>
+        <p class="lede">No showroom. No exchange offer. Nothing to deduct. So the only number that matters is yours.</p>
+        <div class="actions">
+          <button class="btn" type="button" data-book>Book a visit <span class="arr">→</span></button>
+          <a class="btn line" href="#value">Check your value</a>
+        </div>
+      </div>
+
+      <div class="receipt-col">
+        <article class="receipt" aria-label="Example quote">
+          <div class="r-head"><span>Quote <b>Nº 0412</b></span><span>Jakkur · 10:42</span></div>
+          <span class="stamp mono">Sample</span>
+          <ol class="r-body">
+            <li><span>Item</span><span class="lead"></span><b>Old necklace</b></li>
+            <li><span>Weight</span><span class="lead"></span><b>20.00 g</b></li>
+            <li><span>Purity · XRF, 3 pts</span><span class="lead"></span><b>91.62%</b></li>
+            <li><span>Rate · 24K</span><span class="lead"></span><b class="rate24">₹12,800/g</b></li>
+            <li class="zero"><span>Deductions</span><span class="lead"></span><b>₹0.00</b></li>
+            <li><span>Time</span><span class="lead"></span><b>28 min</b></li>
+            <li><span>Paid to</span><span class="lead"></span><b>Bank ••••4021</b></li>
+          </ol>
+          <div class="r-total"><small>You receive</small><strong id="rTotal">₹2,34,547</strong></div>
+          <div class="r-foot"><span>Signed · Recorded · KYC</span><span class="bars" aria-hidden="true"></span></div>
+        </article>
+      </div>
+    </div>
+
+    <div class="specs">
+      <div class="wrap"><ul>
+        <li><span class="label">Distance</span><span class="v">≤ 8 km</span><span class="n">From Jakkur. About 10 min.</span></li>
+        <li><span class="label">Price</span><span class="v">Live rate</span><span class="n">₹0 hidden deductions.</span></li>
+        <li><span class="label">Purity</span><span class="v">XRF</span><span class="n">Tested in front of you.</span></li>
+        <li><span class="label">Time</span><span class="v">30 min</span><span class="n">Walk in to paid.</span></li>
+        <li><span class="label">Payment</span><span class="v">Bank only</span><span class="n">Never cash. Signed receipt.</span></li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="sec" id="why">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label"><i></i>01 · Why it's different</p>
+        <h2>A jeweller buys your gold to sell you more. <span>We just buy it.</span></h2>
+      </div>
+      <div class="indent">
+        <table class="cmp">
+          <thead><tr><th scope="col"></th><th scope="col">A typical jeweller</th><th scope="col">Swarnalok</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Sells jewellery</th><td>Yes</td><td>No. Never.</td></tr>
+            <tr><th scope="row">Purity test</th><td>Often by eye or touchstone</td><td>XRF, on your screen</td></tr>
+            <tr><th scope="row">Deductions</th><td>Often melting loss, wastage</td><td>₹0</td></tr>
+            <tr><th scope="row">You leave with</th><td>Often cash or a credit note</td><td>Bank transfer, signed receipt</td></tr>
+            <tr><th scope="row">Record</th><td>Varies</td><td>Consent, KYC, video</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label"><i></i>02 · Process</p>
+        <h2>Six steps. Twenty-eight minutes. <span>All of it in front of you.</span></h2>
+      </div>
+      <div class="proc-fig">
+        <figure><img src="media/bar.webp" alt="Your jewellery, melted into one even gold bar" width="1400" height="875"><figcaption>Step 03 · One even bar, one honest reading</figcaption></figure>
+      </div>
+      <div class="indent">
+        <ol class="proc">
+          <li><time>00:00</time><h3>Consent</h3><p>Sign the form. Show PAN and Aadhaar. Camera on.</p><span class="k">01</span></li>
+          <li><time>00:04</time><h3>Clean</h3><p>Ultrasonic bath. Only metal remains.</p><span class="k">02</span></li>
+          <li><time>00:09</time><h3>Melt</h3><p>One even bar. Solder can't hide.</p><span class="k">03</span></li>
+          <li><time>00:16</time><h3>Measure</h3><p>XRF at 2 to 4 points. You read the screen.</p><span class="k">04</span></li>
+          <li><time>00:20</time><h3>Weigh</h3><p>Certified scale. Live rate. Full sum shown.</p><span class="k">05</span></li>
+          <li><time>00:28</time><h3>Paid</h3><p>Bank transfer to your account. Signed receipt.</p><span class="k">06</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec inst-band" id="value">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label"><i></i>03 · Value</p>
+        <h2>Know the number <span>before you leave home.</span></h2>
+      </div>
+      <form class="inst" id="calc" onsubmit="return false">
+        <div class="screen">
+          <div class="row"><span>Estimate</span><span>Sample rate</span></div>
+          <output id="est" for="g">₹2,34,675</output>
+          <p class="formula" id="formula">20.00 g × ₹12,800 × 0.9167</p>
+        </div>
+        <div class="keys">
+          <fieldset>
+            <legend>Purity</legend>
+            <div class="karats">
+              <input type="radio" name="k" id="k24" value="1"><label for="k24">24K</label>
+              <input type="radio" name="k" id="k22" value="0.9167" checked><label for="k22">22K</label>
+              <input type="radio" name="k" id="k18" value="0.75"><label for="k18">18K</label>
+              <input type="radio" name="k" id="k14" value="0.585"><label for="k14">14K</label>
+            </div>
+          </fieldset>
+          <div>
+            <label class="lbl" for="g">Weight · grams</label>
+            <div class="weight">
+              <button type="button" id="minus" aria-label="Less weight">−</button>
+              <input id="g" type="number" inputmode="decimal" min="0" step="0.5" value="20">
+              <button type="button" id="plus" aria-label="More weight">+</button>
+            </div>
+          </div>
+          <input type="range" id="gr" min="1" max="200" step="1" value="20" aria-label="Weight slider">
+          <p class="note">Indicative only. Your final price is set by the XRF reading and the scale.</p>
+          <button class="btn" type="button" data-book>Book a visit <span class="arr">→</span></button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="sec" id="area">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label"><i></i>04 · Area</p>
+        <h2>One counter in Jakkur. <span>Ten minutes from most of North Bengaluru.</span></h2>
+      </div>
+      <div class="indent">
+        <div>
+          <ul class="area">
+            <li class="home">Jakkur<span class="lead"></span><b>0 km</b></li>
+            <li>Kogilu<span class="lead"></span><b>3 km</b></li>
+            <li>Amruthahalli<span class="lead"></span><b>3 km</b></li>
+            <li>Judicial Layout<span class="lead"></span><b>3 km</b></li>
+            <li>Yelahanka<span class="lead"></span><b>4 km</b></li>
+            <li>Hegde Nagar<span class="lead"></span><b>4 km</b></li>
+            <li>Sahakar Nagar<span class="lead"></span><b>5 km</b></li>
+            <li>Kodigehalli<span class="lead"></span><b>5 km</b></li>
+            <li>Thanisandra<span class="lead"></span><b>6 km</b></li>
+            <li>Bagalur Road<span class="lead"></span><b>6 km</b></li>
+            <li>Hebbal<span class="lead"></span><b>7 km</b></li>
+            <li>Vidyaranyapura<span class="lead"></span><b>7 km</b></li>
+            <li>Nagavara<span class="lead"></span><b>8 km</b></li>
+          </ul>
+          <p class="fine">Distances are approximate, by road from Jakkur.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="bring">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label"><i></i>05 · Bring</p>
+        <h2>Four things. <span>That's all.</span></h2>
+      </div>
+      <ul class="bring">
+        <li><small>01</small><b>Your gold<span>Any form. Broken is fine.</span></b></li>
+        <li><small>02</small><b>PAN card<span>Original.</span></b></li>
+        <li><small>03</small><b>Aadhaar<span>Original.</span></b></li>
+        <li><small>04</small><b>Bank account<span>In your own name.</span></b></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec visit" id="visit">
+    <div class="wrap visit-grid">
+      <h2>Walk in with gold. <span>Walk out paid.</span></h2>
+      <div class="visit-side">
+        <dl>
+          <dt>Address</dt><dd>Jakkur, Bengaluru 560064</dd>
+          <dt>Hours</dt><dd>Mon–Sat, 10:00–19:00</dd>
+          <dt>Phone</dt><dd>+91 00000 00000</dd>
+          <dt>Email</dt><dd>hello@swarnalok.com</dd>
+        </dl>
+        <button class="btn" type="button" data-book>Book a visit <span class="arr">→</span></button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="brand" href="#top"><b>Swarnalok</b><small>Gold buyers · Not sellers</small></a>
+    <div class="notes">
+      <div><h4>Compliance</h4><p>Signed consent, PAN and Aadhaar for every purchase. Each handover is recorded on video.</p></div>
+      <div><h4>Payment</h4><p>Bank transfer only, to an account in the seller's name. Never cash.</p></div>
+      <div><h4>Rates</h4><p>Rates on this page are samples. The final price depends on measured purity, weight and the live rate.</p></div>
+    </div>
+    <div class="base"><span>© 2026 Swarnalok · Jakkur, Bengaluru 560064</span><span>swarnalok.com</span></div>
+  </div>
+</footer>
+
+<dialog id="book" aria-labelledby="bt">
+  <form class="sheet" id="bf" novalidate>
+    <div class="sheet-top"><span class="label"><i></i>Booking</span><button class="x" type="button" id="close" aria-label="Close">✕</button></div>
+    <h2 id="bt">Book a visit.</h2>
+    <p style="color:var(--mute)">We call to confirm a time. About 30 minutes at the counter.</p>
+    <div class="field"><label for="n">Name</label><input id="n" autocomplete="name"></div>
+    <div class="field"><label for="p">Mobile</label><input id="p" type="tel" inputmode="numeric" autocomplete="tel"></div>
+    <div class="row2">
+      <div class="field"><label for="a">Area</label><select id="a"><option>Jakkur</option><option>Yelahanka</option><option>Kogilu</option><option>Sahakar Nagar</option><option>Thanisandra</option><option>Hebbal</option><option>Other nearby</option></select></div>
+      <div class="field"><label for="t">Time</label><select id="t"><option>10:00–13:00</option><option>13:00–16:00</option><option>16:00–19:00</option></select></div>
+    </div>
+    <button class="btn" type="submit">Request a call <span class="arr">→</span></button>
+    <p class="ok" id="ok" role="status" hidden></p>
+  </form>
+</dialog>
+
+<script>
+(function(){
+  var RATE_24K = 12800; // sample ₹/g for 24K. Replace with a live feed.
+  var inr = function(n, d){ return '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); };
+
+  document.querySelectorAll('.strip b[data-k]').forEach(function(b){ b.textContent = inr(Math.round(RATE_24K * parseFloat(b.dataset.k))); });
+  document.querySelector('.rate24').textContent = inr(RATE_24K) + '/g';
+  document.getElementById('rTotal').textContent = inr(Math.round(20 * RATE_24K * 0.9162));
+
+  var g = document.getElementById('g'), gr = document.getElementById('gr'), est = document.getElementById('est'), f = document.getElementById('formula');
+  function calc(){
+    var k = parseFloat(document.querySelector('input[name="k"]:checked').value), w = Math.max(0, parseFloat(g.value) || 0);
+    est.textContent = inr(Math.round(w * RATE_24K * k));
+    f.textContent = w.toFixed(2) + ' g × ' + inr(RATE_24K) + ' × ' + k.toFixed(4).replace(/0+$/, '').replace(/\.$/, '');
+  }
+  document.getElementById('calc').addEventListener('input', function(e){ if (e.target === gr) g.value = gr.value; if (e.target === g) gr.value = Math.min(200, Math.max(1, parseFloat(g.value) || 1)); calc(); });
+  document.getElementById('minus').addEventListener('click', function(){ g.value = Math.max(0, (parseFloat(g.value) || 0) - 1); gr.value = g.value; calc(); });
+  document.getElementById('plus').addEventListener('click', function(){ g.value = (parseFloat(g.value) || 0) + 1; gr.value = Math.min(200, g.value); calc(); });
+  calc();
+
+  var dlg = document.getElementById('book'), ok = document.getElementById('ok');
+  document.querySelectorAll('[data-book]').forEach(function(b){ b.addEventListener('click', function(){ ok.hidden = true; if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }); });
+  document.getElementById('close').addEventListener('click', function(){ dlg.close(); });
+  dlg.addEventListener('click', function(e){ if (e.target === dlg) dlg.close(); });
+  document.getElementById('bf').addEventListener('submit', function(e){
+    e.preventDefault();
+    var n = document.getElementById('n').value.trim(), p = document.getElementById('p').value.trim();
+    ok.hidden = false;
+    ok.textContent = (!n || !p) ? 'Please add your name and mobile number.' : 'Thank you, ' + n + '. This prototype does not send requests yet.';
+  });
+})();
+</script>
+</body>
+</html>
