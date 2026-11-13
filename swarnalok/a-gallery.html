@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Swarnalok Gallery</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Swarnalok only buys gold. No showroom, nothing to sell you. Purity tested in front of you in Jakkur, North Bengaluru. Paid to your bank in about 30 minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Gallery White: a white gallery with one object on show, your gold.
+   60 white/snow · 30 ink · 10 gold. Content max 1600px, bands full width. */
+:root{
+  color-scheme: light;
+  --white:#FFFFFF; --snow:#F5F5F7; --mist:#EBEBEF; --ink:#1D1D1F; --ink-2:#6E6E73; --ink-3:#86868B; --black:#000;
+  --gold:#C99A3F; --gold-deep:#86621A; --gold-hi:#F3D58C;
+  --gold-grad:linear-gradient(180deg,#F6DC97 0%,#D9AE55 45%,#A8781F 100%);
+  --hair:rgba(0,0,0,.09);
+  --display:"Inter Tight","Helvetica Neue",Arial,sans-serif;
+  --text:"Inter","Helvetica Neue",Arial,sans-serif;
+  --side:max(16px,env(safe-area-inset-left,0px));
+  --side-r:max(16px,env(safe-area-inset-right,0px));
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.47;letter-spacing:-.011em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--snow)}
+img,canvas{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1600px;margin-inline:auto;padding-left:max(var(--side),clamp(16px,4vw,64px));padding-right:max(var(--side-r),clamp(16px,4vw,64px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;text-wrap:balance}
+p{margin:0}
+.h-sec{font-size:clamp(2.4rem,6vw,5.4rem);line-height:1.04;letter-spacing:-.038em}
+.h-mid{font-size:clamp(2rem,4vw,3.4rem);line-height:1.06;letter-spacing:-.04em}
+.sub{font-family:var(--display);font-size:clamp(1.15rem,1.8vw,1.6rem);line-height:1.3;font-weight:500;letter-spacing:-.02em;color:var(--ink-2);text-wrap:balance}
+.gold-text{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mute{color:var(--ink-3)}
+
+/* actions */
+.pill{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;border-radius:980px;background:var(--ink);color:var(--white);font:500 1.0625rem/1 var(--text);letter-spacing:-.01em;border:0;cursor:pointer;transition:background .3s,transform .3s}
+.pill:hover{background:#000;transform:scale(1.03)}
+.more{display:inline-flex;align-items:center;gap:4px;color:var(--gold-deep);font:500 1.0625rem/1 var(--text);background:none;border:0;cursor:pointer;padding:14px 0}
+.more::after{content:"";width:7px;height:7px;border-top:1.6px solid currentColor;border-right:1.6px solid currentColor;transform:rotate(45deg);margin-left:4px}
+.more:hover{text-decoration:underline;text-underline-offset:4px}
+.dark .more{color:var(--gold-hi)}
+
+/* ticker */
+.ticker{background:var(--snow);font-size:.78rem;color:var(--ink-2);height:36px;position:relative;overflow:hidden;letter-spacing:0}
+.ticker p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:10px;padding-inline:var(--side);white-space:nowrap;opacity:0;transform:translateY(8px);transition:opacity .8s,transform .8s}
+.ticker p.on{opacity:1;transform:none}
+.ticker b{color:var(--ink);font-weight:600}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--hair)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:20px}
+.brand{display:inline-flex;align-items:center;gap:11px;font:500 .84rem/1 var(--display);letter-spacing:.42em;color:var(--ink)}
+.brand em{font-style:normal;font-size:.62rem;letter-spacing:.2em;color:var(--ink-3);border-left:1px solid var(--hair);padding-left:11px;margin-left:2px}
+.orb{width:16px;height:16px;border-radius:50%;flex:none;background:radial-gradient(circle at 34% 30%,#FFF6D8 0,#F2CF7A 22%,#C99A3F 58%,#6F4C12 100%);box-shadow:inset -1px -2px 3px rgba(0,0,0,.25)}
+.links{display:flex;gap:clamp(20px,3vw,44px);font-size:.8rem}
+.links a{opacity:.8;transition:opacity .2s}
+.links a:hover{opacity:1}
+.nav .pill{min-height:34px;padding:0 16px;font-size:.8rem}
+@media (max-width:860px){.links{display:none}}
+@media (max-width:420px){.brand em{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--white)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;gap:clamp(16px,3vw,56px);padding-top:clamp(28px,min(5vw,6vh),72px)}
+.hero-copy{display:grid;gap:clamp(16px,1.8vw,26px);justify-items:start;min-width:0}
+.chip{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--hair);border-radius:980px;padding:8px 14px 8px 10px;font-size:.84rem;color:var(--ink-2);font-variant-numeric:tabular-nums;background:var(--white)}
+.chip b{color:var(--ink);font-weight:600}
+.live{width:8px;height:8px;border-radius:50%;background:#2FA36B;box-shadow:0 0 0 0 rgba(47,163,107,.5);animation:ping 2.4s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 7px rgba(47,163,107,0)}100%{box-shadow:0 0 0 0 rgba(47,163,107,0)}}
+.hero h1{font-size:clamp(3rem,min(7.8vw,11.5vh),7rem);line-height:1;letter-spacing:-.042em}
+.hero h1 span{display:block;color:var(--ink-3)}
+.hero .sub{max-width:24ch;color:var(--ink-2)}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px}
+.stage{position:relative;width:100%;max-width:760px;justify-self:center;aspect-ratio:1000/860}
+.stage img,.stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.stage canvas{opacity:0;transition:opacity .4s}
+.stage.live-spin canvas{opacity:1}
+.stage.live-spin img{opacity:0}
+.stage::before{content:"";position:absolute;inset:6% 8% 10%;border-radius:50%;background:radial-gradient(closest-side,var(--snow),rgba(245,245,247,0));z-index:-1}
+.stage::after{content:"";position:absolute;left:24%;right:24%;bottom:8%;height:6%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.16),rgba(0,0,0,0));filter:blur(6px);z-index:-1}
+.tag-buy{position:absolute;right:4%;top:10%;background:var(--ink);color:var(--white);border-radius:980px;padding:9px 16px;font:600 .78rem/1 var(--text);letter-spacing:.06em;text-transform:uppercase}
+.tag-buy::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold-hi);margin-right:8px;vertical-align:middle;transform:translateY(-1px)}
+
+.proof{list-style:none;margin:clamp(18px,2.4vw,34px) 0 0;padding:clamp(18px,1.8vw,24px) 0 clamp(22px,2.4vw,34px);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;border-top:1px solid var(--hair)}
+.proof li{display:flex;align-items:center;gap:12px;font:600 clamp(.9rem,1vw,1rem)/1.25 var(--display);letter-spacing:-.01em;min-width:0}
+.proof li small{display:block;font:400 .8rem/1.3 var(--text);color:var(--ink-3);letter-spacing:0}
+.proof .ic{width:40px;height:40px;border-radius:50%;background:var(--snow);display:grid;place-items:center;flex:none}
+.proof svg{width:20px;height:20px;stroke:var(--gold-deep);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+@media (max-width:1100px){.proof{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:18px}}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:4px}
+  .hero-copy{justify-items:center;text-align:center}
+  .hero .sub{margin-inline:auto}
+  .actions{justify-content:center}
+  .stage{max-width:300px;margin-top:-4px}
+  .tag-buy{right:2%;top:6%;font-size:.7rem;padding:8px 12px}
+  .proof{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:0}
+  .proof li:last-child{grid-column:1/-1;justify-content:center}
+  .proof li small{display:none}
+  .proof .ic{width:34px;height:34px}
+}
+
+/* bands */
+.band{padding-block:clamp(84px,11vw,160px)}
+.snow{background:var(--snow)}
+.dark{background:var(--black);color:#F5F5F7}
+.dark .sub{color:#A1A1A6}
+.stack{display:grid;gap:clamp(14px,1.6vw,22px);justify-items:center;text-align:center}
+.stack .sub{max-width:30ch}
+
+/* we buy, we don't sell */
+.versus{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,1.4vw,22px);margin-top:clamp(44px,5vw,80px);max-width:1180px;margin-inline:auto}
+.side{border-radius:30px;padding:clamp(28px,3.4vw,52px);display:grid;gap:clamp(18px,2vw,26px);align-content:start;min-width:0}
+.side.them{background:var(--white);border:1px solid var(--hair)}
+.side.us{background:var(--ink);color:var(--white)}
+.side header{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.side h3{font-size:clamp(1.6rem,2.4vw,2.2rem);letter-spacing:-.035em}
+.side header span{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.side.us header span{color:var(--gold-hi)}
+.side ul{list-style:none;margin:0;padding:0;display:grid}
+.side li{display:grid;grid-template-columns:22px 1fr;gap:14px;align-items:start;padding-block:16px;border-top:1px solid var(--hair);font-size:clamp(1rem,1.25vw,1.12rem)}
+.side.us li{border-color:rgba(255,255,255,.12)}
+.side li svg{width:20px;height:20px;margin-top:2px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.side.them li{color:var(--ink-2)}
+.side.them li svg{stroke:#B0B0B5}
+.side.us li svg{stroke:var(--gold-hi)}
+@media (max-width:760px){.versus{grid-template-columns:1fr}}
+
+/* purity */
+.purity .num{font-family:var(--display);font-weight:600;font-size:clamp(5.6rem,23vw,21rem);line-height:.9;letter-spacing:-.06em;font-variant-numeric:tabular-nums;margin-block:clamp(8px,2vw,28px)}
+.readings{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:8px}
+.readings span{border:1px solid #333336;border-radius:980px;padding:8px 16px;font-size:.84rem;color:#A1A1A6;font-variant-numeric:tabular-nums}
+.readings b{color:#F5F5F7;font-weight:500;margin-left:6px}
+
+/* steps */
+.rail{list-style:none;display:grid;grid-auto-flow:column;grid-auto-columns:clamp(260px,24vw,360px);gap:clamp(12px,1.4vw,20px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:max(var(--side),clamp(16px,4vw,64px));padding:clamp(40px,4vw,60px) max(var(--side-r),clamp(16px,4vw,64px)) 28px max(var(--side),clamp(16px,4vw,64px));margin:0 auto;max-width:1600px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.card{scroll-snap-align:start;background:var(--white);border-radius:28px;padding:clamp(24px,2.4vw,34px);aspect-ratio:3/4;display:flex;flex-direction:column;justify-content:space-between;min-width:0;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.card:hover{transform:translateY(-4px);box-shadow:0 30px 60px -34px rgba(0,0,0,.3)}
+.card small{font-size:.78rem;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.card h3{font-size:clamp(1.9rem,2.5vw,2.5rem);letter-spacing:-.04em;line-height:1.05;margin-top:10px}
+.card p{color:var(--ink-2);margin-top:10px}
+.card svg{width:clamp(54px,5vw,70px);height:auto;stroke:var(--gold);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.card.last{background:var(--ink);color:var(--white)}
+.card.last p{color:#A1A1A6}
+.card.last svg{stroke:var(--gold-hi)}
+.rail-ctl{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.rail-ctl p{font-size:.84rem;color:var(--ink-3)}
+.rail-ctl div{display:flex;gap:12px}
+.rail-ctl button{width:44px;height:44px;border-radius:50%;border:0;background:var(--mist);cursor:pointer;display:grid;place-items:center}
+.rail-ctl button:disabled{opacity:.4;cursor:default}
+.rail-ctl svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* bar */
+.split{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:clamp(20px,4vw,80px)}
+.split .stack{justify-items:start;text-align:left}
+@media (max-width:860px){.split{grid-template-columns:1fr}.split .stack{justify-items:center;text-align:center}}
+
+/* portrait */
+.portrait{background:#BE8F88;color:var(--ink)}
+.portrait .wrap{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:min(88vh,860px);padding-left:0}
+.portrait figure{margin:0;align-self:stretch;position:relative;min-height:420px}
+.portrait figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.portrait .stack{justify-items:start;text-align:left;padding:clamp(60px,8vw,120px) 0 clamp(60px,8vw,120px) clamp(0px,5vw,90px)}
+.portrait .sub{color:#46302C}
+@media (max-width:860px){
+  .portrait .wrap{grid-template-columns:1fr;min-height:0;padding-right:0}
+  .portrait figure{aspect-ratio:4/4.3;min-height:0}
+  .portrait .stack{justify-items:center;text-align:center;padding-left:max(var(--side),16px);padding-right:max(var(--side-r),16px)}
+}
+
+/* calculator */
+.calc-box{margin:clamp(40px,4vw,64px) auto 0;max-width:980px;border-radius:32px;background:var(--snow);padding:clamp(28px,4vw,56px);display:grid;gap:clamp(22px,2.4vw,32px);justify-items:center;text-align:center}
+.calc-box .value{font-family:var(--display);font-weight:600;font-size:clamp(3.2rem,10vw,8rem);line-height:1;letter-spacing:-.055em;font-variant-numeric:tabular-nums}
+.calc-box .per{font-size:.9rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.seg{display:inline-grid;grid-template-columns:repeat(4,1fr);background:var(--mist);border-radius:980px;padding:4px}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{min-width:clamp(62px,8vw,92px);min-height:44px;display:grid;place-items:center;border-radius:980px;font-weight:500;cursor:pointer;color:var(--ink-2);transition:background .3s,color .3s,box-shadow .3s}
+.seg input:checked+label{background:var(--white);color:var(--ink);box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.seg input:focus-visible+label{outline:2px solid var(--gold);outline-offset:2px}
+.stepper{display:flex;align-items:center;gap:18px}
+.stepper button{width:48px;height:48px;border-radius:50%;border:1px solid var(--hair);background:var(--white);font-size:1.4rem;line-height:1;cursor:pointer}
+.grams{display:flex;align-items:baseline;gap:6px}
+.grams input{width:4.2ch;border:0;border-bottom:1.5px solid var(--hair);background:none;text-align:center;font:600 2.2rem/1.1 var(--display);letter-spacing:-.03em;color:var(--ink);padding:2px 0;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+.grams input::-webkit-outer-spin-button,.grams input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.grams input:focus{outline:none;border-color:var(--gold)}
+.grams span{color:var(--ink-2)}
+.fine{font-size:.8rem;color:var(--ink-3)}
+
+/* area */
+.area-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,90px);align-items:center}
+.area-grid .stack{justify-items:start;text-align:left}
+.places{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.places li{border:1px solid #333336;border-radius:980px;padding:7px 14px;font-size:.84rem;color:#C7C7CC}
+.map{width:100%;max-width:640px;justify-self:center}
+.map text{font-family:var(--text);font-size:13px;fill:#A1A1A6}
+.map .ring{fill:none;stroke:#2C2C2E;stroke-width:1}
+.map .r8{stroke-dasharray:2 6}
+.map .tag{font-size:10px;letter-spacing:.2em;fill:#6E6E73}
+@media (max-width:860px){.area-grid{grid-template-columns:1fr}.area-grid .stack{justify-items:center;text-align:center}.places{justify-content:center}}
+
+/* bring */
+.bring{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,3vw,48px);margin:clamp(44px,5vw,76px) auto 0;max-width:1100px}
+.bring li{display:grid;justify-items:center;gap:16px;font:600 clamp(1.05rem,1.5vw,1.35rem)/1.2 var(--display);letter-spacing:-.02em;text-align:center}
+.bring svg{width:clamp(54px,6vw,76px);height:auto;stroke:var(--ink);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.bring svg .g{stroke:var(--gold)}
+@media (max-width:640px){.bring{grid-template-columns:repeat(2,1fr);row-gap:44px}}
+
+/* finale */
+.finale .orb-big{width:min(48vw,300px);margin:0 auto 10px;filter:drop-shadow(0 40px 40px rgba(0,0,0,.18))}
+.finale .orb-big img{animation:breathe 7s ease-in-out infinite}
+@keyframes breathe{50%{transform:translateY(-12px)}}
+
+/* footer */
+.foot{background:var(--snow);color:var(--ink-2);font-size:.75rem;line-height:1.55}
+.foot .wrap{padding-block:30px 26px}
+.foot .note{border-bottom:1px solid #D2D2D7;padding-bottom:18px;display:grid;gap:8px;max-width:980px}
+.foot-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-block:22px;border-bottom:1px solid #D2D2D7}
+.foot h4{margin:0 0 8px;font-size:.75rem;font-weight:600;color:var(--ink)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.foot-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-top:16px}
+@media (max-width:760px){.foot-cols{grid-template-columns:1fr 1fr}}
+
+/* booking sheet */
+dialog{border:0;padding:0;border-radius:28px;width:min(560px,calc(100vw - 32px));max-height:calc(100dvh - 32px);background:var(--white);color:var(--ink);box-shadow:0 40px 100px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(0,0,0,.42);backdrop-filter:blur(8px)}
+dialog[open]{animation:sheet .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes sheet{from{opacity:0;transform:translateY(30px) scale(.98)}}
+.sheet{padding:clamp(28px,4vw,44px);display:grid;gap:16px;position:relative}
+.sheet h2{font-size:clamp(1.9rem,4vw,2.4rem);letter-spacing:-.035em}
+.sheet .x{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;border:0;background:var(--snow);cursor:pointer;font-size:1.2rem;line-height:1}
+.field{display:grid;gap:6px}
+.field label{font-size:.8rem;font-weight:500;color:var(--ink-2)}
+.field input,.field select{min-height:52px;border:1px solid #D2D2D7;border-radius:14px;padding:0 16px;font:400 1.0625rem var(--text);background:var(--white);color:var(--ink);width:100%}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,154,63,.18)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:480px){.row2{grid-template-columns:1fr}}
+.sheet .pill{width:100%;margin-top:4px}
+.ok{background:var(--snow);border-radius:14px;padding:14px 16px;font-size:.95rem}
+
+/* entrance + scroll motion */
+.hero-copy > *{animation:in .9s cubic-bezier(.2,.8,.2,1) both}
+.hero-copy > *:nth-child(2){animation-delay:.08s}.hero-copy > *:nth-child(3){animation-delay:.16s}.hero-copy > *:nth-child(4){animation-delay:.24s}
+.proof li{animation:in .9s cubic-bezier(.2,.8,.2,1) both}
+.proof li:nth-child(1){animation-delay:.3s}.proof li:nth-child(2){animation-delay:.36s}.proof li:nth-child(3){animation-delay:.42s}.proof li:nth-child(4){animation-delay:.48s}.proof li:nth-child(5){animation-delay:.54s}
+@keyframes in{from{opacity:0;transform:translateY(18px)}}
+@supports (animation-timeline: view()){
+  .rise{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 28%}
+  @keyframes rise{from{opacity:.15;transform:translateY(44px) scale(.985)}}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="p-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="p-rate" viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></symbol>
+  <symbol id="p-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="p-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.500 2"/></symbol>
+  <symbol id="p-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.500 8-8 9-4.500-1-8-4-8-9V6z"/><path d="M8.500 12l2.500 2.500 4.500-5"/></symbol>
+  <symbol id="v-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="v-ok" viewBox="0 0 24 24"><path d="M4 12.500l5 5L20 6.500"/></symbol>
+  <symbol id="i-sign" viewBox="0 0 64 64"><path d="M16 6h22l10 10v42H16z"/><path d="M38 6v10h10M23 26h18M23 33h18M23 40h10"/><path d="M24 52c4-5 6 3 10-1s5 2 8 0"/></symbol>
+  <symbol id="i-clean" viewBox="0 0 64 64"><path d="M10 40h44v12a4 4 0 01-4 4H14a4 4 0 01-4-4z"/><path d="M16 40c0-9 7-10 7-18M32 40c0-9 7-10 7-18M48 40c0-6 0-9 0-11"/><circle cx="23" cy="14" r="2.500"/><circle cx="39" cy="12" r="2"/><circle cx="48" cy="20" r="2.500"/></symbol>
+  <symbol id="i-melt" viewBox="0 0 64 64"><path d="M14 30h36l-5 24H19z"/><path d="M32 6c2 7 9 9 9 16a9 9 0 01-18 0c0-4 2-6 4-8 0 3 1 4 2 4 1-4 1-8 3-12z"/><path d="M22 42h20"/></symbol>
+  <symbol id="i-xrf" viewBox="0 0 64 64"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="7"/><path d="M32 4v10M32 50v10M4 32h10M50 32h10"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 64 64"><path d="M32 8v48M18 56h28M10 16h44"/><path d="M18 16L9 34a9 9 0 0018 0zM46 16l-9 18a9 9 0 0018 0z"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 64 64"><path d="M8 24L32 8l24 16z"/><path d="M14 24v24M25 24v24M39 24v24M50 24v24M8 56h48"/></symbol>
+  <symbol id="i-ring" viewBox="0 0 64 64"><ellipse class="g" cx="32" cy="38" rx="19" ry="17"/><ellipse class="g" cx="32" cy="38" rx="14" ry="12.500"/><path class="g" d="M26 20l6-10 6 10"/></symbol>
+  <symbol id="i-pan" viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="5"/><path d="M14 24h18M14 31h12M14 40h22"/><rect x="40" y="22" width="11" height="14" rx="2"/></symbol>
+  <symbol id="i-aadhaar" viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="5"/><circle cx="21" cy="29" r="5"/><path d="M13 42c2-5 14-5 16 0M36 25h14M36 32h14M36 39h9"/></symbol>
+  <symbol id="i-l" viewBox="0 0 16 16"><path d="M10 3L5 8l5 5"/></symbol>
+  <symbol id="i-r" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5"/></symbol>
+</svg>
+
+<div class="ticker" aria-live="off">
+  <p class="on">We buy old gold. We don't sell jewellery.</p>
+  <p>22K today <b class="r22">₹0</b> per gram · sample rate</p>
+  <p>Jakkur, North Bengaluru · within 8 km of you</p>
+</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Swarnalok, gold buyers"><span class="orb" aria-hidden="true"></span>SWARNALOK<em>GOLD BUYERS</em></a>
+    <nav class="links" aria-label="Main">
+      <a href="#why">Why us</a>
+      <a href="#steps">Process</a>
+      <a href="#value">Price</a>
+      <a href="#area">Area</a>
+    </nav>
+    <button class="pill" type="button" data-book>Book a visit</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="chip"><span class="live" aria-hidden="true"></span>22K today <b class="r22">₹0</b>/g <span class="mute">· sample</span></p>
+          <h1 id="heroTitle">We only<br>buy gold.<span>Nothing else.</span></h1>
+          <p class="sub">No showroom. Nothing to sell you. Just the true price for yours.</p>
+          <div class="actions">
+            <a class="pill" href="#value">Get today's price</a>
+            <button class="more" type="button" data-book>Book a visit</button>
+          </div>
+        </div>
+        <div class="stage" id="stage">
+          <img src="media/hero-ring.webp" alt="Your gold ring, the only object on show" width="1400" height="1204" fetchpriority="high">
+          <canvas id="spin" width="1000" height="860" aria-hidden="true"></canvas>
+          <span class="tag-buy">We buy this</span>
+        </div>
+      </div>
+      <ul class="proof" aria-label="Why sell to Swarnalok">
+        <li><span class="ic"><svg><use href="#p-pin"/></svg></span><span>10 min from you<small>Jakkur, North Bengaluru</small></span></li>
+        <li><span class="ic"><svg><use href="#p-rate"/></svg></span><span>Live market rate<small>₹0 hidden deductions</small></span></li>
+        <li><span class="ic"><svg><use href="#p-eye"/></svg></span><span>Tested in front of you<small>X-ray purity, on camera</small></span></li>
+        <li><span class="ic"><svg><use href="#p-clock"/></svg></span><span>Paid in 30 min<small>Straight to your bank</small></span></li>
+        <li><span class="ic"><svg><use href="#p-shield"/></svg></span><span>KYC &amp; bank transfer<small>Consent, PAN, Aadhaar</small></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band snow" id="why">
+    <div class="wrap">
+      <div class="stack">
+        <h2 class="h-sec rise">We buy.<br><span class="mute">We don't sell.</span></h2>
+        <p class="sub rise">A jeweller buys your gold to sell you new gold. We have nothing to sell, so the price is only about yours.</p>
+      </div>
+      <div class="versus">
+        <div class="side them rise">
+          <header><h3>A jeweller</h3><span>Buys to sell</span></header>
+          <ul>
+            <li><svg><use href="#v-x"/></svg>Better offers if you buy new jewellery</li>
+            <li><svg><use href="#v-x"/></svg>Often deducts for melting and wastage</li>
+            <li><svg><use href="#v-x"/></svg>Purity checked out of sight</li>
+            <li><svg><use href="#v-x"/></svg>Often paid in cash or store credit</li>
+          </ul>
+        </div>
+        <div class="side us rise">
+          <header><h3>Swarnalok</h3><span>Buys. Only.</span></header>
+          <ul>
+            <li><svg><use href="#v-ok"/></svg>One price, with nothing to buy</li>
+            <li><svg><use href="#v-ok"/></svg>Live market rate. ₹0 hidden deductions</li>
+            <li><svg><use href="#v-ok"/></svg>X-ray purity on a screen you can see</li>
+            <li><svg><use href="#v-ok"/></svg>Bank transfer to your own account</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band dark purity" id="purity">
+    <div class="wrap stack">
+      <h2 class="h-sec rise">We don't guess.</h2>
+      <p class="num gold-text rise" id="purityNum" aria-label="91.6 percent">91.6%</p>
+      <p class="sub rise">An X-ray reads the purity at up to four points. You see the same screen we do.</p>
+      <div class="readings rise" aria-label="Sample reading">
+        <span>Gold<b>91.62</b></span><span>Copper<b>5.10</b></span><span>Silver<b>2.90</b></span><span>Zinc<b>0.38</b></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band snow" id="steps" style="padding-bottom:clamp(64px,7vw,110px)">
+    <div class="wrap stack">
+      <h2 class="h-sec rise">Six steps.<br>All at the counter.</h2>
+    </div>
+    <ol class="rail" id="rail">
+      <li class="card"><div><small>01</small><h3>Consent.</h3><p>You sign. We start recording.</p></div><svg viewBox="0 0 64 64"><use href="#i-sign"/></svg></li>
+      <li class="card"><div><small>02</small><h3>Clean.</h3><p>An ultrasonic wash. Only metal is weighed.</p></div><svg viewBox="0 0 64 64"><use href="#i-clean"/></svg></li>
+      <li class="card"><div><small>03</small><h3>Melt.</h3><p>One even bar, after you say yes.</p></div><svg viewBox="0 0 64 64"><use href="#i-melt"/></svg></li>
+      <li class="card"><div><small>04</small><h3>Measure.</h3><p>X-ray purity at 2 to 4 points.</p></div><svg viewBox="0 0 64 64"><use href="#i-xrf"/></svg></li>
+      <li class="card"><div><small>05</small><h3>Weigh.</h3><p>Certified scale. Live rate. Full sum shown.</p></div><svg viewBox="0 0 64 64"><use href="#i-scale"/></svg></li>
+      <li class="card last"><div><small>06</small><h3>Paid.</h3><p>To your bank in about 30 minutes. Signed receipt.</p></div><svg viewBox="0 0 64 64"><use href="#i-bank"/></svg></li>
+    </ol>
+    <div class="wrap rail-ctl">
+      <p>Stop at any step and take your gold home.</p>
+      <div>
+        <button type="button" id="prev" aria-label="Previous step"><svg><use href="#i-l"/></svg></button>
+        <button type="button" id="next" aria-label="Next step"><svg><use href="#i-r"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <img class="rise" src="media/bar.webp" alt="A gold bar" width="1400" height="875" loading="lazy">
+      <div class="stack">
+        <h2 class="h-mid rise">Melted into one.<br>Measured as one.</h2>
+        <p class="sub rise" style="max-width:26ch">Solder and mixed alloys can't hide in an even bar. One bar, one honest reading.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="value" style="padding-top:0">
+    <div class="wrap">
+      <div class="stack">
+        <h2 class="h-sec rise">Today's price<br>for yours.</h2>
+      </div>
+      <form class="calc-box" id="calc" onsubmit="return false">
+        <output class="value" id="estimate" for="grams">₹0</output>
+        <p class="per" id="per">₹0 per gram</p>
+        <div class="seg" role="radiogroup" aria-label="Purity">
+          <input type="radio" name="k" id="k24" value="1"><label for="k24">24K</label>
+          <input type="radio" name="k" id="k22" value="0.9167" checked><label for="k22">22K</label>
+          <input type="radio" name="k" id="k18" value="0.75"><label for="k18">18K</label>
+          <input type="radio" name="k" id="k14" value="0.585"><label for="k14">14K</label>
+        </div>
+        <div class="stepper">
+          <button type="button" id="minus" aria-label="Less weight">−</button>
+          <label class="grams"><input id="grams" type="number" inputmode="decimal" min="0" step="0.5" value="20" aria-label="Weight in grams"><span>grams</span></label>
+          <button type="button" id="plus" aria-label="More weight">+</button>
+        </div>
+        <p class="fine">Sample rate for this prototype. Your final price is set by the X-ray test and the scale.</p>
+        <button class="pill" type="button" data-book>Book a visit</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="portrait">
+    <div class="wrap">
+      <figure><img src="media/portrait.jpg" alt="A woman wearing a fine gold chain" width="1400" height="1750" loading="lazy"></figure>
+      <div class="stack">
+        <h2 class="h-sec rise">Yours until<br>you say yes.</h2>
+        <p class="sub rise" style="max-width:24ch">Stop at any step. Take your gold home. No fee, no pressure.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band dark" id="area">
+    <div class="wrap area-grid">
+      <div class="stack">
+        <h2 class="h-sec rise">About 10 minutes<br>from you.</h2>
+        <p class="sub rise" style="max-width:26ch">One counter in Jakkur. Serving North Bengaluru within 8 km.</p>
+        <ul class="places rise">
+          <li>Yelahanka</li><li>Hebbal</li><li>Thanisandra</li><li>Sahakar Nagar</li><li>Kodigehalli</li><li>Amruthahalli</li><li>Kogilu</li><li>Nagavara</li><li>Vidyaranyapura</li>
+        </ul>
+      </div>
+      <svg class="map rise" viewBox="0 0 480 400" role="img" aria-label="Service area: 5 and 8 km around Jakkur">
+        <circle class="ring r8" cx="240" cy="200" r="182"/>
+        <circle class="ring" cx="240" cy="200" r="114"/>
+        <text class="tag" x="240" y="12" text-anchor="middle">8 KM</text>
+        <text class="tag" x="240" y="80" text-anchor="middle">5 KM</text>
+        <circle cx="240" cy="200" r="10" fill="#F3D58C" opacity=".3"><animate attributeName="r" values="8;40;8" dur="3.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".35;0;.35" dur="3.6s" repeatCount="indefinite"/></circle>
+        <circle cx="240" cy="200" r="5" fill="#F3D58C"/>
+        <text x="252" y="196" style="fill:#F5F5F7;font-size:14px;font-weight:600">Swarnalok</text>
+        <text x="252" y="211" class="tag">JAKKUR</text>
+        <g fill="#6E6E73"><circle cx="205" cy="118" r="2.2"/><circle cx="276" cy="132" r="2.2"/><circle cx="312" cy="222" r="2.2"/><circle cx="298" cy="270" r="2.2"/><circle cx="232" cy="246" r="2.2"/><circle cx="186" cy="262" r="2.2"/><circle cx="160" cy="226" r="2.2"/><circle cx="204" cy="310" r="2.2"/><circle cx="266" cy="330" r="2.2"/><circle cx="102" cy="186" r="2.2"/></g>
+        <text x="198" y="113" text-anchor="end">Yelahanka</text>
+        <text x="283" y="128">Kogilu</text>
+        <text x="319" y="226">Hegde Nagar</text>
+        <text x="305" y="274">Thanisandra</text>
+        <text x="238" y="258">Amruthahalli</text>
+        <text x="179" y="276" text-anchor="end">Sahakar Nagar</text>
+        <text x="153" y="230" text-anchor="end">Kodigehalli</text>
+        <text x="197" y="322" text-anchor="end">Hebbal</text>
+        <text x="273" y="342">Nagavara</text>
+        <text x="102" y="204" text-anchor="middle">Vidyaranyapura</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="band snow">
+    <div class="wrap stack">
+      <h2 class="h-sec rise">Bring four things.</h2>
+      <ul class="bring">
+        <li class="rise"><svg viewBox="0 0 64 64"><use href="#i-ring"/></svg>Your gold</li>
+        <li class="rise"><svg viewBox="0 0 64 64"><use href="#i-pan"/></svg>PAN card</li>
+        <li class="rise"><svg viewBox="0 0 64 64"><use href="#i-aadhaar"/></svg>Aadhaar</li>
+        <li class="rise"><svg viewBox="0 0 64 64"><use href="#i-bank"/></svg>Bank account</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band finale">
+    <div class="wrap stack">
+      <div class="orb-big"><img src="media/drop.webp" alt="" width="1000" height="1000" loading="lazy"></div>
+      <h2 class="h-sec rise">Swarnalok.</h2>
+      <p class="sub rise">Gold buyers. Nothing else.</p>
+      <div class="actions rise" style="justify-content:center;margin-top:10px">
+        <button class="pill" type="button" data-book>Book a visit</button>
+        <a class="more" href="#value">Get today's price</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="note">
+      <p>Rates shown are samples for this prototype. Your final price depends on the measured purity, the weight and the market rate at the time of sale.</p>
+      <p>Swarnalok buys gold only. We do not sell gold or jewellery. Every purchase needs a signed consent form, PAN and Aadhaar, and is paid only by bank transfer to an account in the seller's name. Photos are placeholders.</p>
+    </div>
+    <div class="foot-cols">
+      <div><h4>Sell</h4><ul><li><a href="#value">Today's price</a></li><li><a href="#steps">How it works</a></li><li><a href="#why">Why us</a></li></ul></div>
+      <div><h4>Trust</h4><ul><li>X-ray purity test</li><li>Consent on record</li><li>Bank transfer only</li></ul></div>
+      <div><h4>Visit</h4><ul><li>Jakkur, Bengaluru 560064</li><li>Mon to Sat, 10 am to 7 pm</li></ul></div>
+      <div><h4>Contact</h4><ul><li>+91 00000 00000</li><li>hello@swarnalok.com</li></ul></div>
+    </div>
+    <div class="foot-bot"><span>© 2026 Swarnalok. All rights reserved.</span><span>swarnalok.com</span></div>
+  </div>
+</footer>
+
+<dialog id="book" aria-labelledby="bookTitle">
+  <form class="sheet" id="bookForm" novalidate>
+    <button class="x" type="button" id="close" aria-label="Close">×</button>
+    <h2 id="bookTitle">Book a visit.</h2>
+    <p style="color:var(--ink-2)">We'll call to confirm your time.</p>
+    <div class="field"><label for="name">Name</label><input id="name" autocomplete="name"></div>
+    <div class="field"><label for="phone">Mobile</label><input id="phone" type="tel" inputmode="numeric" autocomplete="tel"></div>
+    <div class="row2">
+      <div class="field"><label for="area">Area</label><select id="area"><option>Jakkur</option><option>Yelahanka</option><option>Sahakar Nagar</option><option>Hebbal</option><option>Thanisandra</option><option>Kodigehalli</option><option>Other nearby</option></select></div>
+      <div class="field"><label for="slot">Time</label><select id="slot"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></div>
+    </div>
+    <button class="pill" type="submit">Request a call</button>
+    <p class="ok" id="ok" role="status" hidden></p>
+  </form>
+</dialog>
+
+<script>
+(function(){
+  var RATE_24K = 12800; // sample ₹ per gram for 24K. Replace with a live feed.
+  var inr = function(n){ return '₹' + Math.round(n).toLocaleString('en-IN'); };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('.r22').forEach(function(e){ e.textContent = inr(RATE_24K * .9167); });
+  var tk = document.querySelectorAll('.ticker p'), ti = 0;
+  if (!reduce) setInterval(function(){ tk[ti].classList.remove('on'); ti = (ti + 1) % tk.length; tk[ti].classList.add('on'); }, 3800);
+
+  // ring turntable: turns as you scroll, with a short intro turn
+  var stage = document.getElementById('stage'), cv = document.getElementById('spin'), cx = cv.getContext('2d');
+  var N = 48, frames = [], loaded = 0, cur = -1, intro = 0;
+  function draw(i){ i = ((i % N) + N) % N; if (i === cur || !frames[i] || !frames[i].complete) return; cur = i; cx.clearRect(0,0,cv.width,cv.height); cx.drawImage(frames[i],0,0,cv.width,cv.height); }
+  function frameFor(){ var end = stage.offsetTop + stage.offsetHeight; var p = Math.min(1, Math.max(0, scrollY / end)); return Math.round(p * N + intro); }
+  if (!reduce) for (var i = 0; i < N; i++) { var im = new Image(); im.decoding = 'async'; im.src = 'media/spin/f' + (i < 10 ? '0' : '') + i + '.webp'; im.onload = function(){ if (++loaded === N) start(); }; frames.push(im); }
+  function start(){
+    stage.classList.add('live-spin'); draw(frameFor());
+    var t0 = performance.now();
+    (function introSpin(t){ var k = Math.min(1, (t - t0) / 1600); intro = Math.round((1 - Math.pow(1 - k, 3)) * N * .5) - N * .5; draw(frameFor()); if (k < 1) requestAnimationFrame(introSpin); else intro = 0; })(t0);
+    var ticking = false;
+    addEventListener('scroll', function(){ if (!ticking) { ticking = true; requestAnimationFrame(function(){ draw(frameFor()); ticking = false; }); } }, { passive: true });
+  }
+
+  // purity count-up
+  var num = document.getElementById('purityNum');
+  if (!reduce && 'IntersectionObserver' in window) {
+    var once = new IntersectionObserver(function(es){ es.forEach(function(e){ if (!e.isIntersecting) return; once.disconnect(); var t0 = performance.now(); (function up(t){ var k = Math.min(1,(t - t0) / 1400); num.textContent = (91.6 * (1 - Math.pow(1 - k, 4))).toFixed(1) + '%'; if (k < 1) requestAnimationFrame(up); })(t0); }); }, { threshold: .5 });
+    once.observe(num);
+  }
+
+  // steps rail
+  var rail = document.getElementById('rail'), prev = document.getElementById('prev'), next = document.getElementById('next');
+  function step(d){ var c = rail.querySelector('.card'); rail.scrollBy({ left: d * (c.getBoundingClientRect().width + 20), behavior: reduce ? 'auto' : 'smooth' }); }
+  function edges(){ prev.disabled = rail.scrollLeft < 8; next.disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 8; }
+  prev.addEventListener('click', function(){ step(-1); }); next.addEventListener('click', function(){ step(1); });
+  rail.addEventListener('scroll', edges, { passive: true }); addEventListener('resize', edges); edges();
+
+  // price
+  var g = document.getElementById('grams'), out = document.getElementById('estimate'), per = document.getElementById('per');
+  function calc(){ var k = +document.querySelector('input[name="k"]:checked').value; var w = Math.max(0, parseFloat(g.value) || 0); out.textContent = inr(w * RATE_24K * k); per.textContent = inr(RATE_24K * k) + ' per gram · sample rate'; }
+  document.getElementById('calc').addEventListener('input', calc);
+  document.getElementById('minus').addEventListener('click', function(){ g.value = Math.max(0, (parseFloat(g.value) || 0) - 1); calc(); });
+  document.getElementById('plus').addEventListener('click', function(){ g.value = (parseFloat(g.value) || 0) + 1; calc(); });
+  calc();
+
+  // booking sheet
+  var dlg = document.getElementById('book'), ok = document.getElementById('ok');
+  document.querySelectorAll('[data-book]').forEach(function(b){ b.addEventListener('click', function(){ ok.hidden = true; if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open',''); }); });
+  document.getElementById('close').addEventListener('click', function(){ dlg.close ? dlg.close() : dlg.removeAttribute('open'); });
+  dlg.addEventListener('click', function(e){ if (e.target === dlg) dlg.close(); });
+  document.getElementById('bookForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var n = document.getElementById('name').value.trim(), p = document.getElementById('phone').value.trim();
+    ok.hidden = false;
+    ok.textContent = (!n || !p) ? 'Please add your name and mobile number.' : 'Thank you, ' + n + '. This prototype does not send requests yet.';
+  });
+})();
+</script>
+</body>
+</html>
